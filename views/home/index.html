@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Lexend:wght@100..900&family=Orbitron:wght@400..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Special+Gothic+Expanded+One&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+
+
+<div class="barra">
+  <div class="titulo-arcane-barra"> CarTrack </div>
+
+<nav id="botones">
+  <a href="#seccion-consulta" style="text-decoration: none;">
+    <button class="iniciar-sesion">Consultar Vehiculo</button>
+  </a>
+</nav>
+</div>
+
+  <div class="presentacion">
+    <img src="/img/meca2.jpg" alt="" class="foto-fondo">
+
+<div class="contenedor-titulos">
+    <h1 class="titulo-principal">TALLER MECANICO DE <span class="span-amarillo">ALTO NIVEL</span></h1>
+    <p class="subtitulo-principal">Cuidamos de tu vehículo con tecnología de punta y diagnóstico computarizado. Monitorea la reparación de tu auto de forma transparente y cómoda. Tu tranquilidad al volante es nuestro mayor compromiso.</p>
+</div>
+</div>
+
+<section class="seccion-servicios">
+
+  <div class="tarjeta-servicio">
+        <img src="/img/calidad.png" alt="" class="imagen-servicio">
+        <div class="contenido-tarjeta">
+    <h3>Experiencia y Calidad</h3>
+    <p>Asistencia técnica avanzada con mano de obra calificada y herramientas de diagnóstico computarizado de última generación.</p>
+    </div>
+  </div>
+
+  <div class="tarjeta-servicio">
+     <img src="/img/click.png" alt="" class="imagen-servicio">
+      <div class="contenido-tarjeta">
+    <h3>Control Absoluto</h3>
+    <p>Tú manejas el proceso. Desde la visualización del avance hasta la aprobación de presupuestos.</p>
+     </div>
+  </div>
+
+  <div class="tarjeta-servicio">
+         <img src="/img/transparencia.png" alt="" class="imagen-servicio">
+         <div class="contenido-tarjeta">
+    <h3>Total transparencia</h3>
+    <p>Te mostramos el diagnóstico real de tu auto, te explicamos qué necesita exactamente y justificamos cada componente.</p>
+    </div>
+</section>
+
+<section class="seccion-empresa">
+  <div class="contenedor-empresa">
+    
+    <div class="empresa-foto-caja">
+      <img src="/img/taller.jpg" alt="Instalaciones del Taller" class="foto-empresa">
+    </div>
+
+    <div class="empresa-info">
+      <h2 class="empresa-titulo">SOBRE <span class="span-amarillo">NOSOTROS</span></h2>
+      <p class="empresa-texto">
+        En <strong>MotorTrack</strong> nos apasiona la excelencia automotriz. Nacimos con el objetivo de transformar la experiencia tradicional del taller mecánico, combinando ingenieros calificados con las herramientas tecnológicas más avanzadas del mercado.
+      </p>
+      <p class="empresa-texto">
+        Nos especializamos en mantener tu vehículo en perfectas condiciones bajo los más altos estándares de transparencia y calidad. Aquí no solo reparamos autos, construimos relaciones de confianza con cada conductor.
+      </p>
+
+  </div>
+</section>
+
+<section class="seccion-consulta" id="seccion-consulta">
+  <div class="contenedor-consulta">
+    
+    <div class="consulta-info">
+      <h2 class="consulta-titulo">MONITOREA TU <span class="span-amarillo">AUTO</span></h2>
+      <p class="consulta-texto">
+        ¿Tu vehículo ya se encuentra en nuestras instalaciones? No necesitas llamar por teléfono ni adivinar. Ingresa tus datos de registro para verificar en qué fase del foso se encuentra, leer el informe técnico de diagnóstico y revisar tu presupuesto en tiempo real.
+      </p>
+    </div>
+
+    <div class="consulta-caja-formulario">
+      <form class="formulario-cliente" id="form-consulta-cliente">
+        <div class="grupo-input">
+          <label for="client-cedula">Cédula del Propietario</label>
+          <input type="text" id="client-cedula" placeholder="Ej: V-12345678" required>
+        </div>
+
+        <div class="grupo-input">
+          <label for="client-placa">Placa del Vehículo</label>
+          <input type="text" id="client-placa" placeholder="Ej: AB442XM" class="uppercase" required>
+        </div>
+
+        <button type="submit" class="btn-buscar-estado">Consultar Estatus</button>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer-motortrack">
+  <div class="contenedor-footer">
+    
+    <!-- Columna 1: Branding e Información General -->
+    <div class="columna-footer">
+      <h3 class="titulo-footer">Car<span class="span-amarillo">Track</span></h3>
+      <p class="texto-footer">
+        Tecnología automotriz de alto nivel. Elevando los estándares de transparencia, diagnóstico computarizado y confianza en cada reparación.
+      </p>
+      <p class="copyright-footer">&copy; 2026 MotorTrack. Todos los derechos reservados.</p>
+    </div>
+
+    <!-- Columna 2: Horarios y Contacto -->
+    <div class="columna-footer">
+      <h4 class="subtitulo-footer">Horario de Atención</h4>
+      <p class="texto-footer">Lunes a Viernes: 8:00 AM - 5:00 PM</p>
+      <p class="texto-footer">Sábados: 8:00 AM - 1:00 PM</p>
+      <p class="texto-footer" style="margin-top: 15px;"><strong>Contacto:</strong> soporte@motortrack.com</p>
+    </div>
+
+    <!-- Columna 3: Enlace Discreto de Administración -->
+    <div class="columna-footer admin-footer-caja">
+      <h4 class="subtitulo-footer">Corporativo</h4>
+      <p class="texto-footer">Información legal, políticas de privacidad y términos de servicio de la plataforma.</p>
+      
+      <!-- Enlace Discreto Estilizado para Administradores -->
+      <a href="/login/" class="enlace-admin-discreto">
+        <svg class="icono-candado" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+        <span>Acceso Administrativo</span>
+      </a>
+    </div>
+
+  </div>
+</footer>
+</body>
+</html>

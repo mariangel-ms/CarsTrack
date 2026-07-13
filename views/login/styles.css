@@ -1,0 +1,202 @@
+/* ==========================================================================
+   1. RESETS Y ESTILOS BASE
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+body {
+    background-color: #09090b; /* Negro profundo puro */
+    color: #f4f4f5;            /* Blanco roto */
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+
+body::before {
+  content: "";
+  position: fixed; /* Cubre toda la ventana */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* 🌟 IMAGEN DE FONDO (MOVIDA AQUÍ) */
+  background-image: url("/img/fondo-signup.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgba(0, 0, 0, 0.7); 
+  
+  background-blend-mode: darken; 
+  
+  z-index: -1;
+}
+
+/* ==========================================================================
+   2. CONTENEDORES Y TARJETA (CARD)
+   ========================================================================== */
+.login-container {
+    width: 100%;
+    max-width: 440px;
+}
+
+.login-card {
+    background-color: #141416; /* Negro carbón */
+    border: 1px solid #2e2e33; /* Bordes oscuros */
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
+}
+
+/* Cabecera */
+.login-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.brand-title {
+      font-family: "Special Gothic Expanded One", sans-serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: #fbbf24; /* Amarillo vibrante */
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.form-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #f4f4f5;
+}
+
+.form-subtitle {
+    font-size: 0.875rem;
+    color: #a1a1aa; /* Gris claro */
+    line-height: 1.4;
+}
+
+/* ==========================================================================
+   3. FORMULARIOS E INPUTS
+   ========================================================================== */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.label-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #f4f4f5;
+}
+
+input {
+    background-color: #1d1d21; /* Gris oscuro para los campos */
+    border: 1px solid #2e2e33;
+    color: #f4f4f5;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+input::placeholder {
+    color: #52525b;
+}
+
+/* Enfoque del input (Focus en Dorado) */
+input:focus {
+    border-color: #ca8a04; /* Dorado metálico */
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+}
+
+/* Enlaces */
+.forgot-link, .back-link {
+    font-size: 0.8rem;
+    color: #fbbf24;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.forgot-link:hover, .back-link:hover {
+    text-decoration: underline;
+    color: #d97706; /* Dorado oscuro en hover */
+}
+
+/* ==========================================================================
+   4. BOTONES
+   ========================================================================== */
+.btn-primary {
+    background-color: #fbbf24; /* Amarillo vibrante */
+    color: #000000;            /* Texto negro para contraste */
+    border: none;
+    padding: 14px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    margin-top: 10px;
+    text-transform: uppercase;
+}
+
+.btn-primary:hover {
+    background-color: #d97706; /* Cambia a dorado oscuro */
+    color: #ffffff;            /* El texto pasa a blanco */
+    transform: translateY(-1px);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   5. COMPONENTES DINÁMICOS (Alertas / Notificaciones)
+   ========================================================================== */
+.notification {
+    background-color: rgba(239, 68, 68, 0.1);
+    border: 1px solid #ef4444;
+    color: #ef4444;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    text-align: center;
+    margin-top: 20px;
+    transition: all 0.25s ease;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ==========================================================================
+   6. PIE DE PÁGINA (FOOTER)
+   ========================================================================== */
+.login-footer {
+    margin-top: 32px;
+    text-align: center;
+    border-top: 1px solid #2e2e33;
+    padding-top: 20px;
+}
