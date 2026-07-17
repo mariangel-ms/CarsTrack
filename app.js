@@ -5,9 +5,10 @@ const morgan = require("morgan");
 const cors = require("cors"); // Permite peticiones del frontend
 const cookieParser = require("cookie-parser"); // Lee las cookies[
 const mongoose = require('mongoose');
-const loginRouter = require('./controllers/login')
+const loginRouter = require('./controllers/login');
 const usersRouter = require('./controllers/users');
 const carsRouter = require('./controllers/cars');
+const clientLoginRouter = require('./controllers/client-login');
 const { MONGO_URI } = require("./config");
 const app = express();
 
@@ -35,10 +36,11 @@ app.use('/login', express.static(path.resolve('views', 'login')));
 app.use('/verify', express.static(path.resolve('views', 'verify')));
 app.use('/verify/:id/:token', express.static(path.resolve('views', 'verify')));
 app.use('/panel', express.static(path.resolve('views', 'admin-panel')));
+console.log(path.resolve('views', 'client-login'));
 
 // Rutas backend
-app.use("/api/users", usersRouter)
-app.use("/api/login", loginRouter)
+app.use("/api/users", usersRouter);
+app.use("/api/login", loginRouter);
 app.use('/api/cars', carsRouter);
-
+app.use('/api/client-login', clientLoginRouter);
 module.exports = app;

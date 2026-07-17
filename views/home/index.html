@@ -7,14 +7,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
 <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Lexend:wght@100..900&family=Orbitron:wght@400..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Special+Gothic+Expanded+One&display=swap" rel="stylesheet">
-    <title>Document</title>
+    <title>CarsTrack</title>
 </head>
 <body>
 
 
 <div class="barra">
-  <div class="titulo-arcane-barra"> CarTrack </div>
+<img src="/img/logo.png" alt="CarTrack Logo" class="logo-barra">
 
 <nav id="botones">
   <a href="#seccion-consulta" style="text-decoration: none;">
@@ -224,5 +225,8 @@
 
   </div>
 </footer>
+<!-- Reemplaza la línea de tu contenedor por esta en tu index.html -->
+<div id="notification" class="fixed top-[100px] right-5 z-[999999] flex flex-col gap-3"></div>
+<script type="module" src="index.js"></script>
 </body>
 </html>

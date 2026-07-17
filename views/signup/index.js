@@ -83,7 +83,6 @@ form.addEventListener("submit", async (e) => {
     };
 
     const { data } = await axios.post("/api/users", newUser);
-    createNotification(false, data);
 
     createNotification(false, "Usuario registrado con éxito"); // Temporal para pruebas
     
@@ -110,6 +109,10 @@ form.addEventListener("submit", async (e) => {
     validation(passwordInput, passwordTest);
     validation(confirmPasswordInput, matchTest);
     validation(cedulaInput, cedulaTest);
+
+    
+    setTimeout(() => { window.location.pathname = `/`;}, 2000);
+
 
   } catch (error) {
     // Manejo de errores

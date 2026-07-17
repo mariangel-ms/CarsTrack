@@ -69,6 +69,15 @@ body.admin-body{
 
 }
 
+.logo-barra {
+height: 30px;          /* Altura ideal para que no deforme la barra */
+  width: auto;           /* Mantiene la proporción original de tu logo */
+  object-fit: contain;   /* Asegura que la imagen no se recorte ni se aplaste */
+  transition: transform 0.3s ease;
+  margin-bottom: 5px;
+}
+
+
 .admin-header::after{
     content:"";
     position:absolute;

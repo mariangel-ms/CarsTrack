@@ -5,10 +5,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 loginRouter.post('/', async (request, response) => {
-  console.log("Login request received");
+  // console.log("Login request received");
   const { email, password } = request.body;
   const userExists = await User.findOne({ email });
-  console.log(email, password);
   
   if (!userExists) {
     return response.status(400).json({error: "Email o contraseña incorrectos"});
@@ -22,7 +21,7 @@ loginRouter.post('/', async (request, response) => {
   const isCorrect = await bcrypt.compare(password, userExists.passwordHash);
 
   if (!isCorrect) {
-    return response.status(400).json({error: "Email o contraseña incorrectos"});
+    return response.status(400).json({error: "Contraseña incorrecta"});
   }
 
   const userForToken = {

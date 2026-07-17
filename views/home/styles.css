@@ -221,11 +221,11 @@ html {
 /* BARRA DE NAVEGACION */
 .barra {
   position: fixed;
-  top: 18px;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
 
-  width: min(1300px, 95%);
+  width: min(1400px, 100%);
 
   display: flex;
   justify-content: space-between;
@@ -249,12 +249,12 @@ html {
   transition: 0.35s;
 }
 
-.titulo-arcane-barra {
-  font-family: "Special Gothic Expanded One", sans-serif;
-  color: rgb(255, 255, 255);
-  font-size: 20px;
-  font-weight: 800;
-  text-shadow: 5px 2px #ffd0009c;
+.logo-barra {
+height: 30px;          /* Altura ideal para que no deforme la barra */
+  width: auto;           /* Mantiene la proporción original de tu logo */
+  object-fit: contain;   /* Asegura que la imagen no se recorte ni se aplaste */
+  transition: transform 0.3s ease;
+  margin-bottom: 5px;
 }
 
 #botones {
@@ -582,6 +582,7 @@ box-shadow:
   font-family: "Special Gothic Expanded One", sans-serif;
     color:white;
     font-size:35px;
+
 }
 
 .encabezado-proceso p{

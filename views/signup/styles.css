@@ -156,7 +156,7 @@ input:focus {
   padding: 4px 2px 0 2px;
 }
 
-.texto-requisitos {
+#texto-requisitos {
   font-size: 11px;
   color: #71717a;
   margin-bottom: 2px;

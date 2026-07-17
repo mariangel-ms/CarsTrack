@@ -38,4 +38,15 @@ export const createNotification = (isError, message) => {
     div.classList.remove("translate-y-[-15px]", "opacity-0");
     div.classList.add("translate-y-0", "opacity-100");
   }, 10);
+
+  setTimeout(() => {
+    // Iniciamos el desvanecimiento (vuelve a subir y se pone transparente)
+    div.style.transform = "translateY(-15px)";
+    div.style.opacity = "0";
+
+    // Esperamos 300ms a que la transición de CSS termine antes de borrar el elemento del HTML
+    setTimeout(() => {
+      div.remove();
+    }, 3000)
+  }, 3000);
 };
