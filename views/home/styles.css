@@ -1,30 +1,64 @@
 body {
-    margin: 0;
-    padding: 0;
-    background-color: rgba(10, 10, 10, 0.973);
+  margin: 0;
+  padding: 0;
+  background-color: rgba(10, 10, 10, 0.986);
 }
 
 html {
   scroll-behavior: smooth;
 }
-.foto-fondo {
-  opacity: 0.4;
+.presentacion::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
   width: 100%;
-  height: 70vh;
-  object-fit: cover;
-  margin-top: 50px;
+  /* Controla qué tan alta quieres que sea la transición del degradado */
+  height: 40%;
 
-  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  /* Va desde negro transparente (0) hasta negro sólido (1) */
+  background: linear-gradient(
+    to top,
+    rgba(10, 10, 10, 0.849) 0%,
+    rgba(14, 14, 14, 0.151) 100%
+  );
+
+  /* Asegura que el degradado quede por encima de la foto pero por debajo del texto */
+  z-index: 1;
+  pointer-events: none; /* Evita que interfiera con clicks en botones */
+}
+
+.foto-fondo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+  animation: zoomHero 14s ease-in-out infinite alternate;
+
+  /* Posiciona la foto detrás del pseudoelemento degradado */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+@keyframes zoomHero {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.06);
+  }
 }
 
 .presentacion {
   position: relative;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  
+  overflow: hidden;
 }
 
 .contenedor-titulos {
@@ -42,116 +76,185 @@ html {
   font-family: "Special Gothic Expanded One", sans-serif;
   color: #ffffff;
   margin: 0;
-font-size: clamp(32px, 5vw, 60px);
+  font-size: clamp(32px, 5vw, 60px);
   width: 100%;
   font-weight: 600;
   line-height: 60px;
 }
 
 .subtitulo-principal {
-     font-family: "Google Sans", sans-serif;
-    padding: 0;
-    margin: 0;
-    color: rgb(224, 224, 224);
-    width: 60%;
-    margin-top: 10px;
-    font-size: 21px;
+  font-family: "Google Sans", sans-serif;
+  padding: 0;
+  margin: 0;
+  color: rgb(224, 224, 224);
+  width: 60%;
+  margin-top: 10px;
+  font-size: 21px;
 }
 
 .span-amarillo {
-    color: rgb(255, 196, 0);
+  color: rgb(255, 196, 0);
 }
-
 
 /* ==========================================
    TARJETAS
    ========================================== */
 
+.titulo-fortalezas {
+  font-family: "Special Gothic Expanded One", sans-serif;
+  color: #ffffff;
+  font-size: clamp(24px, 4vw, 36px);
+  margin: 0 0 25px 0;
+  letter-spacing: 2px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+/* ==========================================
+   TARJETAS PREMIUM
+========================================== */
+
 .seccion-servicios {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Un poco más anchas para el texto */
-  gap: 25px; 
-  max-width: 1200px; 
-  margin: 80px auto; /* Ajustado el margen para mejor flujo visual */
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: 35px;
+  max-width: 1200px;
+  margin: 60px auto;
   padding: 0 20px;
-  box-sizing: border-box;
 }
 
 .tarjeta-servicio {
-  background-color: rgb(22, 21, 21); 
-  border: 1px solid rgba(255, 196, 0, 0.495);  /* Borde un poco más sutil */
-  border-radius: 24px; /* Consistente con .foto-empresa y .formulario-cliente */
-  padding: 24px; /* Padding unificado para toda la tarjeta */
-  transition: all 0.3s ease; 
+  position: relative;
+  overflow: hidden;
+
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  gap: 20px; /* Desplazamiento controlado entre icono y texto */
-  box-shadow: 0 15px 30px rgba(255, 196, 0, 0.053);
+
+  min-height: 420px;
+  padding: 35px;
+
+  background: linear-gradient(180deg, #1d1d1d 0%, #111111 100%);
+  border: 1px solid rgba(255, 196, 0, 0.18);
+  border-radius: 24px;
+
+  box-shadow:
+    0 20px 45px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+  transition: 0.35s ease;
+}
+
+.tarjeta-servicio::before {
+  content: "";
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: rgba(255, 196, 0, 0.08);
+  top: -120px;
+  right: -120px;
+  transition: 0.4s;
 }
 
 .tarjeta-servicio:hover {
-  transform: translateY(-6px); 
-  border-color: rgb(255, 196, 0); /* El borde se ilumina completo al pasar el mouse */
-  box-shadow: 0 15px 30px rgba(255, 196, 0, 0.1); /* Resplandor sutil color oro */
+  transform: translateY(-10px);
+
+  border-color: rgb(255, 196, 0);
+
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.55),
+    0 0 25px rgba(255, 196, 0, 0.18);
 }
 
-.imagen-servicio {
-  width: 70px; /* Tamaño más equilibrado para un icono lateral */
-  height: 70px; 
-  object-fit: contain; /* 🌟 Crucial: Mantiene el icono íntegro sin recortes raros */
-  flex-shrink: 0; /* Evita que el texto aplaste la imagen en pantallas medianas */
+.tarjeta-servicio:hover::before {
+  transform: scale(1.3);
 }
 
 .contenido-tarjeta {
-  padding: 0; /* Eliminado porque ya lo controla el padre (.tarjeta-servicio) */
-  text-align: left; 
+  text-align: center;
+  z-index: 2;
 }
 
 .tarjeta-servicio h3 {
   font-family: "Lexend", sans-serif;
-  color: #ffffff;
-  font-size: 20px;
-  margin: 0 0 6px 0;
+  color: white;
+  font-size: 26px;
+  margin-bottom: 18px;
   font-weight: 700;
-  letter-spacing: 0.5px;
+  position: relative;
+}
+
+.tarjeta-servicio h3::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 4px;
+  margin: 14px auto 0;
+  border-radius: 50px;
+  background: rgb(255, 196, 0);
 }
 
 .tarjeta-servicio p {
-  font-family: "Google Sans", sans-serif; /* 🌟 Corrección: Usando una fuente que sí está importada */
-  color: #bbbaba; 
-  font-size: 14px;
-  line-height: 1.5;
-  margin: 0;
+  font-family: "Google Sans", sans-serif;
+  color: #cfcfcf;
+  font-size: 17px;
+  line-height: 1.8;
 }
 
-/* BARRA DE NAVEGACION */
+.imagen-servicio {
+  width: 170px;
+  height: 170px;
+  object-fit: contain;
+  margin-top: 35px;
+  z-index: 2;
 
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4));
+
+  transition: 0.4s ease;
+}
+
+.tarjeta-servicio:hover .imagen-servicio {
+  transform: translateY(-8px) scale(1.08);
+}
+/* BARRA DE NAVEGACION */
 .barra {
-  background: #000000f5;
-  display: flex;
   position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: min(1300px, 95%);
+
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  top: 0;
-  left: 0; /* Asegura que empiece exactamente en el borde izquierdo */
-  width: 100%;
-  
-  /* 🌟 ESTO EVITA QUE LA BARRA SE DESBORDE POR LOS LADOS */
-  box-sizing: border-box; 
-  
-  border-bottom: 2px solid rgba(255, 200, 0, 0.638);
-  z-index: 1000;
-  
-padding: 9px 25px;
-  margin: 0;
+
+  padding: 16px 30px;
+
+  border-radius: 20px;
+
+  background: rgba(12, 12, 12, 0.863);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border: 1px solid rgba(255, 196, 0, 0.363);
+
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45);
+
+  z-index: 9999;
+
+  transition: 0.35s;
 }
 
 .titulo-arcane-barra {
   font-family: "Special Gothic Expanded One", sans-serif;
-  color:  rgb(255, 200, 0);
+  color: rgb(255, 255, 255);
   font-size: 20px;
-font-weight: 800;
-text-shadow: 5px 2px  #ffea0049;
+  font-weight: 800;
+  text-shadow: 5px 2px #ffd0009c;
 }
 
 #botones {
@@ -164,16 +267,16 @@ text-shadow: 5px 2px  #ffea0049;
 
 .iniciar-sesion {
   font-family: "Google Sans", sans-serif;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   color: #ffffff;
   background-color: transparent; /* Fondo transparente por defecto */
-  
+
   /* Borde amarillo neón/dorado para mantener la identidad de tu marca */
-  border: 1px solid rgba(255, 196, 0, 0.7); 
+  border: 0.5px solid rgba(255, 196, 0, 0.589);
   border-radius: 12px; /* Esquinas suavemente redondeadas */
-  
-  padding: 10px 22px;
+
+  padding: 8px 15px;
   cursor: pointer;
   letter-spacing: 0.5px;
   transition: all 0.3s ease; /* Animación fluida para los efectos */
@@ -184,9 +287,9 @@ text-shadow: 5px 2px  #ffea0049;
   color: #000000; /* El texto pasa a negro para un contraste limpio */
   background-color: rgb(255, 196, 0); /* El fondo se llena de amarillo sólido */
   border-color: rgb(255, 196, 0);
-  
+
   /* Resplandor elegante */
-  box-shadow: 0 0 15px rgba(255, 196, 0, 0.5); 
+  box-shadow: 0 0 15px rgba(255, 196, 0, 0.5);
   transform: translateY(-2px); /* Se eleva sutilmente */
 }
 
@@ -203,10 +306,10 @@ text-shadow: 5px 2px  #ffea0049;
    ========================================== */
 
 .seccion-empresa {
-  background-color: rgb(15, 15, 15); /* Fondo ligeramente contrastante al body */
   padding: 80px 20px;
   width: 100%;
   box-sizing: border-box;
+  margin-bottom: 50px;
 }
 
 .contenedor-empresa {
@@ -276,20 +379,59 @@ text-shadow: 5px 2px  #ffea0049;
    ESTILOS DEL FOOTER (MOTORTRACK)
    ========================================== */
 
-.footer-motortrack {
-  background-color: #000000; /* Fondo negro absoluto para contrastar con el gris de las secciones */
-  border-top: 2px solid rgba(255, 196, 0, 0.4); /* Línea dorada superior a juego con la barra de navegación */
-  padding: 60px 20px 40px 20px;
-  width: 100%;
-  box-sizing: border-box;
-  margin-top: 40px;
+.footer-motortrack{
+
+    position:relative;
+    overflow:hidden;
+
+    background:
+    linear-gradient(
+        180deg,
+        #111111 0%,
+        #080808 100%
+    );
+
+    border-top:none;
+
+    padding:80px 20px 50px;
+
 }
 
+
+
+.footer-motortrack::before{
+
+content:"";
+
+position:absolute;
+
+top:0;
+left:50%;
+
+transform:translateX(-50%);
+
+width:700px;
+height:2px;
+
+background:linear-gradient(
+90deg,
+transparent,
+rgb(255,196,0),
+transparent
+);
+
+box-shadow:
+0 0 20px rgba(255,196,0,.6);
+
+}
 .contenedor-footer {
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Columnas responsivas automáticas */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(280px, 1fr)
+  ); /* Columnas responsivas automáticas */
   gap: 40px;
 }
 
@@ -334,21 +476,21 @@ text-shadow: 5px 2px  #ffea0049;
 /* --- ESTILOS DEL LINK DE ADMINISTRADOR --- */
 
 .admin-footer-caja {
-  justify-content:开;
+  justify-content: 开;
 }
 
 .enlace-admin-discreto {
-display: inline-flex;
+  display: inline-flex;
   align-items: center;
   gap: 10px;
   margin-top: 20px;
-  
+
   /* Colores base oscuros para camuflarse en el fondo negro */
-  color: #ffd9008a; 
+  color: #ffd9008a;
   background-color: #0a0a0a;
   border: 1px solid #222222;
   border-radius: 10px;
-  
+
   font-family: "Google Sans", sans-serif;
   font-size: 13px;
   font-weight: 600;
@@ -386,19 +528,19 @@ display: inline-flex;
     flex-direction: column; /* Apila la foto arriba y el texto abajo */
     gap: 35px;
   }
-  
+
   .foto-empresa {
     height: 300px; /* Reduce la altura de la foto en pantallas pequeñas */
   }
-  
+
   .seccion-empresa {
     padding: 50px 20px;
   }
 
-    .footer-motortrack {
+  .footer-motortrack {
     padding: 40px 20px 30px 20px;
   }
-  
+
   .contenedor-footer {
     gap: 30px;
     text-align: left;
@@ -409,6 +551,202 @@ display: inline-flex;
   }
 }
 
+/*======================================
+        SECCIÓN PROCESO
+======================================*/
+
+.seccion-proceso{
+    max-width:1200px;
+    margin:130px auto;
+    padding:0 20px;
+}
+
+.encabezado-proceso{
+    text-align:center;
+    max-width:700px;
+    margin:0 auto 90px;
+}
+
+.badge-proceso{
+    display:inline-block;
+    border-radius:30px;
+    background:rgba(255,196,0,.12);
+    color:rgb(255,196,0);
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:1px;
+    margin-bottom:20px;
+}
+
+.encabezado-proceso h2{
+  font-family: "Special Gothic Expanded One", sans-serif;
+    color:white;
+    font-size:35px;
+}
+
+.encabezado-proceso p{
+    color:#c5c5c5;
+    line-height:1.8;
+    font-size:17px;
+}
+
+/*======================================
+            TIMELINE
+======================================*/
+
+.timeline{
+    position:relative;
+    display:flex;
+    justify-content:space-between;
+    gap:30px;
+}
+
+.linea{
+    position:absolute;
+    top:28px;
+    left:12%;
+    right:12%;
+    height:2px;
+    background:linear-gradient(
+        90deg,
+        rgba(255,196,0,.15),
+        rgb(255,196,0),
+        rgba(255,196,0,.15)
+    );
+
+    z-index:0;
+
+}
+
+.paso{
+    flex:1;
+    position:relative;
+    text-align:center;
+    z-index:2;
+}
+
+.placa{
+    width:95px;
+    height:55px;
+    margin:auto auto 28px;
+    background:linear-gradient(
+        180deg,
+        #2b2b2b,
+        #1a1a1a
+    );
+    border:2px solid rgb(255,196,0);
+    border-radius:10px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    transition:.35s;
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.35);
+}
+
+/* Tornillos */
+
+.placa::before,
+.placa::after{
+    content:"";
+    position:absolute;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:rgba(255,255,255,.25);
+    top:50%;
+    transform:translateY(-50%);
+}
+
+.placa::before{
+    left:10px;
+}
+
+.placa::after{
+    right:10px;
+}
+
+.placa span{
+    color:rgb(255,196,0);
+    font-size:24px;
+    font-weight:800;
+    letter-spacing:2px;
+
+}
+
+.paso:hover .placa{
+    transform:translateY(-8px) scale(1.08);
+    background:rgb(255,196,0);
+}
+
+.paso:hover .placa span{
+    color:black;
+
+}
+
+.paso h3{
+    color:white;
+    font-size:24px;
+    margin-bottom:15px;
+
+}
+
+.paso p{
+    color:#a8a8a8;
+    line-height:1.8;
+    max-width:240px;
+    margin:auto;
+}
+
+/*======================================
+            RESPONSIVE
+======================================*/
+
+@media(max-width:900px){
+.timeline{
+    flex-direction:column;
+    align-items:center;
+    gap:60px;
+}
+
+.linea{
+    width:2px;
+    height:80%;
+    left:50%;
+    top:25px;
+    right:auto;
+    transform:translateX(-50%);
+
+}
+
+}
+/*==========================
+      RESPONSIVE
+==========================*/
+
+@media(max-width:900px){
+
+.timeline{
+    flex-direction:column;
+    align-items:center;
+    gap:70px;
+}
+
+.linea{
+    width:3px;
+    height:80%;
+    left:50%;
+    right:auto;
+    top:40px;
+    transform:translateX(-50%);
+}
+
+.paso{
+    max-width:320px;
+}
+
+}
 /* ==========================================
    SECCIÓN CONSULTA DE CLIENTES
    ========================================== */
@@ -456,7 +794,11 @@ display: inline-flex;
 }
 
 .formulario-cliente {
-  background-color: rgb(22, 21, 21); /* Mismo gris que tus tarjetas de servicios */
+  background-color: rgb(
+    22,
+    21,
+    21
+  ); /* Mismo gris que tus tarjetas de servicios */
   border: 1px solid rgba(255, 196, 0, 0.4); /* Resalte amarillo sutil */
   border-radius: 24px;
   padding: 40px;
@@ -518,7 +860,7 @@ display: inline-flex;
 }
 
 .btn-buscar-estado:hover {
-    background-color: rgb(255, 196, 0);
+  background-color: rgb(255, 196, 0);
   transform: translateY(-2px);
 }
 

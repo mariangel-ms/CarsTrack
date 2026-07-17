@@ -10,9 +10,16 @@ const userSchema = new mongoose.Schema({
     passwordHash: String,
     cedula: {
         type: String,
-        required: true,
-        unique: true, // Evita que dos administradores tengan la misma cédula
-        trim: true
+        unique: true,
+        sparse: true, // Permite varios documentos sin email (ej. clientes sin correo)
+        trim: true,
+        lowercase: true
+    }, 
+    telefono: {
+        type: String,
+    },
+     rol: {
+        type: String,
     },
     verified:{
         type: Boolean,

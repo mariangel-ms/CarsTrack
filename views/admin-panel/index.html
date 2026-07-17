@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de Control - CarTrack</title>
+
+    <!-- Estilos del Panel -->
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&family=Special+Gothic+Expanded+One&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="admin-body">
+    <!-- Barra de Navegación superior -->
+    <header class="admin-header">
+      <div class="marca-titulo">CarTrack</div>
+      <div class="usuario-menu">
+        <span class="usuario-rol">🟢 Administrador</span>
+        <button class="btn-cerrar-sesion">Cerrar sesión</button>
+      </div>
+    </header>
+
+    <!-- Contenedor Principal -->
+    <main class="admin-container">
+      <!-- Encabezado del Panel y Buscador -->
+      <div class="panel-encabezado">
+        <div class="panel-titulos">
+          <h1 class="titulo-pagina">Panel de control</h1>
+          <p class="subtitulo-pagina">
+            Gestión y monitoreo de vehículos en taller
+          </p>
+        </div>
+
+        <!-- Buscador -->
+        <div class="buscador-caja">
+          <div class="buscador-wrapper">
+            <input
+              type="text"
+              placeholder="Buscar por placa o modelo..."
+              class="input-buscar"
+            />
+            <span class="icono-buscar">
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                ></path>
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Layout Principal (Dos Columnas) -->
+      <div class="panel-layout">
+        <!-- COLUMNA IZQUIERDA: Registro -->
+        <section class="columna-registro">
+          <h2 class="seccion-titulo">Registro</h2>
+
+          <form id="form-registro" class="formulario-registro">
+            <!-- Bloque: Datos del Cliente -->
+            <div class="bloque-campos">
+              <div class="indicador-bloque">
+                <div class="gema-decorativa"></div>
+                <h3>Datos del Cliente</h3>
+              </div>
+
+              <div class="grupo-input">
+                <label>Nombre completo</label>
+                <input id="nombre-input" type="text" placeholder="Nombre completo" required />
+              </div>
+
+              <div class="grupo-input">
+                <label>Cédula</label>
+                <input id="cedula-input" type="text" placeholder="Ej: V-12345678" required />
+              </div>
+
+              <div class="grupo-input">
+                <label>Correo electrónico</label>
+                <input id="correo-input" type="email" placeholder="correo@ejemplo.com" required />
+              </div>
+
+
+            <div class="grupo-input">
+              <label>Numero Telefonico</label>
+              <input id="telefono-input" type="tel" placeholder="Ej: 0412-1234567" required />
+            </div>
+            </div>
+            <!-- Bloque: Datos del Vehículo -->
+            <div class="bloque-campos bloque-vehiculo">
+              <div class="indicador-bloque">
+                <div class="gema-decorativa"></div>
+                <h3>Datos del Vehículo</h3>
+              </div>
+
+              <div class="grupo-input">
+                <label>Placa</label>
+                <input
+                  id="placa-input"
+                  type="text"
+                  placeholder="Ej: ABC12D"
+                  class="uppercase"
+                  required
+                />
+              </div>
+
+              <div class="grid-inputs-doble">
+                <div class="grupo-input">
+                  <label>Marca</label>
+                  <input id="marca-input" type="text" placeholder="Ej: Chevrolet" required />
+                </div>
+                <div class="grupo-input">
+                  <label>Modelo</label>
+                  <input id="modelo-input" type="text" placeholder="Ej: Aveo" required />
+                </div>
+              </div>
+            </div>
+
+            <button id="form-btn" type="submit" class="btn-registrar">
+              Registrar Ingreso
+            </button>
+          </form>
+
+          <div id="notification"></div>
+        </section>
+
+        <!-- COLUMNA DERECHA: Listado de Vehículos -->
+        <section class="columna-vehiculos">
+          <h2 class="seccion-titulo">Vehículos</h2>
+
+          <div class="tarjetas-grid">
+            <!-- Tarjeta 1 -->
+            <div class="tarjeta-vehiculo">
+              <div class="tarjeta-top">
+                <span class="placa-badge">ASD-123</span>
+                <span class="orden-numero">Orden #130</span>
+              </div>
+
+              <div class="tarjeta-info">
+                <h3 class="vehiculo-nombre">Chevrolet Aveo</h3>
+                <p class="propietario-nombre">
+                  <svg
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="14"
+                    height="14"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                    ></path>
+                  </svg>
+                  Mariangel Martinez
+                </p>
+              </div>
+
+              <div class="tarjeta-detalles-tecnicos">
+                <div class="detalle-fila">
+                  <span class="detalle-etiqueta">Fase:</span>
+                  <span class="detalle-valor">Recibido</span>
+                </div>
+                <div class="detalle-fila">
+                  <span class="detalle-etiqueta">Aprobación:</span>
+                  <span class="detalle-valor valor-pendiente">Pendiente</span>
+                </div>
+                <div class="detalle-fila">
+                  <span class="detalle-etiqueta">Presupuesto:</span>
+                  <span class="detalle-valor valor-monto">0.0$</span>
+                </div>
+              </div>
+
+              <div class="tarjeta-acciones">
+                <button class="btn-detalles">Ver detalles</button>
+                <button class="btn-editar">Editar</button>
+              </div>
+            </div>
+
+            <!-- Tarjeta 2 -->
+            <div class="tarjeta-vehiculo">
+              <div class="tarjeta-top">
+                <span class="placa-badge">XYZ-987</span>
+                <span class="orden-numero">Orden #131</span>
+              </div>
+
+              <div class="tarjeta-info">
+                <h3 class="vehiculo-nombre">Toyota Corolla</h3>
+                <p class="propietario-nombre">
+                  <svg
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="14"
+                    height="14"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                    ></path>
+                  </svg>
+                  Carlos Pérez
+                </p>
+              </div>
+
+              <div class="tarjeta-detalles-tecnicos">
+                <div class="detalle-fila">
+                  <span class="detalle-etiqueta">Fase:</span>
+                  <span class="detalle-valor">En Reparación</span>
+                </div>
+                <div class="detalle-fila">
+                  <span class="detalle-etiqueta">Aprobación:</span>
+                  <span class="detalle-valor valor-aprobado">Aprobado</span>
+                </div>
+                <div class="detalle-fila">
+                  <span class="detalle-etiqueta">Presupuesto:</span>
+                  <span class="detalle-valor valor-monto">130.0$</span>
+                </div>
+              </div>
+
+              <div class="tarjeta-acciones">
+                <button class="btn-detalles">Ver detalles</button>
+                <button class="btn-editar">Editar</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="admin-footer">
+      &copy; 2026 CarTrack. Todos los derechos reservados.
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="index.js"></script>
+  </body>
+</html>

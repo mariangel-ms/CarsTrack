@@ -22,15 +22,21 @@ let matchTest = false;
 let cedulaTest = false;
 
 const validation = (element, validationTest) => {
+
+let information = element.parentElement.querySelector(".information")
+
   // Manejo de clases visuales en el input
 if (element.value === '') {
     element.classList.remove("aprobado", "error");
+        information.classList.remove("show-information");
   } else if (validationTest) {
     element.classList.add("aprobado");
     element.classList.remove("error");
+     information.classList.remove("show-information");
   } else {
     element.classList.add("error");
     element.classList.remove("aprobado");
+    information.classList.add("show-information");
   }
   // Activación del botón se evalua el estado global de los tests
   formBtn.disabled = !(nameTest && emailTest && passwordTest && matchTest);

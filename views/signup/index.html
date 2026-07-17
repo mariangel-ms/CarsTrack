@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>omg</title>
+    <title>CarsTrack</title>
     <!-- Vinculación del archivo CSS con el estilo industrial corregido -->
     <link rel="stylesheet" href="styles.css" />
     <!-- Librería Axios para el procesamiento del backend -->
@@ -44,7 +44,7 @@
               placeholder="Ingresa tu nombre y apellido"
               required
             />
-            <p class="ayuda-input">Tanto el nombre como el apellido deben comenzar en mayúsculas.</p>
+            <p class="information">Tanto el nombre como el apellido deben comenzar en mayúsculas.</p>
           </div>
 
           <!-- Campo: Cédula de Identidad -->
@@ -59,7 +59,9 @@
               placeholder="V-12345678"
               required
             />
+                  <p class="information">Ingresa una cédula válida de 6 a 8 dígitos</p>
           </div>
+
 
           <!-- Campo: Correo Electrónico -->
           <div class="grupo-input">
@@ -74,6 +76,7 @@
               placeholder="ejemplo@correo.com"
               required
             />
+            <p class="information">Ingresa una dirección de correo electrónico válida</p>
           </div>
 
           <!-- Campo: Contraseña -->
@@ -90,11 +93,12 @@
               required
             />
             <!-- Requerimientos discretos integrados -->
-            <div class="caja-requisitos">
-              <p class="texto-requisitos">• Debe tener al menos una letra.</p>
-              <p class="texto-requisitos">• Debe tener al menos un número.</p>
-              <p class="texto-requisitos">• Debe tener al menos 8 caracteres.</p>
-            </div>
+            <div class="information">
+  <div class="information">
+  <p class="texto-requisitos">• Debe tener entre 6 y 16 caracteres.</p>
+  <p class="texto-requisitos">• Debe contener al menos una mayúscula y una minúscula.</p>
+  <p class="texto-requisitos">• Debe contener al menos un número.</p>
+</div>
           </div>
 
           <!-- Campo: Confirmar Contraseña -->
@@ -110,10 +114,11 @@
               placeholder="••••••••"
               required
             />
+            <p class="information">Las contraseñas no coinciden.</p>
           </div>
 
           <!-- Botón de Envío dorado -->
-          <button id="form-btn" type="submit" >
+          <button id="form-btn" type="submit" disabled >
             Registrar
           </button>
         </form>

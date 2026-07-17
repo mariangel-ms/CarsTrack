@@ -3,15 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administración | Login</title>
+    <title>CarsTrack</title>
     <!-- Aquí puedes enlazar tus estilos o Tailwind -->
     <link rel="stylesheet" href="./styles.css">
     <!-- Axios para manejar la petición al backend -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
+      <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
     <!-- Tu script de JS para controlar el formulario -->
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<div id="notification"></div>
+
 
     <main class="login-container">
                     <header class="login-header">
@@ -56,11 +60,10 @@
                 </button>
 
             </form>
-
-            <!-- Contenedor dinámico para mostrar errores o alertas -->
-            <div id="notification" class="notification hidden" role="alert"></div>
         </section>
+
     </main>
-    <script src="index.js"></script>
+    <script type="module" src="index.js"></script>
+    <script type="module" src="/components/notification.js"></script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+
 const loginRouter = require("express").Router();
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
@@ -10,17 +11,18 @@ loginRouter.post('/', async (request, response) => {
   console.log(email, password);
   
   if (!userExists) {
-    return response.status(400).json({error: "email o contraseña incorrectos"});
+    return response.status(400).json({error: "Email o contraseña incorrectos"});
   }
 
-  if (!userExists.verified) { 
-    return response.status(400).json({error: "Tu email no ha sido verificado"});
-  }
+//   if (!userExists.verified) { 
+//     return response.status(400).json({error: "Tu email no ha sido verificado"});
+
+//   }
 
   const isCorrect = await bcrypt.compare(password, userExists.passwordHash);
 
   if (!isCorrect) {
-    return response.status(400).json({error: "email o contraseña incorrectos"});
+    return response.status(400).json({error: "Email o contraseña incorrectos"});
   }
 
   const userForToken = {

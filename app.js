@@ -7,6 +7,8 @@ const cookieParser = require("cookie-parser"); // Lee las cookies[
 const mongoose = require('mongoose');
 const loginRouter = require('./controllers/login')
 const usersRouter = require('./controllers/users');
+const carsRouter = require('./controllers/cars');
+const { MONGO_URI } = require("./config");
 const app = express();
 
 // Middlewares
@@ -17,10 +19,10 @@ app.use(morgan('dev'));
 
 (async() => {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log("✅ Conectado con éxito a MongoDB Atlas");
+    await mongoose.connect(MONGO_URI);
+    console.log("Conectado a MongoDB");
   } catch (error) {
-    console.error("❌ Error de conexión a la base de datos:", error);
+    console.error("Error de conexión a la base de datos:", error);
   }
 })();
 
@@ -30,9 +32,13 @@ app.use('/img', express.static(path.resolve('img')));
 app.use('/signup', express.static(path.resolve('views','signup')));
 app.use('/components', express.static(path.resolve('views', 'components')));
 app.use('/login', express.static(path.resolve('views', 'login')));
+app.use('/verify', express.static(path.resolve('views', 'verify')));
+app.use('/verify/:id/:token', express.static(path.resolve('views', 'verify')));
+app.use('/panel', express.static(path.resolve('views', 'admin-panel')));
 
 // Rutas backend
 app.use("/api/users", usersRouter)
 app.use("/api/login", loginRouter)
+app.use('/api/cars', carsRouter);
 
 module.exports = app;

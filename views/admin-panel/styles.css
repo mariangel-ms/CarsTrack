@@ -1,0 +1,602 @@
+/* ==========================================
+   VARIABLES Y CONFIGURACIÓN GENERAL
+   ========================================== */
+:root {
+  --bg-dark: rgba(10, 10, 10, 0.986);
+  --bg-card: rgb(22, 21, 21);
+  --bg-input: rgb(12, 11, 11);
+  --gold: rgb(255, 196, 0);
+  --gold-alpha: rgba(255, 196, 0, 0.25);
+  --text-white: #ffffff;
+  --text-muted: #bbbaba;
+  --text-dark: #000000;
+  --red: #ef4444;
+  --emerald: #34d399;
+  --border-color: rgb(40, 40, 40);
+}
+
+body.admin-body{
+
+    margin:0;
+    min-height:100vh;
+  font-family: 'Lexend', sans-serif;
+    background:
+
+    radial-gradient(
+        circle at top,
+        rgba(255,196,0,.06),
+        transparent 35%
+    ),
+
+    radial-gradient(
+        circle at bottom right,
+        rgba(255,196,0,.04),
+        transparent 30%
+    ),
+
+    #090909;
+
+}
+
+
+
+/* ==========================================
+   BARRA DE NAVEGACIÓN
+   ========================================== */
+.admin-header{
+
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:16px 40px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #181818,
+            #0f0f0f
+        );
+
+    border-bottom:1px solid rgba(255,196,0,.18);
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.35);
+
+}
+
+.admin-header::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:0;
+    width:100%;
+    height:2px;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,196,0,.9),
+        transparent
+    );
+}
+
+.marca-titulo {
+  font-family: "Special Gothic Expanded One", sans-serif;
+  color: rgba(255, 255, 255, 0.884);
+  font-size: 20px;
+  font-weight: 800;
+  text-shadow: 5px 2px rgba(255, 208, 0, 0.61);
+}
+
+.usuario-menu {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.usuario-rol{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:#b8b8b8;
+    font-size:14px;
+
+}
+
+.btn-cerrar-sesion{
+    font-family: 'Lexend', sans-serif;
+    background:#171717;
+    color:#ff6b6b;
+    border:1px solid rgba(255,107,107,.25);
+    border-radius:12px;
+    padding:10px 20px;
+    transition:.3s;
+
+}
+
+.btn-cerrar-sesion:hover{
+    transform:translateY(-2px);
+    background:#ef4444;
+    color:white;
+    box-shadow:
+        0 10px 25px rgba(239,68,68,.25);
+
+}
+
+.admin-header::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:1px;
+    background:rgba(255,255,255,.06);
+}
+/* ==========================================
+   ENCABEZADO DEL PANEL Y BUSCADOR
+   ========================================== */
+.admin-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 30px 20px;
+  box-sizing: border-box;
+  flex: 1;
+}
+
+.panel-encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 30px;
+  border: 1px solid rgba(255, 200, 0, 0.479);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+}
+
+.titulo-pagina{
+
+    font-size:38px;
+    font-weight:800;
+    letter-spacing:-1px;
+    line-height:1;
+    margin:0;
+    color:white;
+}
+
+.subtitulo-pagina{
+    font-size:16px;
+    color:#a7a7a7;
+    line-height:1.8;
+    max-width:480px;
+margin: 0;
+}
+
+.buscador-wrapper {
+  position: relative;
+  width: 320px;
+}
+
+.input-buscar {
+  width: 100%;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 15px 17px 12px 40px;
+  color: var(--text-white);
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+
+
+.input-buscar:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 10px rgba(255, 196, 0, 0.15);
+}
+
+.icono-buscar {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #838383;
+  display: flex;
+  align-items: center;
+  
+    transition:.3s;
+}
+.buscador-wrapper:focus-within .icono-buscar{
+
+    color:rgb(255,196,0);
+
+}
+
+/* ==========================================
+   LAYOUT DEL PANEL (G-BOX)
+   ========================================== */
+.panel-layout {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 30px;
+  align-items: start;
+}
+
+.seccion-titulo {
+  font-size: 25px;
+  color: var(--text-white);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 12px;
+  margin: 0 0 20px 0;
+  font-weight: 700;
+}
+
+/* --- COLUMNA REGISTRO (4 de 12) --- */
+.columna-registro {
+  grid-column: span 4;
+  background-color: rgba(22, 21, 21, 0.4);
+  border: 1px solid var(--gold-alpha);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  position: sticky;
+  top: 100px;
+}
+
+.formulario-registro {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.bloque-campos {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bloque-vehiculo {
+  padding-top: 20px;
+  border-top: 1px solid rgba(40, 40, 40, 0.6);
+  margin-top: 10px;
+}
+
+.indicador-bloque {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.gema-decorativa {
+  width: 6px;
+  height: 16px;
+  background-color: var(--gold);
+  border-radius: 10px;
+}
+
+.indicador-bloque h3 {
+  font-family: "Special Gothic Expanded One", sans-serif;
+  font-size: 17px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin: 0;
+  font-weight: 500;
+}
+
+.grupo-input {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.grupo-input label {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.grupo-input input {
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 10px 14px;
+  color: var(--text-white);
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+
+  width: 100%;             /* Fuerza al input a adaptarse al ancho de su columna grid */
+  box-sizing: border-box;
+}
+
+.grupo-input input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 8px rgba(255, 196, 0, 0.1);
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.grid-inputs-doble {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.btn-registrar {
+  background-color: var(--gold);
+  color: var(--text-dark);
+  font-family: 'Lexend', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.btn-registrar:hover {
+  background-color: rgb(255, 210, 50);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 196, 0, 0.2);
+}
+
+.btn-registrar:active {
+  transform: translateY(0);
+}
+
+/* --- COLUMNA VEHÍCULOS (8 de 12) --- */
+.columna-vehiculos {
+  grid-column: span 8;
+  margin-top: 25px;
+}
+
+.tarjetas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+/* ==========================================
+   TARJETAS DE ESTADO (VISTA VEHÍCULO)
+   ========================================== */
+.tarjeta-vehiculo {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 22px;
+  min-height: 230px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+
+  position:relative;
+
+overflow:hidden;
+
+background:
+
+linear-gradient(
+180deg,
+#1b1b1b,
+#101010
+);
+}
+
+
+.tarjeta-vehiculo::before{
+content:"";
+position:absolute;
+top:-120px;
+right:-120px;
+width:220px;
+height:220px;
+border-radius:50%;
+background:
+rgba(255,196,0,.06);
+filter:blur(40px);
+transition:.4s;
+
+}
+.tarjeta-vehiculo:hover {
+  border-color: rgba(255, 196, 0, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.tarjeta-vehiculo:hover::before{
+
+transform:scale(1.3);
+
+}
+
+.tarjeta-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.placa-badge {
+  background-color: #000000;
+  color: var(--gold);
+  border: 1px solid rgba(255, 196, 0, 0.3);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  border-radius: 8px;
+}
+
+.orden-numero {
+  color: #8b8b8b;
+  font-size: 13px;
+  font-family: monospace;
+}
+
+.vehiculo-nombre {
+  font-size: 18px;
+  color: var(--text-white);
+  margin: 0;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+.tarjeta-vehiculo:hover .vehiculo-nombre {
+  color: var(--gold);
+}
+
+.propietario-nombre {
+  color: var(--text-muted);
+  font-size: 12px;
+  margin: 4px 0 0 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tarjeta-detalles-tecnicos {
+  border-top: 1px solid rgba(40, 40, 40, 0.5);
+  padding-top: 12px;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.detalle-fila {
+  display: flex;
+  justify-content: space-between;
+}
+
+.detalle-etiqueta {
+  color: #555555;
+}
+
+.detalle-valor {
+  color: var(--text-white);
+  font-weight: 500;
+}
+
+.valor-pendiente {
+  color: var(--gold);
+  opacity: 0.9;
+}
+
+.valor-aprobado {
+  color: var(--emerald);
+}
+
+.valor-monto {
+  color: var(--emerald);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.tarjeta-acciones {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 16px;
+  border-top: 1px solid rgba(40, 40, 40, 0.4);
+  padding-top: 12px;
+}
+
+.btn-detalles {
+  background-color: #000000;
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-detalles:hover {
+  background-color: #111111;
+  color: var(--text-white);
+  border-color: #555555;
+}
+
+.btn-editar {
+  background-color: rgba(255, 196, 0, 0.1);
+  color: var(--gold);
+  border: 1px solid rgba(255, 196, 0, 0.2);
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-editar:hover {
+  background-color: var(--gold);
+  color: var(--text-dark);
+  border-color: var(--gold);
+}
+
+/* ==========================================
+   FOOTER Y RESPONSIVE (MÓVIL)
+   ========================================== */
+.admin-footer {
+  background-color: #000000;
+  border-top: 1px solid var(--border-color);
+  color: #444444;
+  text-align: center;
+  font-size: 12px;
+  padding: 15px;
+  margin-top: auto;
+}
+
+@media (max-width: 1024px) {
+  .panel-layout {
+    grid-template-columns: 1fr; /* Una columna en tablets y celulares */
+  }
+  .columna-registro {
+    grid-column: span 12;
+    position: relative; /* Desactiva el sticky en móviles */
+    top: 0;
+  }
+  .columna-vehiculos {
+    grid-column: span 12;
+  }
+}
+
+@media (max-width: 640px) {
+  .panel-encabezado {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .buscador-wrapper {
+    width: 100%;
+  }
+  .admin-header {
+    padding: 12px 15px;
+  }
+  .usuario-rol {
+    display: none; /* Esconde la etiqueta "Administrador" en pantallas de celular */
+  }
+}

@@ -7,7 +7,6 @@ const axios = require('axios');
 usersRouter.post('/', async (request, response) => {
   const { name, email, password, cedula } = request.body;
 
-  // Validamos que ningún campo llegue vacío desde el frontend
   if (!name || !email || !password || !cedula) {
     return response
       .status(400)
@@ -15,7 +14,7 @@ usersRouter.post('/', async (request, response) => {
   }
 
   try {
-    // 1. Verificar si el email ya está registrado
+    // Verificar si el email ya está registrado
     const userExists = await User.findOne({ email });
     if (userExists) {
       return response
@@ -23,7 +22,7 @@ usersRouter.post('/', async (request, response) => {
         .json({ error: 'El email ya se encuentra en uso' });
     }
 
-    // 2. Validación real del correo mediante Abstract API
+    // Validacion de la api
     const apiKey = process.env.API_KEY;
     const url = `https://emailreputation.abstractapi.com/v1/?api_key=${apiKey}&email=${email}`;
     
@@ -36,20 +35,21 @@ usersRouter.post('/', async (request, response) => {
         .json({ error: 'El correo electrónico proporcionado no existe o no es válido.' });
     }
 
-    // 3. Encriptar la contraseña si el correo es válido
+    //  Encriptar la contraseña si el correo es válido
     const saltRounds = 10;
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
-    // 4. Crear el documento con Mongoose
+    //  Crear el documento con Mongoose
     const newUser = new User({
       name,
       email,
       passwordHash,
       cedula,
+      rol: "admin",
       verified: true,
     });
 
-    // 5. Guardar en MongoDB Atlas
+    // Guardar en MongoDB
     await newUser.save();
     
     return response.status(201).json('Usuario creado exitosamente');

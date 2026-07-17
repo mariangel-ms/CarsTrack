@@ -3,7 +3,6 @@
    ========================================================================== */
 * {
     margin: 0;
-    padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
@@ -200,3 +199,19 @@ input:focus {
     border-top: 1px solid #2e2e33;
     padding-top: 20px;
 }
+
+
+
+#notification {
+  position: fixed !important;
+  top: 90px !important;
+  right: 24px !important;
+  z-index: 9999 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  width: 100% !important;
+  max-width: 360px !important;
+  pointer-events: none !important;
+}
+
