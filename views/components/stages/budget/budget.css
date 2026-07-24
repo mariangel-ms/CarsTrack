@@ -1,0 +1,381 @@
+/* ==========================================
+   FASE: REPUESTOS Y PRESUPUESTO
+========================================== */
+
+.presupuesto-formulario {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) 120px minmax(150px, 1fr) auto;
+  align-items: end;
+  gap: 15px;
+  padding: 20px;
+  background: #191919;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+}
+
+.input-moneda {
+  position: relative;
+}
+
+.input-moneda > span {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #777777;
+  font-size: 13px;
+  pointer-events: none;
+}
+
+.input-moneda input {
+  padding-left: 28px;
+}
+
+.btn-agregar-repuesto {
+  height: 43px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 18px;
+  background: rgba(255, 196, 0, 0.08);
+  color: #ffc400;
+  border: 1px solid rgba(255, 196, 0, 0.35);
+  border-radius: 9px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-agregar-repuesto span {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.btn-agregar-repuesto:hover {
+  background: #ffc400;
+  color: #111111;
+  border-color: #ffc400;
+  transform: translateY(-1px);
+  box-shadow: 0 7px 18px rgba(255, 196, 0, 0.15);
+}
+
+.lista-repuestos {
+  margin-top: 22px;
+}
+
+.lista-repuestos-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 12px;
+}
+
+.lista-repuestos-header h3 {
+  color: #d8d8d8;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.lista-repuestos-header p {
+  margin-top: 4px;
+  color: #666666;
+  font-size: 11px;
+}
+
+.contador-repuestos {
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 20px;
+  color: #777777;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.tabla-repuestos {
+  overflow: hidden;
+  background: #181818;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 13px;
+}
+
+.tabla-contenido {
+  width: 100%;
+}
+
+.tabla-fila {
+  display: grid;
+  grid-template-columns: minmax(180px, 1.8fr) 100px minmax(130px, 1fr) minmax(130px, 1fr) 40px;
+  align-items: center;
+  min-height: 52px;
+  padding: 0 18px;
+  gap: 15px;
+}
+
+.tabla-encabezado {
+  min-height: 42px;
+  background: rgba(255, 255, 255, 0.025);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: #666666;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+
+.repuesto-item {
+  color: #999999;
+  font-size: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.045);
+}
+
+.repuesto-item:last-child {
+  border-bottom: none;
+}
+
+.nombre-repuesto-tabla {
+  color: #d0d0d0;
+  font-weight: 600;
+}
+
+.repuesto-item strong {
+  color: #ffc400;
+  font-weight: 700;
+}
+
+.btn-eliminar-repuesto {
+  width: 27px;
+  height: 27px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: #666666;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  font-size: 19px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-eliminar-repuesto:hover {
+  background: rgba(239, 68, 68, 0.08);
+  color: #ef6666;
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.tabla-vacia {
+  min-height: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  text-align: center;
+}
+
+.tabla-vacia-icono {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  background: rgba(255, 196, 0, 0.05);
+  border: 1px solid rgba(255, 196, 0, 0.18);
+  border-radius: 11px;
+  color: #ffc400;
+  font-size: 22px;
+}
+
+.tabla-vacia h4 {
+  color: #999999;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.tabla-vacia p {
+  max-width: 350px;
+  margin-top: 6px;
+  color: #555555;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.presupuesto-resumen {
+  display: grid;
+  grid-template-columns: 1fr 330px;
+  gap: 30px;
+  align-items: center;
+  margin-top: 22px;
+  padding: 22px;
+  background: linear-gradient(135deg, rgba(255, 196, 0, 0.045), rgba(255, 255, 255, 0.015));
+  border: 1px solid rgba(255, 196, 0, 0.13);
+  border-radius: 14px;
+}
+
+.resumen-label {
+  color: #d2d2d2;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.resumen-info p {
+  max-width: 400px;
+  margin-top: 6px;
+  color: #666666;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.resumen-costos {
+  padding-left: 25px;
+  border-left: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.costo-linea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 38px;
+  gap: 15px;
+  color: #888888;
+  font-size: 12px;
+}
+
+.costo-linea strong {
+  color: #cccccc;
+  font-weight: 600;
+}
+
+.mano-obra-linea label {
+  color: #888888;
+  font-size: 12px;
+}
+
+.input-mano-obra {
+  width: 130px;
+}
+
+.input-mano-obra input {
+  height: 35px;
+  font-size: 12px;
+}
+
+.costo-separador {
+  height: 1px;
+  margin: 8px 0;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.costo-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 7px;
+  color: #eeeeee;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.costo-total strong {
+  color: #ffc400;
+  font-size: 21px;
+}
+
+.aprobacion-presupuesto {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  margin-top: 20px;
+  padding: 18px 20px;
+  background: #181818;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 13px;
+}
+
+.aprobacion-presupuesto h3 {
+  color: #d0d0d0;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.aprobacion-presupuesto p {
+  margin-top: 5px;
+  color: #666666;
+  font-size: 11px;
+}
+
+.aprobacion-presupuesto select {
+  min-width: 230px;
+  height: 40px;
+  padding: 0 12px;
+  color: #cccccc;
+  background: #222222;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 8px;
+  outline: none;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.aprobacion-presupuesto select:focus {
+  border-color: rgba(255, 196, 0, 0.5);
+  box-shadow: 0 0 0 3px rgba(255, 196, 0, 0.05);
+}
+
+@media (max-width: 900px) {
+  .presupuesto-formulario {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .btn-agregar-repuesto {
+    grid-column: 1 / -1;
+  }
+
+  .presupuesto-resumen {
+    grid-template-columns: 1fr;
+  }
+
+  .resumen-costos {
+    padding-left: 0;
+    padding-top: 18px;
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+  }
+}
+
+@media (max-width: 650px) {
+  .presupuesto-formulario {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-agregar-repuesto {
+    grid-column: auto;
+  }
+
+  .tabla-repuestos {
+    overflow-x: auto;
+  }
+
+  .tabla-contenido {
+    min-width: 650px;
+  }
+
+  .aprobacion-presupuesto {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .aprobacion-presupuesto select {
+    width: 100%;
+  }
+}

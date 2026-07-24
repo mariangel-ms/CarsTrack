@@ -1,0 +1,89 @@
+/* ==========================================
+   FASE: RECIBIDO
+========================================== */
+
+.checklist-recepcion {
+  margin-top: 25px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.018);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 13px;
+}
+
+.checklist-header {
+  margin-bottom: 18px;
+}
+
+.checklist-header h3 {
+  color: #d8d8d8;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.checklist-header p {
+  margin-top: 5px;
+  color: #666666;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.checklist-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 12px;
+  background: #181818;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 9px;
+  color: #a8a8a8;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.check-item:hover {
+  border-color: rgba(255, 196, 0, 0.25);
+  color: #d0d0d0;
+  background: #1c1c1c;
+}
+
+.check-item input {
+  display: none;
+}
+
+.check-box {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  border: 1px solid #555555;
+  border-radius: 4px;
+  transition: all 0.25s ease;
+}
+
+.check-item input:checked + .check-box {
+  background: #ffc400;
+  border-color: #ffc400;
+  box-shadow: inset 0 0 0 3px #181818;
+}
+
+.check-item input:checked ~ span:last-child {
+  color: #ffc400;
+}
+
+@media (max-width: 750px) {
+  .checklist-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .checklist-recepcion {
+    padding: 15px;
+  }
+}

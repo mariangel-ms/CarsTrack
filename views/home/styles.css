@@ -225,7 +225,7 @@ html {
   left: 50%;
   transform: translateX(-50%);
 
-  width: min(1400px, 100%);
+  width: 96%;
 
   display: flex;
   justify-content: space-between;

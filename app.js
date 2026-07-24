@@ -9,6 +9,7 @@ const loginRouter = require('./controllers/login');
 const usersRouter = require('./controllers/users');
 const carsRouter = require('./controllers/cars');
 const clientLoginRouter = require('./controllers/client-login');
+const logoutRouter = require('./controllers/logout');
 const { MONGO_URI } = require("./config");
 const app = express();
 
@@ -36,10 +37,12 @@ app.use('/login', express.static(path.resolve('views', 'login')));
 app.use('/verify', express.static(path.resolve('views', 'verify')));
 app.use('/verify/:id/:token', express.static(path.resolve('views', 'verify')));
 app.use('/panel', express.static(path.resolve('views', 'admin-panel')));
+app.use('/edit-order', express.static(path.resolve('views', 'edit-order')));
 
 // Rutas backend
 app.use("/api/users", usersRouter);
 app.use("/api/login", loginRouter);
 app.use('/api/cars', carsRouter);
 app.use('/api/client-login', clientLoginRouter);
+app.use('/api/logout', logoutRouter);
 module.exports = app;

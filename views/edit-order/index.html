@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles.css" />
+        <link rel="stylesheet" href="../components/stages/budget/budget.css" />
+        <link rel="stylesheet" href="/components/stages/diagnostic/diagnostic.css" />
+        <link rel="stylesheet" href="/components/stages/received/received.css" />
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"defer></script>
+    <title>CarsTrack</title>
+</head>
+<body>
+
+<div id="navbar"></div>
+
+ <main class="orden-container">
+    <section class="orden-header">
+      <button class="btn-volver">← Volver</button>
+      <div class="vehiculo-info">
+        <div class="vehiculo-principal">
+          <span class="placa">123-ASD</span>
+          <h1>Chevrolet Aveo</h1>
+        </div>
+        <div class="propietario-info">
+          <span>Propietario: <strong>Mariangel Martínez</strong></span>
+          <span>Cédula: <strong>2345</strong></span>
+          <span>Correo: <strong>adskale@gmail.com</strong></span>
+        </div>
+      </div>
+    </section>
+    <div class="orden-layout">
+      <section class="orden-panel">
+        <div class="fase-selector">
+          <label for="fase">Fase</label>
+<select id="fase">
+  <option value="recibido">Recibido</option>
+  <option value="diagnostico">Diagnóstico</option>
+  <option value="presupuesto">Repuestos y presupuesto</option>
+  <option value="reparacion">Reparación</option>
+  <option value="pruebas">Pruebas</option>
+  <option value="entrega">Listo para la entrega</option>
+</select>
+        </div>
+        <div id="contenido-fase" class="contenido-fase">
+          <div class="fase-placeholder">
+            <span class="placeholder-icon">⚙</span>
+            <h2>Selecciona una fase</h2>
+            <p>Aquí aparecerá la información y las opciones correspondientes a la fase seleccionada.</p>
+          </div>
+        </div>
+        <div class="acciones-orden">
+          <button class="btn-guardar">Guardar cambios</button>
+        </div>
+      </section>
+      <aside class="orden-sidebar">
+        <div class="info-card costo-card">
+          <span class="info-card-label">Costo estimado</span>
+          <strong class="costo-valor">$0.00</strong>
+        </div>
+        <div class="info-card aprobacion-card">
+          <span class="info-card-label">Aprobación</span>
+          <h3>Reparación</h3>
+          <span class="estado-aprobacion">En espera...</span>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+    <script src="/components/nav.js"></script>
+    <script type="module" src="index.js"></script>
+</body>
+</html>

@@ -39,7 +39,7 @@ export const createNotification = (isError, message) => {
   }, 10);
 
   setTimeout(() => {
-    // Iniciamos el desvanecimiento (vuelve a subir y se pone transparente)
+    // Iniciamos el desvanecimiento
     div.style.transform = "translateY(-15px)";
     div.style.opacity = "0";
 

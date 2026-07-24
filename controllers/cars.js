@@ -117,11 +117,12 @@ return response.status(201).json({
 // Listar todos los autos
 carsRouter.get('/', async (request, response) => {
   try {
-    const cars = await Car.find({});
-    return response.status(200).json(cars);
+    const orders = await Order.find({});
+    return response.status(200).json(orders);
   } catch (error) {
     return response.status(500).json({ error: 'Error interno del servidor.' });
   }
 });
+
 
 module.exports = carsRouter;
