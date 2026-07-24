@@ -3,14 +3,13 @@ const body = document.querySelector("#notification");
 export const createNotification = (isError, message) => {
   const div = document.createElement("div");
   
-  // Animacionn
-  const baseAnimation = "transform translate-y-[-15px] opacity-0 transition-all duration-300 ease-out mb-3 ml-auto w-full max-w-[360px]";
+  // Animación y posición fija (fixed, bottom-5, right-5, z-50)
+  const baseAnimation = "fixed bottom-5 right-5 z-50 transform translate-y-[-15px] opacity-0 transition-all duration-300 ease-out mb-3 ml-auto w-full max-w-[360px]";
 
   if (isError) {
     div.className = `${baseAnimation} flex items-center gap-4 p-5 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.6)] bg-[#141416] text-[#e4e4e7] border border-red-500/30`;
     
     div.innerHTML = `
-  
       <div class="flex flex-col flex-1 min-w-0">
         <span class="text-xs font-bold uppercase tracking-widest text-red-500">
           Error
@@ -44,9 +43,9 @@ export const createNotification = (isError, message) => {
     div.style.transform = "translateY(-15px)";
     div.style.opacity = "0";
 
-    // Esperamos 300ms a que la transición de CSS termine antes de borrar el elemento del HTML
+    // Esperamos a que la transición termine antes de borrar el elemento del HTML
     setTimeout(() => {
       div.remove();
-    }, 3000)
+    }, 300);
   }, 3000);
 };

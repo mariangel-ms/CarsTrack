@@ -11,9 +11,7 @@ const userSchema = new mongoose.Schema({
     cedula: {
         type: String,
         unique: true,
-        sparse: true, // Permite varios documentos sin email (ej. clientes sin correo)
         trim: true,
-        lowercase: true
     }, 
     telefono: {
         type: String,

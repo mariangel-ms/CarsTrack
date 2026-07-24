@@ -1,15 +1,17 @@
 const carsRouter = require('express').Router();
 const Car = require('../models/car');
 const User = require('../models/user');
+const Order = require('../models/order');
 
 carsRouter.post('/', async (request, response) => {
-  const { nombre, cedula, correo, telefono, placa, marca, modelo } = request.body;
+  const { nombre, cedula, correo, telefono, placa, marca, modelo, mecanico } = request.body;
 
-  if (!nombre || !cedula || !placa || !marca || !modelo) {
+  if (!nombre || !cedula || !placa || !marca || !modelo  || !mecanico) {
     return response
       .status(400)
-      .json({ error: 'nombre, cedula, placa, marca y modelo son requeridos' });
+      .json({ error: 'nombre, cedula, placa, marca, modelo y mecanico asignado son requeridos' });
   }
+console.log(request.body)
 
   try {
     // Verificar si la placa ya está registrada
@@ -34,31 +36,32 @@ carsRouter.post('/', async (request, response) => {
         }
       }
 
-      cliente = new User({
+      newClient = new User({
         name: nombre,
         email: correo,
         telefono,
         cedula,
         rol: 'cliente',
       });
-
-      await cliente.save();
       
-    } else {
-      // Si ya existia, se actualizan datos de contacto si vinieron nuevos
-      let huboCambios = false;
-      if (correo && cliente.email !== correo) {
-        cliente.email = correo;
-        huboCambios = true;
-      }
-      if (telefono && cliente.telefono !== telefono) {
-        cliente.telefono = telefono;
-        huboCambios = true;
-      }
-      if (huboCambios) await cliente.save();
-    }
+cliente = await newClient.save();
+      
+    } 
+    // else {
+    //   // Si ya existia, se actualizan datos de contacto si vinieron nuevos
+    //   let huboCambios = false;
+    //   if (correo && cliente.email !== correo) {
+    //     cliente.email = correo;
+    //     huboCambios = true;
+    //   }
+    //   if (telefono && cliente.telefono !== telefono) {
+    //     cliente.telefono = telefono;
+    //     huboCambios = true;
+    //   }
+    //   if (huboCambios) await cliente.save();
+    // }
 
-    // Crear el auto con la referencia + snapshot del cliente
+    // Crear el auto con la referencia
     const newCar = new Car({
       placa,
       marca,
@@ -72,7 +75,39 @@ carsRouter.post('/', async (request, response) => {
 
     await newCar.save();
 
-    return response.status(201).json(newCar);
+//---------ORDEN-----------
+  const ultimaOrden = await Order.findOne({}).sort({ numero_orden: -1 });
+    const numero_orden = ultimaOrden ? ultimaOrden.numero_orden + 1 : 1;
+
+console.log('Mecanico recibido:', mecanico)
+
+ const newOrder = new Order({
+      numero_orden,
+      estado: 'Recibido',
+      mecanico: mecanico,
+      cliente: {
+        _id: cliente._id,
+        cedula: cliente.cedula,
+        nombre: cliente.name,
+      },
+      vehiculo: {
+        _id: newCar._id,
+        placa: newCar.placa,
+        marca: newCar.marca,
+        modelo: newCar.modelo,
+      },
+      repuestos: [],
+      mano_obra: 0,
+      costo_total: 0,
+    });
+    await newOrder.save();
+
+
+return response.status(201).json({
+  car: newCar,
+  order: newOrder
+});
+
   } catch (error) {
     console.error('Error registrando el auto:', error.message);
     return response.status(500).json({ error: 'Error interno del servidor al registrar el auto.' });
@@ -85,7 +120,6 @@ carsRouter.get('/', async (request, response) => {
     const cars = await Car.find({});
     return response.status(200).json(cars);
   } catch (error) {
-    console.error('Error obteniendo autos:', error.message);
     return response.status(500).json({ error: 'Error interno del servidor.' });
   }
 });

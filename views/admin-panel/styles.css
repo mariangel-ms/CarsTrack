@@ -15,82 +15,88 @@
   --border-color: rgb(40, 40, 40);
 }
 
-body.admin-body{
-
-    margin:0;
-    min-height:100vh;
+body.admin-body {
+  margin: 0;
+  min-height: 100vh;
   font-family: 'Lexend', sans-serif;
-    background:
-
-    radial-gradient(
-        circle at top,
-        rgba(255,196,0,.06),
-        transparent 35%
-    ),
-
-    radial-gradient(
-        circle at bottom right,
-        rgba(255,196,0,.04),
-        transparent 30%
-    ),
-
+  background: 
+    radial-gradient(circle at top, rgba(255, 196, 0, .06), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(255, 196, 0, .04), transparent 30%),
     #090909;
-
 }
 
+/* ==========================================
+   MENSAJES Y VALIDACIONES DE FORMULARIO
+   ========================================== */
+.information {
+  display: none;
+  width: 100%;
+  font-size: 11px;
+  color: #e62b2b;
+  margin-top: 4px;
+  line-height: 1.2;
+}
 
+.show-information { 
+  display: block; 
+}
+
+input.aprobado, 
+select.aprobado {
+  border: 2px solid #22c55e !important;
+  background: #121f16 !important;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.15) !important;
+}
+
+input.error, 
+select.error {
+  border: 2px solid #ef4444 !important;
+  background: #241414 !important;
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15) !important;
+}
 
 /* ==========================================
    BARRA DE NAVEGACIÓN
    ========================================== */
-.admin-header{
+.admin-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  background: linear-gradient(180deg, #181818, #0f0f0f);
+  border-bottom: 1px solid rgba(255, 196, 0, .18);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, .35);
+}
 
-    position:sticky;
-    top:0;
-    z-index:1000;
+.admin-header::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, .06);
+}
 
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    padding:16px 40px;
-
-    background:
-        linear-gradient(
-            180deg,
-            #181818,
-            #0f0f0f
-        );
-
-    border-bottom:1px solid rgba(255,196,0,.18);
-
-    box-shadow:
-        0 10px 25px rgba(0,0,0,.35);
-
+.admin-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 196, 0, .9), transparent);
 }
 
 .logo-barra {
-height: 30px;          /* Altura ideal para que no deforme la barra */
-  width: auto;           /* Mantiene la proporción original de tu logo */
-  object-fit: contain;   /* Asegura que la imagen no se recorte ni se aplaste */
+  height: 30px;
+  width: auto;
+  object-fit: contain;
   transition: transform 0.3s ease;
   margin-bottom: 5px;
-}
-
-
-.admin-header::after{
-    content:"";
-    position:absolute;
-    left:0;
-    bottom:0;
-    width:100%;
-    height:2px;
-    background:linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,196,0,.9),
-        transparent
-    );
 }
 
 .marca-titulo {
@@ -107,49 +113,37 @@ height: 30px;          /* Altura ideal para que no deforme la barra */
   gap: 20px;
 }
 
-.usuario-rol{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    color:#b8b8b8;
-    font-size:14px;
-
+.usuario-rol {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #b8b8b8;
+  font-size: 14px;
 }
 
-.btn-cerrar-sesion{
-    font-family: 'Lexend', sans-serif;
-    background:#171717;
-    color:#ff6b6b;
-    border:1px solid rgba(255,107,107,.25);
-    border-radius:12px;
-    padding:10px 20px;
-    transition:.3s;
-
+.btn-cerrar-sesion {
+  font-family: 'Lexend', sans-serif;
+  background: #171717;
+  color: #ff6b6b;
+  border: 1px solid rgba(255, 107, 107, .25);
+  border-radius: 12px;
+  padding: 10px 20px;
+  transition: .3s;
+  cursor: pointer;
 }
 
-.btn-cerrar-sesion:hover{
-    transform:translateY(-2px);
-    background:#ef4444;
-    color:white;
-    box-shadow:
-        0 10px 25px rgba(239,68,68,.25);
-
+.btn-cerrar-sesion:hover {
+  transform: translateY(-2px);
+  background: #ef4444;
+  color: white;
+  box-shadow: 0 10px 25px rgba(239, 68, 68, .25);
 }
 
-.admin-header::before{
-    content:"";
-    position:absolute;
-    left:0;
-    top:0;
-    width:100%;
-    height:1px;
-    background:rgba(255,255,255,.06);
-}
 /* ==========================================
    ENCABEZADO DEL PANEL Y BUSCADOR
    ========================================== */
 .admin-container {
-  max-width: 1200px;
+  max-width: 1350px;
   width: 100%;
   margin: 0 auto;
   padding: 30px 20px;
@@ -161,32 +155,30 @@ height: 30px;          /* Altura ideal para que no deforme la barra */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--border-color);
   margin-bottom: 40px;
   flex-wrap: wrap;
   gap: 20px;
-  padding: 30px;
+  padding: 25px;
   border: 1px solid rgba(255, 200, 0, 0.479);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
   border-radius: 20px;
 }
 
-.titulo-pagina{
-
-    font-size:38px;
-    font-weight:800;
-    letter-spacing:-1px;
-    line-height:1;
-    margin:0;
-    color:white;
+.titulo-pagina {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 1;
+  margin: 0;
+  color: white;
 }
 
-.subtitulo-pagina{
-    font-size:16px;
-    color:#a7a7a7;
-    line-height:1.8;
-    max-width:480px;
-margin: 0;
+.subtitulo-pagina {
+  font-size: 16px;
+  color: #a7a7a7;
+  line-height: 1.8;
+  max-width: 480px;
+  margin: 0;
 }
 
 .buscador-wrapper {
@@ -207,8 +199,6 @@ margin: 0;
   transition: all 0.3s ease;
 }
 
-
-
 .input-buscar:focus {
   border-color: var(--gold);
   box-shadow: 0 0 10px rgba(255, 196, 0, 0.15);
@@ -222,13 +212,11 @@ margin: 0;
   color: #838383;
   display: flex;
   align-items: center;
-  
-    transition:.3s;
+  transition: .3s;
 }
-.buscador-wrapper:focus-within .icono-buscar{
 
-    color:rgb(255,196,0);
-
+.buscador-wrapper:focus-within .icono-buscar {
+  color: rgb(255, 196, 0);
 }
 
 /* ==========================================
@@ -316,7 +304,8 @@ margin: 0;
   font-weight: 600;
 }
 
-.grupo-input input {
+.grupo-input input,
+.grupo-input select {
   background-color: var(--bg-input);
   border: 1px solid var(--border-color);
   border-radius: 12px;
@@ -325,12 +314,12 @@ margin: 0;
   font-size: 14px;
   outline: none;
   transition: all 0.3s ease;
-
-  width: 100%;             /* Fuerza al input a adaptarse al ancho de su columna grid */
+  width: 100%;
   box-sizing: border-box;
 }
 
-.grupo-input input:focus {
+.grupo-input input:focus,
+.grupo-input select:focus {
   border-color: var(--gold);
   box-shadow: 0 0 8px rgba(255, 196, 0, 0.1);
 }
@@ -343,6 +332,18 @@ margin: 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
+}
+
+.bloque-info-default {
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(255, 196, 0, 0.3);
+  border-radius: 12px;
+  padding: 15px;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
 }
 
 .btn-registrar {
@@ -367,6 +368,15 @@ margin: 0;
 
 .btn-registrar:active {
   transform: translateY(0);
+}
+
+.btn-registrar:disabled {
+  background-color: #2a2a2a !important;
+  color: #666666 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: none !important;
+  opacity: 0.7;
 }
 
 /* --- COLUMNA VEHÍCULOS (8 de 12) --- */
@@ -395,45 +405,32 @@ margin: 0;
   justify-content: space-between;
   box-sizing: border-box;
   transition: all 0.3s ease;
-
-  position:relative;
-
-overflow:hidden;
-
-background:
-
-linear-gradient(
-180deg,
-#1b1b1b,
-#101010
-);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #1b1b1b, #101010);
 }
 
-
-.tarjeta-vehiculo::before{
-content:"";
-position:absolute;
-top:-120px;
-right:-120px;
-width:220px;
-height:220px;
-border-radius:50%;
-background:
-rgba(255,196,0,.06);
-filter:blur(40px);
-transition:.4s;
-
+.tarjeta-vehiculo::before {
+  content: "";
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: rgba(255, 196, 0, .06);
+  filter: blur(40px);
+  transition: .4s;
 }
+
 .tarjeta-vehiculo:hover {
   border-color: rgba(255, 196, 0, 0.4);
   transform: translateY(-4px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
 }
 
-.tarjeta-vehiculo:hover::before{
-
-transform:scale(1.3);
-
+.tarjeta-vehiculo:hover::before {
+  transform: scale(1.3);
 }
 
 .tarjeta-top {
@@ -582,11 +579,11 @@ transform:scale(1.3);
 
 @media (max-width: 1024px) {
   .panel-layout {
-    grid-template-columns: 1fr; /* Una columna en tablets y celulares */
+    grid-template-columns: 1fr;
   }
   .columna-registro {
     grid-column: span 12;
-    position: relative; /* Desactiva el sticky en móviles */
+    position: relative;
     top: 0;
   }
   .columna-vehiculos {
@@ -606,6 +603,6 @@ transform:scale(1.3);
     padding: 12px 15px;
   }
   .usuario-rol {
-    display: none; /* Esconde la etiqueta "Administrador" en pantallas de celular */
+    display: none;
   }
 }

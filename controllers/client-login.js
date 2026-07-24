@@ -3,7 +3,6 @@ const Car = require("../models/car");
 const jwt = require("jsonwebtoken");
 
 clientLoginRouter.post('/', async (request, response) => {
-  // console.log("Login request received");
   const { cedula, placa } = request.body;
 
  if (!cedula || !placa) {

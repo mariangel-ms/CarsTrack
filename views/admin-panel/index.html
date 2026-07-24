@@ -4,10 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CarsTrack</title>
-
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Estilos del Panel -->
     <link rel="stylesheet" href="styles.css" />
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
+      defer
+    ></script>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,12 +22,14 @@
   <body class="admin-body">
     <!-- Barra de Navegación superior -->
     <header class="admin-header">
-<img src="/img/logo.png" alt="CarTrack Logo" class="logo-barra">
+      <img src="/img/logo.png" alt="CarTrack Logo" class="logo-barra" />
       <div class="usuario-menu">
         <span class="usuario-rol">🟢 Administrador</span>
         <button class="btn-cerrar-sesion">Cerrar sesión</button>
       </div>
     </header>
+
+    <div id="notification"></div>
 
     <!-- Contenedor Principal -->
     <main class="admin-container">
@@ -82,24 +87,53 @@
 
               <div class="grupo-input">
                 <label>Nombre completo</label>
-                <input id="nombre-input" type="text" placeholder="Nombre completo" required />
+                <input
+                  id="nombre-input"
+                  type="text"
+                  placeholder="Nombre completo"
+                  required
+                />
+                <p class="information">
+                  Tanto el nombre como el apellido deben comenzar en mayúsculas.
+                </p>
               </div>
 
               <div class="grupo-input">
                 <label>Cédula</label>
-                <input id="cedula-input" type="text" placeholder="Ej: V-12345678" required />
+                <input
+                  id="cedula-input"
+                  type="text"
+                  placeholder="Ej: V-12345678"
+                  required
+                />
+                <p class="information">Ingrese su número de cédula válido.</p>
               </div>
 
               <div class="grupo-input">
                 <label>Correo electrónico</label>
-                <input id="correo-input" type="email" placeholder="correo@ejemplo.com" required />
+                <input
+                  id="correo-input"
+                  type="email"
+                  placeholder="correo@ejemplo.com"
+                  required
+                />
+                <p class="information">Ingrese un correo electrónico válido.</p>
               </div>
 
+              <div class="grupo-input">
+                <label>Numero Telefonico</label>
+                <input
+                  id="telefono-input"
+                  type="tel"
+                  placeholder="Ej: 0412-1234567"
+                  required
+                />
+                              <p class="information">
+                Debe pertenecer a una operadora nacional (Ej: 0414, 0424, 0412,
+                0416, 0426).
+              </p>
+              </div>
 
-            <div class="grupo-input">
-              <label>Numero Telefonico</label>
-              <input id="telefono-input" type="tel" placeholder="Ej: 0412-1234567" required />
-            </div>
             </div>
             <!-- Bloque: Datos del Vehículo -->
             <div class="bloque-campos bloque-vehiculo">
@@ -117,26 +151,76 @@
                   class="uppercase"
                   required
                 />
+                <p class="information">
+                  Formato estándar venezolano (Ej: ABC12D o ABC-123-D).
+                </p>
               </div>
 
               <div class="grid-inputs-doble">
                 <div class="grupo-input">
                   <label>Marca</label>
-                  <input id="marca-input" type="text" placeholder="Ej: Chevrolet" required />
+                  <input
+                    id="marca-input"
+                    type="text"
+                    placeholder="Ej: Chevrolet"
+                    required
+                  />
+                  <p class="information">
+                    Debe comenzar con una letra mayúscula.
+                  </p>
                 </div>
                 <div class="grupo-input">
                   <label>Modelo</label>
-                  <input id="modelo-input" type="text" placeholder="Ej: Aveo" required />
+                  <input
+                    id="modelo-input"
+                    type="text"
+                    placeholder="Ej: Aveo"
+                    required
+                  />
+                  <p class="information">
+                    Debe comenzar con una letra mayúscula.
+                  </p>
                 </div>
+              </div>
+
+              <div class="grupo-input">
+                <label for="mecanico-input">Mecánico asignado</label>
+                <select id="mecanico-input" required>
+                  <option value="" disabled selected>
+                    Selecciona un mecánico...
+                  </option>
+                  <option value="Adolfo Martínez">
+                    Adolfo Martínez (Técnico en Electromecánica)
+                  </option>
+                  <option value="Jesús Sifuentes">
+                    Jesús Sifuentes (Especialista en Cajas y Transmisiones)
+                  </option>
+                  <option value="Luisana Martínez">
+                    Luisana Martínez (Especialista en Tren Delantero y Frenos)
+                  </option>
+                </select>
               </div>
             </div>
 
-            <button id="form-btn" type="submit" class="btn-registrar">
+            <div class="bloque-info-default">
+              <div class="detalle-fila">
+                <span class="detalle-etiqueta">Fase:</span>
+                <span class="detalle-valor">Recibido (Por defecto)</span>
+              </div>
+              <div class="detalle-fila">
+                <span class="detalle-etiqueta">Aprobación:</span>
+                <span class="detalle-valor">Pendiente... (Por defecto)</span>
+              </div>
+              <div class="detalle-fila">
+                <span class="detalle-etiqueta">Presupuesto:</span>
+                <span class="detalle-valor">0.0$ (Por defecto)</span>
+              </div>
+            </div>
+
+            <button id="form-btn" type="submit" class="btn-registrar" disabled>
               Registrar Ingreso
             </button>
           </form>
-
-          <div id="notification"></div>
         </section>
 
         <!-- COLUMNA DERECHA: Listado de Vehículos -->
