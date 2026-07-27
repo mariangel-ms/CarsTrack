@@ -1,0 +1,256 @@
+/* ==========================================
+   FASE: REPARACIÓN
+========================================== */
+
+.reparacion-formulario {
+  display: flex;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 15px;
+  margin-top: 22px;
+  padding: 20px;
+  background: #191919;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+}
+
+.btn-agregar-reparacion {
+  height: 43px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 18px;
+  background: rgba(255, 196, 0, 0.08);
+  color: #ffc400;
+  border: 1px solid rgba(255, 196, 0, 0.35);
+  border-radius: 9px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-agregar-reparacion span {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.btn-agregar-reparacion:hover {
+  background: #ffc400;
+  color: #111111;
+  border-color: #ffc400;
+  transform: translateY(-1px);
+  box-shadow: 0 7px 18px rgba(255, 196, 0, 0.15);
+}
+
+.lista-reparaciones {
+  margin-top: 22px;
+}
+
+.lista-reparaciones-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 12px;
+}
+
+.lista-reparaciones-header h3 {
+  color: #d8d8d8;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.lista-reparaciones-header p {
+  margin-top: 4px;
+  color: #666666;
+  font-size: 11px;
+}
+
+.contador-reparaciones {
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 20px;
+  color: #777777;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.reparaciones-items {
+  display: flex;
+  flex-direction: column;
+  background: #181818;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 13px;
+  overflow: hidden;
+}
+
+.reparacion-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  min-height: 56px;
+  padding: 0 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.045);
+}
+
+.reparacion-item:last-child {
+  border-bottom: none;
+}
+
+.reparacion-texto {
+  color: #d0d0d0;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.reparacion-acciones {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.badge-estado {
+  min-width: 92px;
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.badge-pendiente {
+  background: rgba(255, 196, 0, 0.08);
+  color: #ffc400;
+  border: 1px solid rgba(255, 196, 0, 0.35);
+}
+
+.badge-pendiente:hover {
+  background: rgba(255, 196, 0, 0.16);
+}
+
+.badge-listo {
+  background: rgba(52, 211, 153, 0.1);
+  color: #34d399;
+  border: 1px solid rgba(52, 211, 153, 0.4);
+}
+
+.badge-listo:hover {
+  background: rgba(52, 211, 153, 0.18);
+}
+
+.btn-eliminar-reparacion {
+  width: 27px;
+  height: 27px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: #666666;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  font-size: 19px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-eliminar-reparacion:hover {
+  background: rgba(239, 68, 68, 0.08);
+  color: #ef6666;
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.reparaciones-vacia {
+  min-height: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  text-align: center;
+  background: #181818;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 13px;
+}
+
+.reparaciones-vacia-icono {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  background: rgba(255, 196, 0, 0.05);
+  border: 1px solid rgba(255, 196, 0, 0.18);
+  border-radius: 11px;
+  font-size: 20px;
+}
+
+.reparaciones-vacia h4 {
+  color: #999999;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.reparaciones-vacia p {
+  max-width: 350px;
+  margin-top: 6px;
+  color: #555555;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* Estilo base para el select de estado en la fase de reparación */
+.select-estado-reparacion {
+  background-color: #1a1a1a;
+  color: #f3f4f6;
+  border: 1px solid #374151;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efecto al pasar el cursor o enfocar el select */
+.select-estado-reparacion:hover,
+.select-estado-reparacion:focus {
+  border-color: #f59e0b; /* Tono amarillo de acento de tu app */
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.15);
+}
+
+/* Opcional: Estilo personalizado si quieres diferenciar visualmente la opción seleccionada */
+.select-estado-reparacion option {
+  background-color: #1a1a1a;
+  color: #f3f4f6;
+}
+
+@media (max-width: 650px) {
+  .reparacion-formulario {
+    grid-template-columns: 1fr;
+  }
+
+  .reparacion-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 18px;
+  }
+
+  .reparacion-acciones {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

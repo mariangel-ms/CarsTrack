@@ -56,6 +56,17 @@ export function cargarRepuestosPresupuesto(contenedor) {
           </div>
         </div>
       </div>
+
+      <div class="mano-obra-bloque">
+        <div class="mano-obra-info">
+          <h3>Mano de obra</h3>
+          <p>Define el costo de la mano de obra para esta reparación.</p>
+        </div>
+        <div class="input-moneda input-mano-obra">
+          <span>$</span>
+          <input type="number" id="costo-mano-obra" min="0" value="0">
+        </div>
+      </div>
       <div class="presupuesto-resumen">
         <div class="resumen-info">
           <span class="resumen-label">Resumen del presupuesto</span>
@@ -66,12 +77,9 @@ export function cargarRepuestosPresupuesto(contenedor) {
             <span>Repuestos</span>
             <strong id="subtotal-repuestos">$0.00</strong>
           </div>
-          <div class="costo-linea mano-obra-linea">
-            <label for="costo-mano-obra">Mano de obra</label>
-            <div class="input-moneda input-mano-obra">
-              <span>$</span>
-              <input type="number" id="costo-mano-obra" min="0" value="0">
-            </div>
+          <div class="costo-linea">
+            <span>Mano de obra</span>
+            <strong id="subtotal-mano-obra">$0.00</strong>
           </div>
           <div class="costo-separador"></div>
           <div class="costo-total">
@@ -91,6 +99,12 @@ export function cargarRepuestosPresupuesto(contenedor) {
           <option value="aprobado">Aprobado por el cliente</option>
           <option value="rechazado">Rechazado por el cliente</option>
         </select>
+      </div>
+
+      <div class="presupuesto-acciones">
+        <button type="button" class="btn-enviar-presupuesto" id="btn-enviar-presupuesto">
+          Enviar presupuesto
+        </button>
       </div>
     </section>
   `;}

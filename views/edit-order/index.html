@@ -7,6 +7,10 @@
         <link rel="stylesheet" href="../components/stages/budget/budget.css" />
         <link rel="stylesheet" href="/components/stages/diagnostic/diagnostic.css" />
         <link rel="stylesheet" href="/components/stages/received/received.css" />
+        <link rel="stylesheet" href="/components/stages/repair/repair.css" />
+        <link rel="stylesheet" href="/components/stages/testing/testing.css" />
+         <link rel="stylesheet" href="/components/stages/ready/ready.css" />
+          <link rel="stylesheet" href="/components/stages/delivered/delivered.css" />
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"defer></script>
     <title>CarsTrack</title>
@@ -14,6 +18,7 @@
 <body>
 
 <div id="navbar"></div>
+<div id="notification"></div>
 
  <main class="orden-container">
     <section class="orden-header">
@@ -40,7 +45,8 @@
   <option value="presupuesto">Repuestos y presupuesto</option>
   <option value="reparacion">Reparación</option>
   <option value="pruebas">Pruebas</option>
-  <option value="entrega">Listo para la entrega</option>
+  <option value="listo">Vehiculo listo</option>
+  <option value="entregado">Entregado</option>
 </select>
         </div>
         <div id="contenido-fase" class="contenido-fase">
@@ -69,6 +75,7 @@
   </main>
 
     <script src="/components/nav.js"></script>
+    <script type="module" src="/components/notification.js"></script>
     <script type="module" src="index.js"></script>
 </body>
 </html>

@@ -36,8 +36,23 @@ const orderSchema = new mongoose.Schema({
         trim: true
     },
     mecanico: {type: String},
+    // --- FASE: Recibido ---
+    recepcion: {
+        fecha: { type: Date },
+        kilometraje: { type: Number, min: 0 },
+        nivel_combustible: {
+            type: String,
+            enum: ["vacio", "cuarto", "medio", "tres-cuartos", "lleno"]
+        },
+        estado_general: { type: String, trim: true }
+    },
+    // --- FASE: Diagnostico ---
+    diagnostico: {
+        problema_reportado: { type: String, trim: true },
+        diagnostico_realizado: { type: String, trim: true },
+        fecha: { type: Date }
+    },
     administrador: {
-        // Equivale a "cedula_admin" (FK) del diagrama: el admin que gestiona/creó la orden
         _id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
@@ -52,7 +67,6 @@ const orderSchema = new mongoose.Schema({
         }
     },
     cliente: {
-        // Snapshot derivado de vehiculo.cliente al crear la orden
         _id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
@@ -69,7 +83,6 @@ const orderSchema = new mongoose.Schema({
         }
     },
     vehiculo: {
-        // Equivale a "placa vehiculo" (FK) del diagrama
         _id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Car'
@@ -93,7 +106,8 @@ const orderSchema = new mongoose.Schema({
     },
     aprobacion_reparacion: {
         type: String,
-        default: "Pendiente"
+        enum: ["pendiente", "aprobado", "rechazado"],
+        default: "pendiente"
     },
     repuestos: [repuestoSchema],
     mano_obra: {
@@ -102,10 +116,33 @@ const orderSchema = new mongoose.Schema({
         min: 0
     },
     costo_total: {
-        // Equivale a "costo final" del diagrama
         type: Number,
         default: 0
+    },
+    // --- FASE: Reparacion ---
+    reparaciones: [{
+        descripcion: { type: String, required: true, trim: true },
+        estado: {
+            type: String,
+            enum: ["pendiente", "lista"],
+            default: "pendiente"
+        }
+    }],
+    // --- FASE: Control de calidad (testing.js) ---
+    calidad: {
+        observaciones: { type: String, trim: true },
+        resultado: {
+            type: String,
+            enum: ["aprobado", "revision"]
+        }
+    },
+    // --- FASE: Listo para entrega ---
+    listo_entrega: {
+        fecha_estimada_retiro: { type: Date },
+        notas: { type: String, trim: true }
     }
+    // FASE: Entregado (delivered.js) no recolecta datos propios,
+    // solo marca estado = "Entregado" cuando se llega a esa fase.
 }, {
      timestamps: true 
     })

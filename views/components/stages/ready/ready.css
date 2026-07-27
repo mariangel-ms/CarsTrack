@@ -1,0 +1,73 @@
+/* ==========================================
+   FASE: LISTO PARA ENTREGA
+========================================== */
+
+.listo-aviso {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 22px;
+  padding: 18px 20px;
+  background: rgba(52, 211, 153, 0.06);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  border-radius: 13px;
+}
+
+.listo-aviso-icono {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(52, 211, 153, 0.12);
+  border: 1px solid rgba(52, 211, 153, 0.4);
+  border-radius: 10px;
+  color: #34d399;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.listo-aviso-texto h3 {
+  color: #d8d8d8;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.listo-aviso-texto p {
+  margin-top: 4px;
+  color: #888888;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.listo-acciones {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.btn-notificar-cliente {
+  background: linear-gradient(135deg, #6ee7b7, #34d399);
+  color: #08120d;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 22px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-notificar-cliente:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(52, 211, 153, 0.2);
+}
+
+@media (max-width: 550px) {
+  .listo-aviso {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -259,7 +259,6 @@ form.addEventListener("submit", async (e) => {
       await cargarVehiculos();
     }
   } catch (error) {
-    // Manejo de errores
     const errorMsg =
       error.response?.data?.error ||
       error.message ||

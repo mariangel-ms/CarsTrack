@@ -10,6 +10,7 @@ const usersRouter = require('./controllers/users');
 const carsRouter = require('./controllers/cars');
 const clientLoginRouter = require('./controllers/client-login');
 const logoutRouter = require('./controllers/logout');
+const ordersRouter = require('./controllers/orders');
 const { MONGO_URI } = require("./config");
 const app = express();
 
@@ -45,4 +46,5 @@ app.use("/api/login", loginRouter);
 app.use('/api/cars', carsRouter);
 app.use('/api/client-login', clientLoginRouter);
 app.use('/api/logout', logoutRouter);
+app.use('/api/orders', ordersRouter);
 module.exports = app;
