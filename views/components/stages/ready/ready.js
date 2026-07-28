@@ -4,19 +4,12 @@ export function cargarVehiculoListo(contenedor) {
       <div class="componente-header">
         <div>
           <span class="componente-etiqueta">FASE 06</span>
-          <h2>Listo para entrega</h2>
+          <h2>Vehiculo listo</h2>
           <p>El vehículo aprobó todas las pruebas y está listo para que el cliente lo retire.</p>
         </div>
         <div class="componente-icono">06</div>
       </div>
  
-      <div class="listo-aviso">
-        <div class="listo-aviso-icono">✓</div>
-        <div class="listo-aviso-texto">
-          <h3>Vehículo listo para retirar</h3>
-          <p>Notifica al cliente para coordinar la fecha y hora de retiro del vehículo.</p>
-        </div>
-      </div>
  
       <div class="formulario-fase">
         <div class="campo-grupo">

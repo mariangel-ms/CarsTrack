@@ -412,6 +412,10 @@ select.error {
   background: linear-gradient(180deg, #1b1b1b, #101010);
 }
 
+.sin-resultados {
+  color: white;
+}
+
 .tarjeta-vehiculo::before {
   content: "";
   position: absolute;
@@ -528,7 +532,7 @@ select.error {
   padding-top: 12px;
 }
 
-.btn-detalles {
+.btn-eliminar {
   background-color: #000000;
   color: var(--text-muted);
   border: 1px solid var(--border-color);
@@ -541,7 +545,7 @@ select.error {
   transition: all 0.2s ease;
 }
 
-.btn-detalles:hover {
+.btn-eliminar:hover {
   background-color: #111111;
   color: var(--text-white);
   border-color: #555555;

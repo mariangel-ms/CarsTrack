@@ -88,18 +88,6 @@ export function cargarRepuestosPresupuesto(contenedor) {
           </div>
         </div>
       </div>
-      <div class="aprobacion-presupuesto">
-        <div>
-          <h3>Estado del presupuesto</h3>
-          <p>Indica si el cliente ha aprobado el presupuesto para continuar con la reparación.</p>
-        </div>
-        <select id="estado-presupuesto">
-          <option value="">Seleccionar estado</option>
-          <option value="pendiente">Pendiente de aprobación</option>
-          <option value="aprobado">Aprobado por el cliente</option>
-          <option value="rechazado">Rechazado por el cliente</option>
-        </select>
-      </div>
 
       <div class="presupuesto-acciones">
         <button type="button" class="btn-enviar-presupuesto" id="btn-enviar-presupuesto">

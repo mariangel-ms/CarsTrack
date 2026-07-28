@@ -23,6 +23,7 @@ const notification = document.querySelector("#notification");
 const tarjetas = document.querySelector(".tarjetas-grid");
 const buscadorInput = document.querySelector("#buscador-input");
 
+
 let nombreTest = false;
 let emailTest = false;
 let cedulaTest = false;
@@ -81,21 +82,38 @@ const renderTarjetas = (ordenes) => {
       </div>
 
       <div class="tarjeta-acciones">
-        <button class="btn-detalles">Ver detalles</button>
+        <button class="btn-eliminar">Eliminar</button>
         <button class="btn-editar" data-id="${orden.id}">Editar</button>
       </div>
     `;
     tarjetas.appendChild(tarjetaExistente);
 
-//Esto es para editar la orden, tengo q colocar el querySelector aqui para que pueda agarrar el boton de cada orden
+//EDITAR TARJETA
     const editarBtn = tarjetaExistente.querySelector(".btn-editar");
 
     editarBtn.addEventListener("click", (e) => {
       window.location.href = `/edit-order/?id=${orden.id}`;
     });
-  });
-};
 
+    
+  //ELIMINAR TARJETA
+const eliminarBtn = tarjetaExistente.querySelector(".btn-eliminar");
+
+eliminarBtn.addEventListener("click", async (e) => {
+
+  try {
+    await axios.delete(`/api/orders/${orden.id}`, { withCredentials: true });
+    createNotification(false, "Orden eliminada exitosamente");
+    await cargarVehiculos();
+  } catch (error) {
+    const errorMsg =
+      error.response?.data?.error || "Error al eliminar la orden";
+    createNotification(true, errorMsg);
+  }
+});
+  });
+
+};
 // Trae las ordenes del backend, las guarda en memoria, y las dibuja
 const cargarVehiculos = async () => {
   try {
@@ -120,8 +138,8 @@ buscadorInput.addEventListener("input", (e) => {
   }
 
   const filtradas = todasLasOrdenes.filter((orden) => {
-    const placa = (orden.vehiculo?.placa || "").toLowerCase();
-    const modelo = (orden.vehiculo?.modelo || "").toLowerCase();
+    const placa = (orden.vehiculo.placa || "").toLowerCase();
+    const modelo = (orden.vehiculo.modelo || "").toLowerCase();
     return placa.includes(texto) || modelo.includes(texto);
   });
 
