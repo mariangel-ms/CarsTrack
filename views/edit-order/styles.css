@@ -98,13 +98,29 @@ body::before {
   cursor: pointer;
   transition: all 0.3s ease;
 }
-.btn-volver:hover {
+.btn-volver:hover, .btn-editar:hover {
   background: #ffc400;
   color: #111111;
   border-color: #ffc400;
   transform: translateX(-2px);
   box-shadow: 0 8px 22px rgba(255, 196, 0, 0.18);
 }
+
+.btn-editar {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  background: rgba(255, 196, 0, 0.045);
+  color: #ffc400;
+  border: 1px solid rgba(255, 196, 0, 0.35);
+  border-radius: 10px;
+  padding: 10px 30px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
 .vehiculo-info {
   position: relative;
   z-index: 1;

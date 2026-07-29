@@ -1,16 +1,19 @@
 const ordersRouter = require('express').Router();
 const Order = require('../models/order');
-
+const User = require('../models/user');
 
 ordersRouter.get('/:id', async (request, response) => {
   try {
     const orden = await Order.findById(request.params.id);
+    console.log(orden)
+const cliente = await User.findById(orden.cliente._id);
 
-    if (!orden) {
-      return response.status(404).json({ error: 'Orden no encontrada' });
-    }
+const ordenConCliente = {
+      ...orden._doc,
+      cliente: cliente // Sobrescribe la propiedad cliente con el objeto completo
+    };
 
-    return response.status(200).json(orden);
+    return response.status(200).json(ordenConCliente);
   } catch (error) {
     console.error('Error al buscar la orden:', error.message);
     return response.status(500).json({ error: 'Error interno del servidor.' });

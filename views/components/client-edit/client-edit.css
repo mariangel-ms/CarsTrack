@@ -1,0 +1,175 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.25s ease-in-out;
+}
+
+.modal-overlay.activo {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-contenido {
+    background: #121212;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 20px;
+    border: 1px solid #d4af37a5;
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.25);
+    position: relative;
+    transform: scale(0.95);
+    transition: transform 0.25s ease-in-out;
+}
+
+.modal-overlay.activo .modal-contenido {
+    transform: scale(1);
+}
+
+.modal-cerrar {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: #d4af37;
+    cursor: pointer;
+    line-height: 1;
+    z-index: 10;
+}
+
+.modal-cerrar:hover {
+    color: #fff;
+}
+
+.formulario-registro {
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.formulario-registro h2 {
+    font-family: "Special Gothic Expanded One", sans-serif;
+    font-weight: 600;
+    margin: 0 0 5px 0;
+    letter-spacing: 0.8px;
+    color: #fdfdfdc7;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    padding-bottom: 6px;
+    font-size: 1.8em;
+    text-align: center;
+}
+
+.grupo-input {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.grupo-input label {
+    font-weight: 600;
+    color: #faf9f8c8;
+    font-size: 0.75em;
+    letter-spacing: 0.5px;
+}
+
+.grupo-input input,
+.grupo-input select {
+    width: 100%;
+    padding: 10px 15px;
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 0.85em;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.grupo-input select option {
+    background-color: #1a1a1a;
+    color: #fff;
+}
+
+.grupo-input input:focus,
+.grupo-input select:focus {
+    outline: none;
+    border-color: #d4af37;
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+}
+
+.grid-inputs-doble {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.btn-volver-edit:hover, .btn-guardar-cambios:hover {
+  background: #ffc400;
+  color: #111111;
+  border-color: #ffc400;
+  transform: translateX(-2px);
+  box-shadow: 0 8px 22px rgba(255, 196, 0, 0.18);
+}
+
+ .btn-guardar-cambios, .btn-volver-edit {
+    padding: 5px 100px;
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  background: rgba(16, 16, 16, 0.045);
+  color: #ffc400;
+  border: 1px solid rgba(255, 196, 0, 0.35);
+  border-radius: 10px;
+  padding: 10px 30px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.grupo-botones {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.modal-contenido::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 35px;
+    right: 35px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 196, 0, 0.5), transparent);
+}
+
+.modal-contenido::after {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    top: -120px;
+    right: -50px;
+    border-radius: 50%;
+    background: rgba(255, 196, 0, 0.035);
+    pointer-events: none;
+}

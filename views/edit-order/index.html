@@ -1,81 +1,92 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="styles.css" />
-        <link rel="stylesheet" href="../components/stages/budget/budget.css" />
-        <link rel="stylesheet" href="/components/stages/diagnostic/diagnostic.css" />
-        <link rel="stylesheet" href="/components/stages/received/received.css" />
-        <link rel="stylesheet" href="/components/stages/repair/repair.css" />
-        <link rel="stylesheet" href="/components/stages/testing/testing.css" />
-         <link rel="stylesheet" href="/components/stages/ready/ready.css" />
-          <link rel="stylesheet" href="/components/stages/delivered/delivered.css" />
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"defer></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Lexend:wght@100..900&family=Orbitron:wght@400..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Special+Gothic+Expanded+One&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="../components/stages/budget/budget.css" />
+    <link rel="stylesheet"href="/components/stages/diagnostic/diagnostic.css"/>
+    <link rel="stylesheet" href="/components/stages/received/received.css" />
+    <link rel="stylesheet" href="/components/stages/repair/repair.css" />
+    <link rel="stylesheet" href="/components/stages/testing/testing.css" />
+    <link rel="stylesheet" href="/components/stages/ready/ready.css" />
+    <link rel="stylesheet" href="/components/stages/delivered/delivered.css" />
+    <link rel="stylesheet" href="/components/client-edit/client-edit.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
+      defer
+    ></script>
     <title>CarsTrack</title>
-</head>
-<body>
+  </head>
+  <body>
+    <div id="navbar"></div>
+    <div id="notification"></div>
 
-<div id="navbar"></div>
-<div id="notification"></div>
-
- <main class="orden-container">
-    <section class="orden-header">
-      <button class="btn-volver">← Volver</button>
-      <div class="vehiculo-info">
-        <div class="vehiculo-principal">
-          <span class="placa">123-ASD</span>
-          <h1>Chevrolet Aveo</h1>
-        </div>
-        <div class="propietario-info">
-          <span>Propietario: <strong>Mariangel Martínez</strong></span>
-          <span>Cédula: <strong>2345</strong></span>
-          <span>Correo: <strong>adskale@gmail.com</strong></span>
-        </div>
-      </div>
-    </section>
-    <div class="orden-layout">
-      <section class="orden-panel">
-        <div class="fase-selector">
-          <label for="fase">Fase</label>
-<select id="fase">
-  <option value="recibido">Recibido</option>
-  <option value="diagnostico">Diagnóstico</option>
-  <option value="presupuesto">Repuestos y presupuesto</option>
-  <option value="reparacion">Reparación</option>
-  <option value="pruebas">Pruebas</option>
-  <option value="listo">Vehiculo listo</option>
-  <option value="entregado">Entregado</option>
-</select>
-        </div>
-        <div id="contenido-fase" class="contenido-fase">
-          <div class="fase-placeholder">
-            <span class="placeholder-icon">⚙</span>
-            <h2>Selecciona una fase</h2>
-            <p>Aquí aparecerá la información y las opciones correspondientes a la fase seleccionada.</p>
+    <main class="orden-container">
+      <section class="orden-header">
+        <button class="btn-volver">← Volver</button>
+        <div class="vehiculo-info">
+          <div class="vehiculo-principal">
+            <span class="placa"></span>
+            <h1 class="carro"></h1>
+          </div>
+          <div class="propietario-info">
+            <h3 class="propietario"></h3>
+            <h3 class="cedula"></h3>
+             <h3 class="correo"></h3>
           </div>
         </div>
-        <div class="acciones-orden">
-          <button class="btn-guardar">Guardar cambios</button>
-        </div>
+        <button class="btn-editar">Editar</button>
       </section>
-      <aside class="orden-sidebar">
-        <div class="info-card costo-card">
-          <span class="info-card-label">Costo estimado</span>
-          <strong class="costo-valor">$0.00</strong>
-        </div>
-        <div class="info-card aprobacion-card">
-          <span class="info-card-label">Aprobación</span>
-          <h3>Reparación</h3>
-          <span class="estado-aprobacion">En espera...</span>
-        </div>
-      </aside>
-    </div>
-  </main>
+      <div class="orden-layout">
+        <section class="orden-panel">
+          <div class="fase-selector">
+            <label for="fase">Fase</label>
+            <select id="fase">
+              <option value="recibido">Recibido</option>
+              <option value="diagnostico">Diagnóstico</option>
+              <option value="presupuesto">Repuestos y presupuesto</option>
+              <option value="reparacion">Reparación</option>
+              <option value="pruebas">Pruebas</option>
+              <option value="listo">Vehiculo listo</option>
+              <option value="entregado">Entregado</option>
+            </select>
+          </div>
+          <div id="contenido-fase" class="contenido-fase">
+            <div class="fase-placeholder">
+              <span class="placeholder-icon">⚙</span>
+              <h2>Selecciona una fase</h2>
+              <p>
+                Aquí aparecerá la información y las opciones correspondientes a
+                la fase seleccionada.
+              </p>
+            </div>
+          </div>
+          <div class="acciones-orden">
+            <button class="btn-guardar">Guardar cambios</button>
+          </div>
+        </section>
+        <aside class="orden-sidebar">
+          <div class="info-card costo-card">
+            <span class="info-card-label">Costo estimado</span>
+            <strong class="costo-valor">$0.00</strong>
+          </div>
+          <div class="info-card aprobacion-card">
+            <span class="info-card-label">Aprobación</span>
+            <h3>Reparación</h3>
+            <span class="estado-aprobacion">En espera...</span>
+          </div>
+        </aside>
+      </div>
+
+      <div class="contenedor-edit"></div>
+    </main>
 
     <script src="/components/nav.js"></script>
     <script type="module" src="/components/notification.js"></script>
     <script type="module" src="index.js"></script>
-</body>
+  </body>
 </html>

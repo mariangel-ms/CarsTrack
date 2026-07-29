@@ -1,16 +1,16 @@
-const usersRouter = require('express').Router();
-const User = require('../models/user'); // Asegúrate de que esta ruta a tu modelo sea correcta
-const bcrypt = require('bcrypt');
-const axios = require('axios');
+const usersRouter = require("express").Router();
+const User = require("../models/user"); // Asegúrate de que esta ruta a tu modelo sea correcta
+const bcrypt = require("bcrypt");
+const axios = require("axios");
 
 // Ruta para registrar un nuevo usuario
-usersRouter.post('/', async (request, response) => {
+usersRouter.post("/", async (request, response) => {
   const { name, email, password, cedula } = request.body;
 
   if (!name || !email || !password || !cedula) {
     return response
       .status(400)
-      .json({ error: 'Todos los espacios son requeridos' });
+      .json({ error: "Todos los espacios son requeridos" });
   }
 
   try {
@@ -19,20 +19,23 @@ usersRouter.post('/', async (request, response) => {
     if (userExists) {
       return response
         .status(400)
-        .json({ error: 'El email ya se encuentra en uso' });
+        .json({ error: "El email ya se encuentra en uso" });
     }
 
     // Validacion de la api
     const apiKey = process.env.API_KEY;
     const url = `https://emailreputation.abstractapi.com/v1/?api_key=${apiKey}&email=${email}`;
-    
+
     const abstractResponse = await axios.get(url);
     const status = abstractResponse.data?.email_deliverability?.status;
 
-    if (status === 'undeliverable') {
+    if (status === "undeliverable") {
       return response
         .status(400)
-        .json({ error: 'El correo electrónico proporcionado no existe o no es válido.' });
+        .json({
+          error:
+            "El correo electrónico proporcionado no existe o no es válido.",
+        });
     }
 
     //  Encriptar la contraseña si el correo es válido
@@ -51,13 +54,24 @@ usersRouter.post('/', async (request, response) => {
 
     // Guardar en MongoDB
     await newUser.save();
-    
-    return response.status(201).json('Usuario creado exitosamente');
 
+    return response.status(201).json("Usuario creado exitosamente");
   } catch (error) {
-    console.error('Error durante el proceso de registro:', error.message);
-    return response.status(500).json({ error: 'Error interno del servidor al procesar el registro.' });
+    console.error("Error durante el proceso de registro:", error.message);
+    return response
+      .status(500)
+      .json({ error: "Error interno del servidor al procesar el registro." });
   }
+});
+
+usersRouter.get("/:id", async (request, response) => {
+  const cliente = await User.findById(request.params.id);
+
+  if (!cliente) {
+    return response.status(404).json({ error: "Usuario no encontrado" });
+  }
+
+  return response.status(200).json(cliente);
 });
 
 module.exports = usersRouter;

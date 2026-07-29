@@ -116,4 +116,71 @@ carsRouter.get('/', async (request, response) => {
   }
 });
 
+carsRouter.get('/:id', async (request, response) => {
+  try {
+    const orders = await Order.find({});
+    return response.status(200).json(orders);
+  } catch (error) {
+    return response.status(500).json({ error: 'Error interno del servidor.' });
+  }
+});
+
+carsRouter.patch('/:id', async (request, response) => {
+  try {
+    const { nombre, cedula, correo, telefono, placa, marca, modelo, mecanico } = request.body;
+ 
+    // 1. Buscar el auto y validar si existe
+    const car = await Car.findById(request.params.id);
+    if (!car) {
+      return response.status(404).json({ error: 'No se encontró el vehículo en la base de datos.' });
+    }
+ 
+    // 2. Buscar al cliente usando el _id del auto
+    const cliente = await User.findById(car.cliente._id);
+    if (!cliente) {
+      return response.status(404).json({ error: 'No se encontró el cliente asociado.' });
+    }
+ 
+    // Actualizar los datos del cliente
+    cliente.name = nombre;
+    cliente.cedula = cedula;
+    cliente.email = correo;
+    cliente.telefono = telefono;
+    await cliente.save();
+ 
+    // Actualizar los datos del auto
+    car.placa = placa;
+    car.marca = marca;
+    car.modelo = modelo;
+    car.cliente = {
+      _id: cliente._id,
+      cedula: cliente.cedula,
+      nombre: cliente.name,
+    };
+    await car.save();
+ 
+const order = await Order.findOne({ "vehiculo._id": request.params.id });
+
+if (order) {
+      order.cliente.nombre = cliente.name;
+      order.cliente.cedula = cliente.cedula;
+      order.vehiculo.placa = car.placa;
+      order.vehiculo.marca = car.marca;
+      order.vehiculo.modelo = car.modelo;
+      if (mecanico) order.mecanico = mecanico;
+      
+      await order.save();
+    }
+
+    return response.status(200).json({
+      car,
+      cliente,
+      order
+    });
+    
+  } catch (error) {
+    console.error('Error al actualizar:', error);
+    return response.status(500).json({ error: 'Error interno del servidor al actualizar.' });
+  }
+});
 module.exports = carsRouter;
