@@ -116,15 +116,6 @@ carsRouter.get('/', async (request, response) => {
   }
 });
 
-carsRouter.get('/:id', async (request, response) => {
-  try {
-    const orders = await Order.find({});
-    return response.status(200).json(orders);
-  } catch (error) {
-    return response.status(500).json({ error: 'Error interno del servidor.' });
-  }
-});
-
 carsRouter.patch('/:id', async (request, response) => {
   try {
     const { nombre, cedula, correo, telefono, placa, marca, modelo, mecanico } = request.body;

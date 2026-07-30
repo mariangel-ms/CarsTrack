@@ -11,15 +11,14 @@ import { cargarFormularioRegistro } from "../components/client-edit/client-edit.
 const btnVolver = document.querySelector(".btn-volver");
 const faseSelect = document.getElementById("fase");
 const contenidoFase = document.getElementById("contenido-fase");
-const btnGuardar = document.querySelector('.btn-guardar');
-const btnEditar = document.querySelector('.btn-editar');
-const contenidoEdit = document.querySelector('.contenedor-edit');
-const propietarioInfo = document.querySelector('.propietario');
-const cedulaInfo = document.querySelector('.cedula');
-const correoInfo = document.querySelector('.correo');
-const carroInfo = document.querySelector('.carro');
-const placaInfo = document.querySelector('.placa');
-
+const btnGuardar = document.querySelector(".btn-guardar");
+const btnEditar = document.querySelector(".btn-editar");
+const contenidoEdit = document.querySelector(".contenedor-edit");
+const propietarioInfo = document.querySelector(".propietario");
+const cedulaInfo = document.querySelector(".cedula");
+const correoInfo = document.querySelector(".correo");
+const carroInfo = document.querySelector(".carro");
+const placaInfo = document.querySelector(".placa");
 
 // Variable global para guardar la información de la orden traída de la BD
 let ordenActual = {};
@@ -31,26 +30,81 @@ btnVolver.addEventListener("click", () => {
 // Función que inyecta los datos en los inputs basándose en los ID que ya tienen en el HTML
 const rellenarInputsAutomaticamente = (fase) => {
   setTimeout(() => {
-    if (fase === 'recibido' && ordenActual.recepcion) {
-      const inputFecha = document.getElementById('fecha-recepcion');
-      const inputKm = document.getElementById('kilometraje');
-      const inputCombustible = document.getElementById('nivel-combustible');
-      const inputEstado = document.getElementById('estado-vehiculo');
+    if (fase === "recibido" && ordenActual.recepcion) {
+      const inputFecha = document.getElementById("fecha-recepcion");
+      const inputKm = document.getElementById("kilometraje");
+      const inputCombustible = document.getElementById("nivel-combustible");
+      const inputEstado = document.getElementById("estado-vehiculo");
 
-      if (inputFecha) inputFecha.value = ordenActual.recepcion.fecha ? ordenActual.recepcion.fecha.split('T')[0] : '';
-      if (inputKm) inputKm.value = ordenActual.recepcion.kilometraje || '';
-      if (inputCombustible) inputCombustible.value = ordenActual.recepcion.nivel_combustible || '';
-      if (inputEstado) inputEstado.value = ordenActual.recepcion.estado_general || '';
-    } 
-    
-    if (fase === 'diagnostico' && ordenActual.diagnostico) {
-      const inputProblema = document.getElementById('problema-reportado');
-      const inputDiag = document.getElementById('diagnostico-realizado');
-      const inputFechaDiag = document.getElementById('fecha-diagnostico');
+      if (inputFecha)
+        inputFecha.value = ordenActual.recepcion.fecha
+          ? ordenActual.recepcion.fecha.split("T")[0]
+          : "";
+      if (inputKm) inputKm.value = ordenActual.recepcion.kilometraje || "";
+      if (inputCombustible)
+        inputCombustible.value = ordenActual.recepcion.nivel_combustible || "";
+      if (inputEstado)
+        inputEstado.value = ordenActual.recepcion.estado_general || "";
+    }
 
-      if (inputProblema) inputProblema.value = ordenActual.diagnostico.problema_reportado || '';
-      if (inputDiag) inputDiag.value = ordenActual.diagnostico.diagnostico_realizado || '';
-      if (inputFechaDiag) inputFechaDiag.value = ordenActual.diagnostico.fecha ? ordenActual.diagnostico.fecha.split('T')[0] : '';
+    if (fase === "diagnostico" && ordenActual.diagnostico) {
+      const inputProblema = document.getElementById("problema-reportado");
+      const inputDiag = document.getElementById("diagnostico-realizado");
+      const inputFechaDiag = document.getElementById("fecha-diagnostico");
+
+      if (inputProblema)
+        inputProblema.value = ordenActual.diagnostico.problema_reportado || "";
+      if (inputDiag)
+        inputDiag.value = ordenActual.diagnostico.diagnostico_realizado || "";
+      if (inputFechaDiag)
+        inputFechaDiag.value = ordenActual.diagnostico.fecha
+          ? ordenActual.diagnostico.fecha.split("T")[0]
+          : "";
+    }
+
+if (fase === "presupuesto" && ordenActual.repuestos) {
+      const listaItems = document.getElementById("lista-repuestos-items");
+      const tablaVacia = document.getElementById("tabla-vacia");
+      const tablaContenido = document.getElementById("tabla-contenido");
+      const contadorRepuestos = document.getElementById("contador-repuestos");
+
+      if (listaItems) {
+        listaItems.innerHTML = "";
+        let subtotalRepuestos = 0; // Usamos esta variable para acumular
+
+        ordenActual.repuestos.forEach((r) => {
+          const totalFila = r.precio * r.cantidad;
+          subtotalRepuestos += totalFila; // Sumamos aquí correctamente
+
+          listaItems.innerHTML += `<div class="tabla-fila"><span>${r.nombre}</span>
+          <span>${r.cantidad}</span>
+          <span>$${r.precio}</span>
+          <span>$${totalFila}</span>
+          <span><button type="button" class="btn-eliminar-item">X</button></span>
+          </div>`;
+        });
+
+        // Rellenar input de mano de obra
+        const inputManoObra = document.getElementById("costo-mano-obra");
+        const valorManoObra = Number(ordenActual.mano_obra) || 0;
+        if (inputManoObra) {
+          inputManoObra.value = valorManoObra;
+        }
+
+        // Calcular y pintar los subtotales en el resumen
+        const elSubtotalRepuestos = document.getElementById("subtotal-repuestos");
+        const elSubtotalManoObra = document.getElementById("subtotal-mano-obra");
+        const elTotalPresupuesto = document.getElementById("total-presupuesto");
+
+        if (elSubtotalRepuestos) elSubtotalRepuestos.textContent = `$${subtotalRepuestos.toFixed(2)}`;
+        if (elSubtotalManoObra) elSubtotalManoObra.textContent = `$${valorManoObra.toFixed(2)}`;
+        if (elTotalPresupuesto) elTotalPresupuesto.textContent = `$${(subtotalRepuestos + valorManoObra).toFixed(2)}`;
+
+        if (contadorRepuestos)
+          contadorRepuestos.textContent = `${ordenActual.repuestos.length} repuestos`;
+        if (tablaVacia) tablaVacia.classList.add("hidden");
+        if (tablaContenido) tablaContenido.classList.remove("hidden");
+      }
     }
   }, 50);
 };
@@ -86,35 +140,36 @@ faseSelect.addEventListener("change", () => {
 
 // Obtener el ID de la URL
 const params = new URLSearchParams(window.location.search);
-const ordenId = params.get('id');
+const ordenId = params.get("id");
 
 // Cargar los datos iniciales al entrar a la página
 const cargarOrdenInicial = async () => {
   if (!ordenId) {
-    createNotification(true, 'No se encontró el id de la orden en la URL.');
+    createNotification(true, "No se encontró el id de la orden en la URL.");
     return;
   }
 
   try {
-    const response = await axios.get(`/api/orders/${ordenId}`, { withCredentials: true });
-     ordenActual = response.data; // Se guardan los datos
+    const response = await axios.get(`/api/orders/${ordenId}`, {
+      withCredentials: true,
+    });
+    ordenActual = response.data; // Se guardan los datos
 
-    const faseActual = (ordenActual.fase || ordenActual.estado || "recibido").toLowerCase();
+    const faseActual = (
+   ordenActual.fase ||ordenActual.estado).toLowerCase();
     faseSelect.value = faseActual;
-    
+
     // Se Pinta la fase, y se llenan los inputs solitos
     cambiarFaseVisual(faseActual);
 
-    console.log(ordenActual)
+    console.log(ordenActual);
 
-
-//Cargar el header
-propietarioInfo.innerHTML = `<span>Propietario: <strong>${ordenActual.cliente.name}</strong></span>`
-correoInfo.innerHTML =  `<span>Correo: <strong>${ordenActual.cliente.email}</strong></span>`
-cedulaInfo.innerHTML =  `<span>Cedula: <strong>${ordenActual.cliente.cedula}</strong></span>`
-carroInfo.innerHTML = `${ordenActual.vehiculo.marca} ${ordenActual.vehiculo.modelo} `
-placaInfo.innerHTML = `${ordenActual.vehiculo.placa}`
-
+    //Cargar el header
+    propietarioInfo.innerHTML = `<span>Propietario: <strong>${ordenActual.cliente.name}</strong></span>`;
+    correoInfo.innerHTML = `<span>Correo: <strong>${ordenActual.cliente.email}</strong></span>`;
+    cedulaInfo.innerHTML = `<span>Cedula: <strong>${ordenActual.cliente.cedula}</strong></span>`;
+    carroInfo.innerHTML = `${ordenActual.vehiculo.marca} ${ordenActual.vehiculo.modelo} `;
+    placaInfo.innerHTML = `${ordenActual.vehiculo.placa}`;
   } catch (error) {
     console.error("Error al cargar la orden:", error);
     createNotification(true, "No se pudo cargar la información de la orden.");
@@ -125,33 +180,56 @@ placaInfo.innerHTML = `${ordenActual.vehiculo.placa}`
 cargarOrdenInicial();
 
 // Botón para guardar cambios de las fases de la orden
-btnGuardar.addEventListener('click', async () => {
+btnGuardar.addEventListener("click", async () => {
   if (!ordenId) {
-    createNotification(true, 'No se encontró el id de la orden en la URL.');
+    console.log("No se encontró el id de la orden en la URL.");
     return;
   }
- 
+
   const fase = faseSelect.value;
- 
+
   const datos = { fase };
-  contenidoFase.querySelectorAll('input, select, textarea').forEach((campo) => {
+  contenidoFase.querySelectorAll("input, select, textarea").forEach((campo) => {
     if (campo.id) datos[campo.id] = campo.value;
   });
- 
+
+  if (fase === "presupuesto") {
+    const repuestos = [];
+    contenidoFase.querySelectorAll("#lista-repuestos-items .tabla-fila").forEach((fila) => {
+      const spans = fila.querySelectorAll("span");
+      if (spans.length >= 3) {
+        repuestos.push({
+          nombre: spans[0].textContent,
+          cantidad: spans[1].textContent,
+          precio: spans[2].textContent.replace('$', '')
+        });
+      }
+    });
+    datos.repuestos = repuestos;
+    
+    //Capturamos el input de la mano de obra
+    const inputManoObra = document.getElementById("costo-mano-obra");
+    if (inputManoObra) {
+      datos.mano_obra = inputManoObra.value;
+    }
+  }
+
   try {
     await axios.put(`/api/orders/${ordenId}`, datos, { withCredentials: true });
-    createNotification(false, 'Cambios guardados exitosamente.');
+    createNotification(false, "Cambios guardados exitosamente.");
   } catch (error) {
-    const errorMsg = error.response?.data?.error || 'Error al guardar los cambios.';
+    const errorMsg =
+      error.response?.data?.error || "Error al guardar los cambios.";
     createNotification(true, errorMsg);
   }
 });
 
 // BOTÓN DE EDITAR LOS DATOS DEL CLIENTE Y DEL AUTO
-// BOTÓN DE EDITAR LOS DATOS DEL CLIENTE Y DEL AUTO
 btnEditar.addEventListener("click", async () => {
   try {
-    const response = await axios.get(`/api/orders/${ordenId}`, { withCredentials: true });
+    const response = await axios.get(`/api/orders/${ordenId}`, {
+      withCredentials: true,
+    });
 
     // Como response.data.cliente ya es el objeto completo gracias a lo que modificamos en el backend:
     const clienteCompleto = response.data.cliente;
@@ -159,9 +237,9 @@ btnEditar.addEventListener("click", async () => {
 
     const datosCompletos = {
       ...response.data,
-      cliente: clienteCompleto
+      cliente: clienteCompleto,
     };
-    
+
     // Inyectamos el formulario en el DOM
     cargarFormularioRegistro(contenidoEdit, datosCompletos);
 
@@ -173,11 +251,11 @@ btnEditar.addEventListener("click", async () => {
 
     // BOTÓN DE GUARDAR CAMBIOS, PARA ACTUALIZAR LOS DATOS DEL VEHICULO O CLIENTE
     const formEdit = contenidoEdit.querySelector("#form-registro");
-    
+
     if (formEdit) {
       formEdit.onsubmit = async (e) => {
         e.preventDefault();
-       
+
         try {
           const actualizacionDatos = {
             nombre: formEdit.querySelector("#nombre-input")?.value,
@@ -189,18 +267,20 @@ btnEditar.addEventListener("click", async () => {
             modelo: formEdit.querySelector("#modelo-input")?.value,
             mecanico: formEdit.querySelector("#mecanico-input")?.value,
           };
-          
-          await axios.patch(`/api/cars/${vehiculoId}`, actualizacionDatos, { withCredentials: true });
-          createNotification(false, 'Datos actualizados exitosamente.');
+
+          await axios.patch(`/api/cars/${vehiculoId}`, actualizacionDatos, {
+            withCredentials: true,
+          });
+          createNotification(false, "Datos actualizados exitosamente.");
           window.location.href = `/edit-order/?id=${ordenId}`;
         } catch (error) {
           console.log(error);
-          const errorMsg = error.response?.data?.error || 'Error al actualizar los datos.';
+          const errorMsg =
+            error.response?.data?.error || "Error al actualizar los datos.";
           createNotification(true, errorMsg);
         }
       };
     }
-
   } catch (error) {
     console.error("Error en el evento click:", error);
     createNotification(true, "No se pudo cargar la información para editar.");

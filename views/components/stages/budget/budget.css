@@ -403,6 +403,34 @@
   transform: translateY(0);
 }
 
+/* ==========================================
+   ESTILOS PARA BOTÓN ELIMINAR DE REPUESTOS
+   ========================================== */
+.btn-eliminar-item {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-eliminar-item:hover {
+  background-color: #ef4444;
+  color: #ffffff;
+  border-color: #ef4444;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+}
+
+.btn-eliminar-item:active {
+  transform: translateY(0);
+}
+
 @media (max-width: 900px) {
   .presupuesto-formulario {
     grid-template-columns: 1fr 1fr;

@@ -5,7 +5,7 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const NAME_REGEX =
   /^[A-Z\u00d1][a-zA-Z-ÿí\u00f1\u00d1]+(\s*[A-Z\u00d1][a-zA-Z-ÿí\u00f1\u00d1\s]*)$/;
 const CEDULA_REGEX = /^([VEve]-?)?[0-9]{6,8}$/;
-const PLACA_REGEX = /^[A-Z]{3}[\s-]?[0-9]{2,3}[\s-]?[A-Z0-9]$/;
+const PLACA_REGEX = /^[A-Za-z0-9]{5,}$/;
 const MARCA_REGEX = /^[A-Z][A-Za-z0-9\s\-\.]{2,29}$/;
 const MODELO_REGEX = /^[A-Z][A-Za-z0-9\s\-\.\#\+]{2,34}$/;
 

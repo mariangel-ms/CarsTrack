@@ -27,44 +27,75 @@
     <!-- Contenedor Principal -->
     <main class="admin-container">
       <!-- Encabezado del Panel y Buscador -->
-      <div class="panel-encabezado">
-        <div class="panel-titulos">
-          <h1 class="titulo-pagina">Panel de control</h1>
-          <p class="subtitulo-pagina">
-            Gestión y monitoreo de vehículos en taller
-          </p>
-        </div>
+<section class="panel-hero">
+  <div class="panel-hero-contenido">
+    <span class="panel-hero-etiqueta">PANEL DE ADMINISTRACIÓN</span>
+    <h1>Bienvenido!</h1>
+    <p>Gestiona y supervisa los vehículos que se encuentran actualmente en el taller.</p>
+    <div class="panel-hero-busqueda">
+      <span class="icono-busqueda">⌕</span>
+      <input type="text" id="buscador-input" placeholder="Buscar por placa o modelo..." />
+    </div>
+  </div>
+  <div class="panel-hero-visual">
+    <div class="hero-brillo"></div>
+    <img src="/img/carro.png" alt="Vehículo en taller">
+  </div>
+</section>
 
-        <!-- Buscador -->
-        <div class="buscador-caja">
-          <div class="buscador-wrapper">
-            <input
-              type="text"
-              placeholder="Buscar por placa o modelo..."
-              class="input-buscar"
-              id="buscador-input"
-            />
-            <span class="icono-buscar">
-              <svg
-                class="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="16"
-                height="16"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                ></path>
-              </svg>
-            </span>
+<section class="metricas-seccion">
+  <div class="metricas-grid">
+    <div class="metrica-card tarjeta-activa">
+      <div class="metrica-contenido">
+        <div class="metrica-superior">
+          <span class="metrica-titulo">Órdenes en Taller</span>
+          <div class="metrica-icono icono-amarillo">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="20" height="20">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+            </svg>
           </div>
         </div>
+        <div class="metrica-inferior">
+          <h3 id="stat-activas" class="metrica-numero">0</h3>
+          <span class="metrica-detalle">Vehículos en proceso</span>
+        </div>
       </div>
-
+    </div>
+    <div class="metrica-card tarjeta-verde">
+      <div class="metrica-contenido">
+        <div class="metrica-superior">
+          <span class="metrica-titulo">Listos para Retirar</span>
+          <div class="metrica-icono icono-verde">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="20" height="20">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="metrica-inferior">
+          <h3 id="stat-listos" class="metrica-numero">0</h3>
+          <span class="metrica-detalle">Vehículos preparados</span>
+        </div>
+      </div>
+    </div>
+    <div class="metrica-card tarjeta-naranja">
+      <div class="metrica-contenido">
+        <div class="metrica-superior">
+          <span class="metrica-titulo">Presupuestos Pendientes</span>
+          <div class="metrica-icono icono-naranja">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="20" height="20">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="metrica-inferior">
+          <h3 id="stat-presupuestos" class="metrica-numero">0</h3>
+          <span class="metrica-detalle">Esperando aprobación</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="metricas-separador"></div>
+</section>
       <!-- Layout Principal (Dos Columnas) -->
       <div class="panel-layout">
         <!-- COLUMNA IZQUIERDA: Registro -->
@@ -145,7 +176,7 @@
                   required
                 />
                 <p class="information">
-                  Formato estándar venezolano (Ej: ABC12D o ABC-123-D).
+                 Debe contener al menos 5 digitos.
                 </p>
               </div>
 

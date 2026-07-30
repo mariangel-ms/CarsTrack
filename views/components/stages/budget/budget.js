@@ -95,4 +95,75 @@ export function cargarRepuestosPresupuesto(contenedor) {
         </button>
       </div>
     </section>
-  `;}
+  `;
+
+  // 1. Array para guardar los repuestos
+  const repuestos = [];
+  const params = new URLSearchParams(window.location.search);
+const ordenId = params.get('id');
+
+  // 2. Capturar elementos del DOM
+  const inputNombre = contenedor.querySelector("#nombre-repuesto");
+  const inputCantidad = contenedor.querySelector("#cantidad-repuesto");
+  const inputPrecio = contenedor.querySelector("#precio-repuesto");
+  const btnAgregar = contenedor.querySelector("#btn-agregar-repuesto");
+  const listaItems = contenedor.querySelector("#lista-repuestos-items");
+  const tablaVacia = contenedor.querySelector("#tabla-vacia");
+  const tablaContenido = contenedor.querySelector("#tabla-contenido");
+  const contadorRepuestos = contenedor.querySelector("#contador-repuestos");
+
+  // 3. Evento del botón agregar
+btnAgregar.addEventListener("click", () => {
+    const nombre = inputNombre.value;
+    const cantidad = inputCantidad.value;
+    const precio = inputPrecio.value;
+
+    if (nombre === "" || cantidad === "" || precio === "") return;
+
+    repuestos.push({ nombre, cantidad, precio });
+
+    contadorRepuestos.textContent = `${repuestos.length} repuestos`;
+    tablaVacia.classList.add("hidden");
+    tablaContenido.classList.remove("hidden");
+
+    const fila = document.createElement("div");
+    fila.className = "tabla-fila";
+    fila.innerHTML = `
+      <span>${nombre}</span>
+      <span>${cantidad}</span>
+      <span>$${precio}</span>
+      <span>$${cantidad * precio}</span>
+      <span><button type="button" class="btn-eliminar-item">X</button></span>
+    `;
+
+    // Primero agregamos la fila al DOM de la lista
+    listaItems.appendChild(fila);
+
+
+    inputNombre.value = "";
+    inputCantidad.value = "1";
+    inputPrecio.value = "";
+  });
+
+  
+listaItems.addEventListener("click", (e) => {
+    if (e.target.closest(".btn-eliminar-item")) {
+      const fila = e.target.closest(".tabla-fila");
+      if (fila) {
+        fila.remove(); // Borra la fila visualmente
+        
+        // Opcional: si quieres actualizar el texto del contador de repuestos
+        const filasRestantes = listaItems.querySelectorAll(".tabla-fila");
+        if (contadorRepuestos) {
+          contadorRepuestos.textContent = `${filasRestantes.length} repuestos`;
+        }
+
+        // Si ya no quedan filas, vuelve a mostrar la tabla vacía
+        if (filasRestantes.length === 0) {
+          tablaVacia.classList.remove("hidden");
+          tablaContenido.classList.add("hidden");
+        }
+      }
+    }
+  });
+}
