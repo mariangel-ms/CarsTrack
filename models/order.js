@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-// Subdocumento para cada repuesto usado en la orden (equivale a "eleccion_repuestos" del diagrama)
 const repuestoSchema = new mongoose.Schema({
     nombre: {
         type: String,

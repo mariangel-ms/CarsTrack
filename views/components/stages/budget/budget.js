@@ -1,4 +1,4 @@
-export function cargarRepuestosPresupuesto(contenedor) {
+export function cargarRepuestosPresupuesto(contenedor, repuestosExistentes, manoObraExistente) {
   contenedor.innerHTML = `
     <section class="fase-componente presupuesto-componente">
       <div class="componente-header">
@@ -97,10 +97,8 @@ export function cargarRepuestosPresupuesto(contenedor) {
     </section>
   `;
 
-  // 1. Array para guardar los repuestos
+  // 1. Array para guardar los repuestos (empieza vacio, o con lo que ya tenia la orden)
   const repuestos = [];
-  const params = new URLSearchParams(window.location.search);
-const ordenId = params.get('id');
 
   // 2. Capturar elementos del DOM
   const inputNombre = contenedor.querySelector("#nombre-repuesto");
@@ -112,6 +110,81 @@ const ordenId = params.get('id');
   const tablaContenido = contenedor.querySelector("#tabla-contenido");
   const contadorRepuestos = contenedor.querySelector("#contador-repuestos");
 
+  // Elementos del resumen (parte de abajo)
+  const inputManoObra = contenedor.querySelector("#costo-mano-obra");
+  const subtotalRepuestosEl = contenedor.querySelector("#subtotal-repuestos");
+  const subtotalManoObraEl = contenedor.querySelector("#subtotal-mano-obra");
+  const totalPresupuestoEl = contenedor.querySelector("#total-presupuesto");
+
+  // Recalcula subtotal de repuestos + mano de obra + total, y actualiza los textos
+  const actualizarResumen = () => {
+    let subtotalRepuestos = 0;
+
+    for (let i = 0; i < repuestos.length; i++) {
+      const cantidad = Number(repuestos[i].cantidad);
+      const precio = Number(repuestos[i].precio);
+      subtotalRepuestos = subtotalRepuestos + (cantidad * precio);
+    }
+
+    const manoObra = Number(inputManoObra.value) || 0;
+    const total = subtotalRepuestos + manoObra;
+
+    subtotalRepuestosEl.textContent = `$${subtotalRepuestos.toFixed(2)}`;
+    subtotalManoObraEl.textContent = `$${manoObra.toFixed(2)}`;
+    totalPresupuestoEl.textContent = `$${total.toFixed(2)}`;
+  };
+
+  // Dibuja una sola fila en la tabla (se usa tanto al agregar como al precargar)
+  const pintarFila = (repuesto) => {
+    const totalFila = repuesto.cantidad * repuesto.precio;
+
+    const fila = document.createElement("div");
+    fila.className = "tabla-fila";
+    fila.innerHTML = `
+      <span>${repuesto.nombre}</span>
+      <span>${repuesto.cantidad}</span>
+      <span>$${repuesto.precio}</span>
+      <span>$${totalFila}</span>
+      <span><button type="button" class="btn-eliminar-item">X</button></span>
+    `;
+
+    listaItems.appendChild(fila);
+  };
+
+  // Muestra u oculta la tabla vacia, y actualiza el contador
+  const actualizarVisibilidadTabla = () => {
+    contadorRepuestos.textContent = `${repuestos.length} repuestos`;
+
+    if (repuestos.length === 0) {
+      tablaVacia.classList.remove("hidden");
+      tablaContenido.classList.add("hidden");
+    } else {
+      tablaVacia.classList.add("hidden");
+      tablaContenido.classList.remove("hidden");
+    }
+  };
+
+  // Si la orden ya traia repuestos guardados, los cargamos de una vez,
+  // usando la MISMA funcion pintarFila que usa el boton de agregar
+  if (repuestosExistentes && repuestosExistentes.length > 0) {
+    for (let i = 0; i < repuestosExistentes.length; i++) {
+      repuestos.push(repuestosExistentes[i]);
+      pintarFila(repuestosExistentes[i]);
+    }
+    actualizarVisibilidadTabla();
+  }
+
+  // Si la orden ya tenia mano de obra guardada, la ponemos en el input
+  if (manoObraExistente) {
+    inputManoObra.value = manoObraExistente;
+  }
+
+  // Pintamos el resumen con lo que ya haya (existente o vacio)
+  actualizarResumen();
+
+  // Cada vez que cambies la mano de obra, se recalcula el total en vivo
+  inputManoObra.addEventListener("input", actualizarResumen);
+
   // 3. Evento del botón agregar
 btnAgregar.addEventListener("click", () => {
     const nombre = inputNombre.value;
@@ -120,25 +193,12 @@ btnAgregar.addEventListener("click", () => {
 
     if (nombre === "" || cantidad === "" || precio === "") return;
 
-    repuestos.push({ nombre, cantidad, precio });
+    const nuevoRepuesto = { nombre, cantidad, precio };
+    repuestos.push(nuevoRepuesto);
 
-    contadorRepuestos.textContent = `${repuestos.length} repuestos`;
-    tablaVacia.classList.add("hidden");
-    tablaContenido.classList.remove("hidden");
-
-    const fila = document.createElement("div");
-    fila.className = "tabla-fila";
-    fila.innerHTML = `
-      <span>${nombre}</span>
-      <span>${cantidad}</span>
-      <span>$${precio}</span>
-      <span>$${cantidad * precio}</span>
-      <span><button type="button" class="btn-eliminar-item">X</button></span>
-    `;
-
-    // Primero agregamos la fila al DOM de la lista
-    listaItems.appendChild(fila);
-
+    pintarFila(nuevoRepuesto);
+    actualizarVisibilidadTabla();
+    actualizarResumen();
 
     inputNombre.value = "";
     inputCantidad.value = "1";
@@ -150,20 +210,30 @@ listaItems.addEventListener("click", (e) => {
     if (e.target.closest(".btn-eliminar-item")) {
       const fila = e.target.closest(".tabla-fila");
       if (fila) {
-        fila.remove(); // Borra la fila visualmente
-        
-        // Opcional: si quieres actualizar el texto del contador de repuestos
-        const filasRestantes = listaItems.querySelectorAll(".tabla-fila");
-        if (contadorRepuestos) {
-          contadorRepuestos.textContent = `${filasRestantes.length} repuestos`;
-        }
+        // La fila esta en la misma posicion que su repuesto en el arreglo,
+        // porque siempre las agregamos en el mismo orden.
+        const filas = Array.from(listaItems.children);
+        const index = filas.indexOf(fila);
+        repuestos.splice(index, 1);
 
-        // Si ya no quedan filas, vuelve a mostrar la tabla vacía
-        if (filasRestantes.length === 0) {
-          tablaVacia.classList.remove("hidden");
-          tablaContenido.classList.add("hidden");
-        }
+        fila.remove(); // Borra la fila visualmente
+        actualizarVisibilidadTabla();
+        actualizarResumen();
       }
     }
   });
+}
+
+// Función global para calcular el total de cualquier orden/repuestos
+export function calcularTotalPresupuesto(repuestos = [], manoObra = 0) {
+  let subtotalRepuestos = 0;
+
+  for (let i = 0; i < repuestos.length; i++) {
+    const cantidad = Number(repuestos[i].cantidad);
+    const precio = Number(repuestos[i].precio);
+    subtotalRepuestos += cantidad * precio;
+  }
+
+  const manoObraNum = Number(manoObra) || 0;
+  return subtotalRepuestos + manoObraNum;
 }

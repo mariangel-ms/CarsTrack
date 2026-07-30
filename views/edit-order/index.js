@@ -1,12 +1,12 @@
 import { createNotification } from "/components/notification.js";
 import { cargarRecibido } from "../components/stages/received/received.js";
 import { cargarDiagnostico } from "../components/stages/diagnostic/diagnostic.js";
-import { cargarRepuestosPresupuesto } from "../components/stages/budget/budget.js";
+import { cargarRepuestosPresupuesto,  calcularTotalPresupuesto } from "../components/stages/budget/budget.js";
 import { cargarReparacion } from "../components/stages/repair/repair.js";
 import { cargarPruebas } from "../components/stages/testing/testing.js";
 import { cargarVehiculoListo } from "../components/stages/ready/ready.js";
 import { cargarEntregado } from "../components/stages/delivered/delivered.js";
-import { cargarFormularioRegistro } from "../components/client-edit/client-edit.js";
+import { cargarFormularioRegistro} from "../components/client-edit/client-edit.js";
 
 const btnVolver = document.querySelector(".btn-volver");
 const faseSelect = document.getElementById("fase");
@@ -19,17 +19,28 @@ const cedulaInfo = document.querySelector(".cedula");
 const correoInfo = document.querySelector(".correo");
 const carroInfo = document.querySelector(".carro");
 const placaInfo = document.querySelector(".placa");
+const costoEstimado = document.querySelector(".costo-valor");
 
 // Variable global para guardar la información de la orden traída de la BD
 let ordenActual = {};
+
+// Obtener el ID de la URL
+const params = new URLSearchParams(window.location.search);
+const ordenId = params.get("id");
+
+//--------------------------------------------------------------------------
+const actualizarCostoEstimado = () => {
+  const total = calcularTotalPresupuesto(ordenActual.repuestos, ordenActual.mano_obra);
+  costoEstimado.textContent = `$${total.toFixed(2)}`;
+};
 
 btnVolver.addEventListener("click", () => {
   window.location.href = "/panel/";
 });
 
+
 // Función que inyecta los datos en los inputs basándose en los ID que ya tienen en el HTML
 const rellenarInputsAutomaticamente = (fase) => {
-  setTimeout(() => {
     if (fase === "recibido" && ordenActual.recepcion) {
       const inputFecha = document.getElementById("fecha-recepcion");
       const inputKm = document.getElementById("kilometraje");
@@ -62,53 +73,11 @@ const rellenarInputsAutomaticamente = (fase) => {
           : "";
     }
 
-if (fase === "presupuesto" && ordenActual.repuestos) {
-      const listaItems = document.getElementById("lista-repuestos-items");
-      const tablaVacia = document.getElementById("tabla-vacia");
-      const tablaContenido = document.getElementById("tabla-contenido");
-      const contadorRepuestos = document.getElementById("contador-repuestos");
 
-      if (listaItems) {
-        listaItems.innerHTML = "";
-        let subtotalRepuestos = 0; // Usamos esta variable para acumular
-
-        ordenActual.repuestos.forEach((r) => {
-          const totalFila = r.precio * r.cantidad;
-          subtotalRepuestos += totalFila; // Sumamos aquí correctamente
-
-          listaItems.innerHTML += `<div class="tabla-fila"><span>${r.nombre}</span>
-          <span>${r.cantidad}</span>
-          <span>$${r.precio}</span>
-          <span>$${totalFila}</span>
-          <span><button type="button" class="btn-eliminar-item">X</button></span>
-          </div>`;
-        });
-
-        // Rellenar input de mano de obra
-        const inputManoObra = document.getElementById("costo-mano-obra");
-        const valorManoObra = Number(ordenActual.mano_obra) || 0;
-        if (inputManoObra) {
-          inputManoObra.value = valorManoObra;
-        }
-
-        // Calcular y pintar los subtotales en el resumen
-        const elSubtotalRepuestos = document.getElementById("subtotal-repuestos");
-        const elSubtotalManoObra = document.getElementById("subtotal-mano-obra");
-        const elTotalPresupuesto = document.getElementById("total-presupuesto");
-
-        if (elSubtotalRepuestos) elSubtotalRepuestos.textContent = `$${subtotalRepuestos.toFixed(2)}`;
-        if (elSubtotalManoObra) elSubtotalManoObra.textContent = `$${valorManoObra.toFixed(2)}`;
-        if (elTotalPresupuesto) elTotalPresupuesto.textContent = `$${(subtotalRepuestos + valorManoObra).toFixed(2)}`;
-
-        if (contadorRepuestos)
-          contadorRepuestos.textContent = `${ordenActual.repuestos.length} repuestos`;
-        if (tablaVacia) tablaVacia.classList.add("hidden");
-        if (tablaContenido) tablaContenido.classList.remove("hidden");
-      }
-    }
-  }, 50);
 };
 
+
+//--------------------------------------------------------------------------
 // Función para pintar la fase visualmente
 const cambiarFaseVisual = (fase) => {
   contenidoFase.innerHTML = "";
@@ -118,7 +87,7 @@ const cambiarFaseVisual = (fase) => {
   } else if (fase === "diagnostico") {
     cargarDiagnostico(contenidoFase);
   } else if (fase === "presupuesto") {
-    cargarRepuestosPresupuesto(contenidoFase);
+    cargarRepuestosPresupuesto(contenidoFase, ordenActual.repuestos, ordenActual.mano_obra);
   } else if (fase === "reparacion") {
     cargarReparacion(contenidoFase);
   } else if (fase === "pruebas") {
@@ -131,17 +100,18 @@ const cambiarFaseVisual = (fase) => {
 
   // Llamamos a la función que rellena los inputs automáticamente
   rellenarInputsAutomaticamente(fase);
+  actualizarCostoEstimado()
 };
 
+
+//--------------------------------------------------------------------------
 // Evento cuando cambias de fase manualmente en el select
 faseSelect.addEventListener("change", () => {
   cambiarFaseVisual(faseSelect.value);
 });
 
-// Obtener el ID de la URL
-const params = new URLSearchParams(window.location.search);
-const ordenId = params.get("id");
 
+//--------------------------------------------------------------------------
 // Cargar los datos iniciales al entrar a la página
 const cargarOrdenInicial = async () => {
   if (!ordenId) {
@@ -161,6 +131,7 @@ const cargarOrdenInicial = async () => {
 
     // Se Pinta la fase, y se llenan los inputs solitos
     cambiarFaseVisual(faseActual);
+      actualizarCostoEstimado()
 
     console.log(ordenActual);
 
@@ -175,11 +146,12 @@ const cargarOrdenInicial = async () => {
     createNotification(true, "No se pudo cargar la información de la orden.");
   }
 };
+//--------------------------------------------------------------------------
 
 // Ejecutar al iniciar
 cargarOrdenInicial();
 
-// Botón para guardar cambios de las fases de la orden
+// Botón para guardar cambios de las fases de la orden. ESTO ES LO QUE MANDA TODO A LA BASE DE DATOS
 btnGuardar.addEventListener("click", async () => {
   if (!ordenId) {
     console.log("No se encontró el id de la orden en la URL.");
@@ -217,12 +189,14 @@ btnGuardar.addEventListener("click", async () => {
   try {
     await axios.put(`/api/orders/${ordenId}`, datos, { withCredentials: true });
     createNotification(false, "Cambios guardados exitosamente.");
+    window.location.reload();
   } catch (error) {
     const errorMsg =
       error.response?.data?.error || "Error al guardar los cambios.";
     createNotification(true, errorMsg);
   }
 });
+//--------------------------------------------------------------------------
 
 // BOTÓN DE EDITAR LOS DATOS DEL CLIENTE Y DEL AUTO
 btnEditar.addEventListener("click", async () => {
@@ -286,3 +260,4 @@ btnEditar.addEventListener("click", async () => {
     createNotification(true, "No se pudo cargar la información para editar.");
   }
 });
+//--------------------------------------------------------------------------

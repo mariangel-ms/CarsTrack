@@ -35,18 +35,6 @@ carsRouter.post('/', async (request, response) => {
         rol: 'cliente',
       });
       await cliente.save();
-    } else {
-      // Si ya existia, se actualizan datos de contacto si vinieron nuevos
-      let huboCambios = false;
-      if (correo && cliente.email !== correo) {
-        cliente.email = correo;
-        huboCambios = true;
-      }
-      if (telefono && cliente.telefono !== telefono) {
-        cliente.telefono = telefono;
-        huboCambios = true;
-      }
-      if (huboCambios) await cliente.save();
     }
 
     // Buscar si el vehiculo ya existe por placa; si no existe, se crea
