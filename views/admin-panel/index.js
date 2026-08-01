@@ -121,6 +121,7 @@ const cargarVehiculos = async () => {
     todasLasOrdenes = response.data;
     console.log(todasLasOrdenes);
     renderTarjetas(todasLasOrdenes);
+    actualizarStats(todasLasOrdenes)
   } catch (error) {
     console.error("Error al cargar los vehículos:", error);
   }
@@ -287,3 +288,30 @@ form.addEventListener("submit", async (e) => {
     }, 5000);
   }
 });
+
+
+// Función para calcular y pintar las métricas de arriba
+const actualizarStats = (ordenes) => {
+  const statActivas = document.querySelector("#stat-activas");
+  const statListos = document.querySelector("#stat-listos");
+  const statPresupuestos = document.querySelector("#stat-presupuestos");
+
+  // Filtramos según el estado de la orden (puedes ajustarlo según los textos exactos que guardes en tu BD)
+  const activas = ordenes.filter(o => 
+    (o.estado || "").toLowerCase() !== "entregado" && 
+    (o.estado || "").toLowerCase() !== "listo"
+  ).length;
+
+  const listos = ordenes.filter(o => 
+    (o.estado || "").toLowerCase() === "listo" || 
+    (o.estado || "").toLowerCase() === "entregado"
+  ).length;
+
+  const presupuestos = ordenes.filter(o => 
+    (o.aprobacion_reparacion || "")
+  ).length;
+
+  if (statActivas) statActivas.textContent = activas;
+  if (statListos) statListos.textContent = listos;
+  if (statPresupuestos) statPresupuestos.textContent = presupuestos;
+};

@@ -128,7 +128,7 @@ const orderSchema = new mongoose.Schema({
         }
     }],
     // --- FASE: Control de calidad (testing.js) ---
-    calidad: {
+    pruebas: {
         observaciones: { type: String, trim: true },
         resultado: {
             type: String,
@@ -139,9 +139,11 @@ const orderSchema = new mongoose.Schema({
     listo_entrega: {
         fecha_estimada_retiro: { type: Date },
         notas: { type: String, trim: true }
+    },
+
+        entregado: {
+        fecha_retirado: { type: Date },
     }
-    // FASE: Entregado (delivered.js) no recolecta datos propios,
-    // solo marca estado = "Entregado" cuando se llega a esa fase.
 }, {
      timestamps: true 
     })

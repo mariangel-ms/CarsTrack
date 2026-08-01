@@ -1,20 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Special+Gothic+Expanded+One&display=swap');
 
 * {
   box-sizing: border-box;
   margin: 0;
-}
-body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  min-height: 100vh;
-  color: #ffffff;
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-  position: relative; 
+  padding: 0;
 }
 
-/* 🌟 Capa para oscurecer el fondo */
+html {
+  min-height: 100%;
+}
+
+
+
+body {
+    background-color: #030303; /* Negro profundo puro */
+    color: #f4f4f5;            /* Blanco roto */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+}
+
+
 body::before {
   content: "";
   position: fixed; /* Cubre toda la ventana */
@@ -28,178 +38,18 @@ body::before {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: rgba(0, 0, 0, 0.7); 
+  background-color: rgba(14, 14, 14, 0.932); 
   
   background-blend-mode: darken; 
   
   z-index: -1;
 }
-/* --- CONTENEDOR CENTRAL DE LA ESTRUCTURA --- */
-.contenedor-registro {
-  flex: 1;
-  display: flex;
-  flex-direction: column; /* Cambiado a columna para que el título quede arriba, afuera */
-  justify-content: center;
-  align-items: center;
-  padding: 100px 20px 60px 20px;
-  min-height: 100vh;
-}
-
-/* --- 🌟 ENCABEZADO FUERA DEL FORMULARIO --- */
-.encabezado-form {
-  margin-bottom: 28px;
-  text-align: center;
-  max-width: 480px;
-  width: 100%;
-}
-
-.titulo-registro {
-  font-family: "Special Gothic Expanded One", sans-serif;
-  font-size: 45px;
-  font-weight: 900;
-  letter-spacing: -1px;
-  margin-bottom: 8px;
-  /* Dorado degradado metalizado e intenso */
-  background: linear-gradient(135deg, #ffe066 0%, #f5be18 50%, #cca010 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: drop-shadow(0 4px 12px rgba(245, 190, 24, 0.15));
-}
-
-.subtitulo-registro {
-  font-size: 14px;
-  color: #a1a1aa; /* Gris claro para que resalte sobre el fondo */
-  font-weight: 500;
-  letter-spacing: 0.2px;
-}
-
-/* --- EL FORMULARIO CON BORDE DORADO --- */
-.tarjeta-formulario {
-  width: 100%;
-  max-width: 480px;
-  background: #111113; /* Gris mecánico oscuro, no negro absoluto */
-  
-  /* 🌟 BORDE DORADO METÁLICO INTERACTIVO */
-  border: 1px solid rgba(245, 190, 24, 0.4); 
-  border-radius: 24px;
-  padding: 35px 30px;
-  
-  /* Sombra industrial con un sutil aura dorada */
-  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6),
-              0 0 40px rgba(245, 190, 24, 0.03);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.information {
-    display: none;
-    width: 100%;
-    font-size: 11px;
-    color: #e62b2b;
-    margin-top: 4px;
-    line-height: 1.2;
-}
-
-.show-information { display: block; }
 
 
-/* --- CAMPOS DE ENTRADA (INPUTS) --- */
-.grupo-input {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  margin-bottom: 10px;
-}
+/* ==========================================
+   NAVBAR
+   ========================================== */
 
-.etiqueta-form {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  color: #e4e4e7; /* Blanco grisáceo muy limpio */
-}
-
-.asterisco {
-  color: #f5be18; /* Asteriscos en color oro */
-}
-
-input {
-  width: 100%;
-  background: #17171a; /* Fondo del input un poco más claro que la tarjeta */
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
-  padding: 15px 18px;
-  font-size: 14px;
-  color: #ffffff;
-  font-family: inherit;
-  transition: all 0.2s ease;
-}
-
-input::placeholder {
-  color: #52525b;
-}
-
-/* Foco que combina con el borde dorado del formulario */
-input:focus {
-  outline: none;
-  border-color: #f5be18;
-  background: #1a1a1e;
-  box-shadow: 0 0 0 4px rgba(245, 190, 24, 0.1);
-}
-
-.ayuda-input {
-  font-size: 11px;
-  color: #71717a;
-}
-
-/* REQUISITOS DISCRETOS */
-.caja-requisitos {
-  padding: 4px 2px 0 2px;
-}
-
-#texto-requisitos {
-  font-size: 11px;
-  color: #71717a;
-  margin-bottom: 2px;
-}
-
-/* --- 🌟 EL BOTÓN DE REGISTRAR DORADO ELECTRIZANTE --- */
-#form-btn {
-  width: 100%;
-  margin-top: 14px;
-  /* Oro puro sólido e intenso */
-background-color: #cca010;
-  color: #000000; /* Texto en negro para máxima legibilidad industrial */
-  border: none;
-  border-radius: 14px;
-  padding: 16px;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  letter-spacing: 0.3px;
-  transition: all 0.3s ease;
-  box-shadow: 0 8px 24px rgba(245, 190, 24, 0.2);
-}
-
-#form-btn:hover:not(:disabled) {
-background-color: #cca010;
-  transform: translateY(-2px);
-}
-
-#form-btn:active:not(:disabled) {
-  transform: translateY(0);
-}
-
-/* Estado deshabilitado integrado */
-#form-btn:disabled {
-  opacity: 1;
-  background: #27272a;
-  border: 1px solid rgba(255, 255, 255, 0.02);
-  color: #52525b;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-/* --- ELEMENTOS DE ARQUITECTURA --- */
 #navbar {
   position: fixed;
   top: 0;
@@ -209,39 +59,378 @@ background-color: #cca010;
   z-index: 100;
 }
 
+/* ==========================================
+   CONTENEDOR PRINCIPAL
+   ========================================== */
+
+.contenedor-registro {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 20px 0px;
+}
+
+/* ==========================================
+   ENCABEZADO
+   ========================================== */
+
+.encabezado-form {
+  width: 100%;
+  max-width: 520px;
+  text-align: center;
+  margin-bottom: 26px;
+}
+
+.titulo-registro {
+  font-family: "Special Gothic Expanded One", sans-serif;
+  font-size: clamp(30px, 5vw, 42px);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.8px;
+  color: #f5f5f5;
+  margin-bottom: 10px;
+}
+
+.subtitulo-registro {
+  color: #858585;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* ==========================================
+   TARJETA DEL FORMULARIO
+   ========================================== */
+
+.tarjeta-formulario {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  padding: 32px;
+  background: rgba(17, 17, 17, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(0, 0, 0, 0.4);
+}
+
+/* Línea dorada superior */
+.tarjeta-formulario::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 18%;
+  right: 18%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #ffc400,
+    transparent
+  );
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(255, 196, 0, 0.35);
+}
+
+/* ==========================================
+   GRUPOS DE INPUT
+   ========================================== */
+
+.grupo-input {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 18px;
+}
+
+.etiqueta-form {
+  color: #d4d4d4;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.asterisco {
+  color: #ffc400;
+  margin-left: 2px;
+}
+
+/* ==========================================
+   INPUTS
+   ========================================== */
+
+input {
+  width: 100%;
+  height: 46px;
+  padding: 0 14px;
+  color: #f5f5f5;
+  background: #191919;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 9px;
+  outline: none;
+  font-family: inherit;
+  font-size: 13px;
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+input::placeholder {
+  color: #555555;
+}
+
+input:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+input:focus {
+  background: #1c1c1c;
+  border-color: rgba(255, 196, 0, 0.65);
+  box-shadow: 0 0 0 3px rgba(255, 196, 0, 0.07);
+}
+
+/* ==========================================
+   AYUDAS Y MENSAJES
+   ========================================== */
+
+.ayuda-input {
+  color: #666666;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.information {
+  display: none;
+  width: 100%;
+  margin-top: 3px;
+  color: #ef6666;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.show-information {
+  display: block;
+}
+
+/* ==========================================
+   REQUISITOS
+   ========================================== */
+
+.caja-requisitos {
+  padding: 3px 0 0;
+}
+
+#texto-requisitos {
+  margin-bottom: 3px;
+  color: #777777;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+/* ==========================================
+   ESTADOS DE VALIDACIÓN
+   ========================================== */
 
 input.aprobado {
-  border: 2px solid #22c55e !important; /* Verde esmeralda industrial */
-  background: #121f16 !important; /* Fondo sutilmente verdoso */
-  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.15) !important;
+  border-color: rgba(34, 197, 94, 0.7) !important;
+  background: rgba(20, 45, 28, 0.35) !important;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.07) !important;
 }
 
 input.error {
-  border: 2px solid #ef4444 !important; /* Rojo vibrante */
-  background: #241414 !important; /* Fondo sutilmente rojizo */
-  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15) !important;
+  border-color: rgba(239, 68, 68, 0.7) !important;
+  background: rgba(55, 20, 20, 0.35) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.07) !important;
 }
+
+/* ==========================================
+   BOTÓN REGISTRAR
+   ========================================== */
+
+#form-btn {
+  width: 100%;
+  height: 46px;
+  margin-top: 10px;
+  padding: 0 70px;
+  color: #111111;
+  background: linear-gradient(
+    135deg,
+    #ffd84d,
+    #f3b900
+  );
+  border: none;
+  border-radius: 9px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    filter 0.25s ease;
+  box-shadow:
+    0 8px 20px rgba(255, 196, 0, 0.12);
+}
+
+#form-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow:
+    0 12px 28px rgba(255, 196, 0, 0.2);
+}
+
+#form-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+#form-btn:disabled {
+  color: #555555;
+  background: #242424;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ==========================================
+   NOTIFICACIONES
+   ========================================== */
 
 #notification {
   position: fixed !important;
-  top: 90px !important;
+  top: 88px !important;
   right: 24px !important;
   z-index: 9999 !important;
   display: flex !important;
   flex-direction: column !important;
   gap: 12px !important;
-  width: 100% !important;
-  max-width: 360px !important;
+  width: calc(100% - 48px) !important;
+  max-width: 400px !important;
   pointer-events: none !important;
 }
-#notification {
+
+#notification .notification-item, 
+#notification div {
+  padding: 10px 15px !important; /* ¡Aquí es donde va el padding para que el texto respire! */
+}
+
+
+/* ==========================================
+   BARRA DE NAVEGACIÓN
+   ========================================== */
+.admin-header {
   position: fixed;
-  top: 88px;
-  right: 24px;
-  z-index: 110;
+top: 0;
+  left: 0;        /* <--- Asegura que pegue contra la izquierda de la pantalla */
+  right: 0;       /* <--- Asegura que pegue contra la derecha de la pantalla */
+  width: 100vw;
+  z-index: 1000;
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-width: 400px;
-  width: calc(100% - 48px);
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  width: 100%;
+  background: linear-gradient(180deg, #181818, #0f0f0f);
+  border-bottom: 1px solid rgba(255, 196, 0, .18);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, .35);
+}
+
+.admin-header::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, .06);
+}
+
+.admin-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 196, 0, .9), transparent);
+}
+
+.logo-barra {
+  height: 30px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  margin-bottom: 5px;
+}
+
+.marca-titulo {
+  font-family: "Special Gothic Expanded One", sans-serif;
+  color: rgba(255, 255, 255, 0.884);
+  font-size: 20px;
+  font-weight: 800;
+  text-shadow: 5px 2px rgba(255, 208, 0, 0.61);
+}
+
+.usuario-menu {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.volver-btn {
+  font-family: "Special Gothic Expanded One", sans-serif;
+  font-weight: 600;
+  background: #171717;
+  color: #e9ae0ae5;
+  border: 1px solid rgba(255, 174, 0, 0.664);
+  border-radius: 12px;
+  padding: 8px 25px;
+  transition: .3s;
+  cursor: pointer;
+}
+
+.volver-btn:hover {
+      font-family: "Special Gothic Expanded One", sans-serif;
+  transform: translateY(-2px);
+  background: #ffca1d;
+  color: rgba(0, 0, 0, 0.89);
+  box-shadow: 0 7px 20px rgba(255, 196, 0, 0.25);
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 600px) {
+  .contenedor-registro {
+    padding: 90px 16px 35px;
+  }
+
+  .encabezado-form {
+    margin-bottom: 20px;
+  }
+
+  .titulo-registro {
+    font-size: 30px;
+  }
+
+  .subtitulo-registro {
+    font-size: 12px;
+  }
+
+  .tarjeta-formulario {
+    padding: 25px 20px;
+    border-radius: 15px;
+  }
+
+  #notification {
+    top: 78px !important;
+    right: 16px !important;
+    width: calc(100% - 32px) !important;
+  }
 }

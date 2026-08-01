@@ -1,4 +1,6 @@
-export function cargarRepuestosPresupuesto(contenedor, repuestosExistentes, manoObraExistente) {
+import { createNotification } from "/components/notification.js";
+
+export function cargarRepuestosPresupuesto(contenedor, repuestosExistentes, manoObraExistente, telefonoCliente = "") {
   contenedor.innerHTML = `
     <section class="fase-componente presupuesto-componente">
       <div class="componente-header">
@@ -90,17 +92,17 @@ export function cargarRepuestosPresupuesto(contenedor, repuestosExistentes, mano
       </div>
 
       <div class="presupuesto-acciones">
-        <button type="button" class="btn-enviar-presupuesto" id="btn-enviar-presupuesto">
+        <button type="button" class="btn-enviar-presupuesto" id="btn-enviar-presupuesto" data-telefono="${telefonoCliente}">
           Enviar presupuesto
         </button>
       </div>
     </section>
   `;
 
-  // 1. Array para guardar los repuestos (empieza vacio, o con lo que ya tenia la orden)
+  // 1. Array para guardar los repuestos (empieza vacio, o con lo que ya tenia la orden)[cite: 2]
   const repuestos = [];
 
-  // 2. Capturar elementos del DOM
+  // 2. Capturar elementos del DOM[cite: 2]
   const inputNombre = contenedor.querySelector("#nombre-repuesto");
   const inputCantidad = contenedor.querySelector("#cantidad-repuesto");
   const inputPrecio = contenedor.querySelector("#precio-repuesto");
@@ -110,13 +112,13 @@ export function cargarRepuestosPresupuesto(contenedor, repuestosExistentes, mano
   const tablaContenido = contenedor.querySelector("#tabla-contenido");
   const contadorRepuestos = contenedor.querySelector("#contador-repuestos");
 
-  // Elementos del resumen (parte de abajo)
+  // Elementos del resumen (parte de abajo)[cite: 2]
   const inputManoObra = contenedor.querySelector("#costo-mano-obra");
   const subtotalRepuestosEl = contenedor.querySelector("#subtotal-repuestos");
   const subtotalManoObraEl = contenedor.querySelector("#subtotal-mano-obra");
   const totalPresupuestoEl = contenedor.querySelector("#total-presupuesto");
 
-  // Recalcula subtotal de repuestos + mano de obra + total, y actualiza los textos
+  // Recalcula subtotal de repuestos + mano de obra + total, y actualiza los textos[cite: 2]
   const actualizarResumen = () => {
     let subtotalRepuestos = 0;
 
@@ -134,7 +136,7 @@ export function cargarRepuestosPresupuesto(contenedor, repuestosExistentes, mano
     totalPresupuestoEl.textContent = `$${total.toFixed(2)}`;
   };
 
-  // Dibuja una sola fila en la tabla (se usa tanto al agregar como al precargar)
+  // Dibuja una sola fila en la tabla (se usa tanto al agregar como al precargar)[cite: 2]
   const pintarFila = (repuesto) => {
     const totalFila = repuesto.cantidad * repuesto.precio;
 
@@ -151,7 +153,7 @@ export function cargarRepuestosPresupuesto(contenedor, repuestosExistentes, mano
     listaItems.appendChild(fila);
   };
 
-  // Muestra u oculta la tabla vacia, y actualiza el contador
+  // Muestra u oculta la tabla vacia, y actualiza el contador[cite: 2]
   const actualizarVisibilidadTabla = () => {
     contadorRepuestos.textContent = `${repuestos.length} repuestos`;
 
@@ -164,8 +166,7 @@ export function cargarRepuestosPresupuesto(contenedor, repuestosExistentes, mano
     }
   };
 
-  // Si la orden ya traia repuestos guardados, los cargamos de una vez,
-  // usando la MISMA funcion pintarFila que usa el boton de agregar
+  // Si la orden ya traia repuestos guardados, los cargamos de una vez[cite: 2]
   if (repuestosExistentes && repuestosExistentes.length > 0) {
     for (let i = 0; i < repuestosExistentes.length; i++) {
       repuestos.push(repuestosExistentes[i]);
@@ -174,19 +175,19 @@ export function cargarRepuestosPresupuesto(contenedor, repuestosExistentes, mano
     actualizarVisibilidadTabla();
   }
 
-  // Si la orden ya tenia mano de obra guardada, la ponemos en el input
+  // Si la orden ya tenia mano de obra guardada, la ponemos en el input[cite: 2]
   if (manoObraExistente) {
     inputManoObra.value = manoObraExistente;
   }
 
-  // Pintamos el resumen con lo que ya haya (existente o vacio)
+  // Pintamos el resumen con lo que ya haya (existente o vacio)[cite: 2]
   actualizarResumen();
 
-  // Cada vez que cambies la mano de obra, se recalcula el total en vivo
+  // Cada vez que cambies la mano de obra, se recalcula el total en vivo[cite: 2]
   inputManoObra.addEventListener("input", actualizarResumen);
 
-  // 3. Evento del botón agregar
-btnAgregar.addEventListener("click", () => {
+  // 3. Evento del botón agregar[cite: 2]
+  btnAgregar.addEventListener("click", () => {
     const nombre = inputNombre.value;
     const cantidad = inputCantidad.value;
     const precio = inputPrecio.value;
@@ -205,26 +206,60 @@ btnAgregar.addEventListener("click", () => {
     inputPrecio.value = "";
   });
 
-  
-listaItems.addEventListener("click", (e) => {
+  listaItems.addEventListener("click", (e) => {
     if (e.target.closest(".btn-eliminar-item")) {
       const fila = e.target.closest(".tabla-fila");
       if (fila) {
-        // La fila esta en la misma posicion que su repuesto en el arreglo,
-        // porque siempre las agregamos en el mismo orden.
         const filas = Array.from(listaItems.children);
         const index = filas.indexOf(fila);
         repuestos.splice(index, 1);
 
-        fila.remove(); // Borra la fila visualmente
+        fila.remove();
         actualizarVisibilidadTabla();
         actualizarResumen();
       }
     }
   });
+  //-------------------------------------------------------------------------------------------------------------------------
+// -------------------------------API DE WHATSAPP----------------------------------------------------------
+  const whatsappBtn = contenedor.querySelector(".btn-enviar-presupuesto");
+
+  whatsappBtn?.addEventListener("click", async () => {
+    const telefono = whatsappBtn.getAttribute("data-telefono")?.replace(/\D/g, "");
+
+    if (!telefono) {
+     createNotification(true, "No se encontró un número de teléfono registrado.");
+      return;
+    }
+
+
+    const textoMensaje = `"¡Hola! Te saludamos de MotorTrack. Te informamos que ya hemos cargado el presupuesto de tu vehículo en la plataforma para que puedas revisarlo. ¡Quedamos atentos a tu respuesta! 🎈🚗"`;
+
+    const apiKey = "7b544408bebe671e46b85029675bea49b50d5faea5796cd257c9ac68d4fd3ada"; 
+
+    try {
+      whatsappBtn.textContent = "Enviando...";
+      whatsappBtn.disabled = true;
+
+      await axios.post('https://www.wasenderapi.com/api/send-message', {
+        to: `58${telefono}`,
+        text: textoMensaje
+      }, {
+        headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' }
+      });
+    createNotification(false, "¡Presupuesto enviado por WhatsApp exitosamente!");
+    } catch (error) {
+      console.error("Error al enviar mensaje:", error);
+          createNotification(true, "Hubo un error al enviar el mensaje automático.");
+    } finally {
+      whatsappBtn.textContent = "Enviar presupuesto";
+      whatsappBtn.disabled = false;
+    }
+  });
+  //-------------------------------------------------------------------------------------------------------------------------
 }
 
-// Función global para calcular el total de cualquier orden/repuestos
+// Función global para calcular el total de cualquier orden/repuestos[cite: 2]
 export function calcularTotalPresupuesto(repuestos = [], manoObra = 0) {
   let subtotalRepuestos = 0;
 

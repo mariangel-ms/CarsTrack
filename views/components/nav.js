@@ -38,6 +38,10 @@ if (window.location.pathname.startsWith('/login')) {
   createNavLogin();
 }
 
+if (window.location.pathname.startsWith('/signup')) {
+  createNavLogin();
+}
+
 const closeBtn = document.querySelector('#close-btn');
  
 closeBtn?.addEventListener('click', async () => {

@@ -517,6 +517,26 @@ body::before {
   display: none !important;
 }
 
+#notification {
+  padding: 16px 20px !important;; 
+  position: fixed !important;
+  top: 88px !important;
+  right: 24px !important;
+  z-index: 9999 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  width: calc(100% - 48px) !important;
+  max-width: 400px !important;
+  pointer-events: none !important;
+}
+
+#notification .notification-item, 
+#notification div {
+  padding: 10px 15px !important; /* ¡Aquí es donde va el padding para que el texto respire! */
+}
+
+
 @media (max-width: 750px) {
   .formulario-fase {
     grid-template-columns: 1fr;

@@ -7,7 +7,7 @@
     <!-- Vinculación del archivo CSS con el estilo industrial corregido -->
     <link rel="stylesheet" href="styles.css" />
     <!-- Librería Axios para el procesamiento del backend -->
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
 
@@ -22,15 +22,14 @@
     <main class="contenedor-registro">
       
       <!-- 🌟 El encabezado queda AFUERA de la tarjeta para lucir el degradado dorado -->
-      <div class="encabezado-form">
-        <h1 class="titulo-registro">Crea tu cuenta</h1>
-        <p class="subtitulo-registro">Completa los datos del administrador para acceder a la plataforma.</p>
-      </div>
+
 
       <!-- Tarjeta del Formulario con bordes dorados -->
       <div class="tarjeta-formulario">
         <form id="form">
-          
+                <div class="encabezado-form">
+        <h1 class="titulo-registro">Crea tu cuenta</h1>
+      </div>
           <!-- Campo: Nombre completo -->
           <div class="grupo-input">
             <label for="name-input" class="etiqueta-form">
@@ -127,6 +126,6 @@
     <!-- Scripts de Arquitectura Frontend -->
     <script type="module" src="index.js"></script>
     <script type="module" src="/components/notification.js"></script>
-    <!-- <script src="/components/nav.js"></script> -->
+    <script src="/components/nav.js"></script>
   </body>
 </html>

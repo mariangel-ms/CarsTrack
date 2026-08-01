@@ -4,14 +4,19 @@
 
 .reparacion-formulario {
   display: flex;
-  grid-template-columns: 1fr auto;
-  align-items: end;
+  align-items: flex-end;
   gap: 15px;
   margin-top: 22px;
   padding: 20px;
   background: #191919;
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 14px;
+}
+
+/* Hacemos que el grupo del input ocupe todo el espacio sobrante del medio */
+.reparacion-formulario .campo-grupo {
+  flex: 1;
+  margin-bottom: 0; /* Para evitar que desalinee la base */
 }
 
 .btn-agregar-reparacion {

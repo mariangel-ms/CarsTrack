@@ -10,7 +10,7 @@
 
 
 body {
-    background-color: #09090b; /* Negro profundo puro */
+    background-color: #030303; /* Negro profundo puro */
     color: #f4f4f5;            /* Blanco roto */
     min-height: 100vh;
     display: flex;
@@ -34,7 +34,7 @@ body::before {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: rgba(14, 14, 14, 0.801); 
+  background-color: rgba(14, 14, 14, 0.938); 
   
   background-blend-mode: darken; 
   
@@ -145,17 +145,13 @@ top: 0;
 }
 
 .brand-title {
-    font-family: "Special Gothic Expanded One", sans-serif;
-    font-size: 2.4rem;
+font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 2.0rem;
     font-weight: 900;
     color: #f4f4f4;
-    letter-spacing: 1px;
+    letter-spacing: -1px;
     text-transform: uppercase;
     margin-bottom: 12px;
-
-    text-shadow:
-        3px 3px 0 rgba(255, 196, 0, 0.75),
-        0 0 18px rgba(255, 196, 0, 0.12);
 }
 
 .form-title {

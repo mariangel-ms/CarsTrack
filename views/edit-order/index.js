@@ -73,7 +73,38 @@ const rellenarInputsAutomaticamente = (fase) => {
           : "";
     }
 
+        if (fase === "pruebas" && ordenActual.pruebas) {
+      const inputObservaciones = document.getElementById("observaciones");
+      const resultado = document.getElementById("resultado-calidad");
 
+      if (inputObservaciones)
+        inputObservaciones.value = ordenActual.pruebas.observaciones || "";
+      if (resultado)
+        resultado.value = ordenActual.pruebas.resultado || "";
+    }
+
+
+    if (fase === "listo" && ordenActual.listo_entrega) {
+      const inputFecha = document.getElementById("fecha-estimada-retiro");
+      const inputNota = document.getElementById("notas-listo");
+
+      if (inputNota)
+        inputNota.value =  ordenActual.listo_entrega.notas || "";
+
+      if (inputFecha)
+       inputFecha.value = ordenActual.listo_entrega.fecha_estimada_retiro
+          ? ordenActual.listo_entrega.fecha_estimada_retiro.split("T")[0]
+          : "";
+    }
+
+       if (fase === "entregado" && ordenActual.entregado) {
+      const inputFechaRetirado = document.getElementById("fecha-retirado");
+
+      if (inputFechaRetirado)
+      inputFechaRetirado.value = ordenActual.entregado.fecha_retirado
+          ? ordenActual.entregado.fecha_retirado.split("T")[0]
+          : "";
+    }
 };
 
 
@@ -87,9 +118,14 @@ const cambiarFaseVisual = (fase) => {
   } else if (fase === "diagnostico") {
     cargarDiagnostico(contenidoFase);
   } else if (fase === "presupuesto") {
-    cargarRepuestosPresupuesto(contenidoFase, ordenActual.repuestos, ordenActual.mano_obra);
+cargarRepuestosPresupuesto(
+  contenidoFase, 
+  ordenActual.repuestos, 
+  ordenActual.mano_obra, 
+ordenActual.cliente?.telefono
+);
   } else if (fase === "reparacion") {
-    cargarReparacion(contenidoFase);
+    cargarReparacion(contenidoFase, ordenActual.reparaciones);
   } else if (fase === "pruebas") {
     cargarPruebas(contenidoFase);
   } else if (fase === "listo") {
@@ -165,7 +201,7 @@ btnGuardar.addEventListener("click", async () => {
     if (campo.id) datos[campo.id] = campo.value;
   });
 
-  if (fase === "presupuesto") {
+if (fase === "presupuesto") {
     const repuestos = [];
     contenidoFase.querySelectorAll("#lista-repuestos-items .tabla-fila").forEach((fila) => {
       const spans = fila.querySelectorAll("span");
@@ -179,17 +215,31 @@ btnGuardar.addEventListener("click", async () => {
     });
     datos.repuestos = repuestos;
     
-    //Capturamos el input de la mano de obra
     const inputManoObra = document.getElementById("costo-mano-obra");
     if (inputManoObra) {
       datos.mano_obra = inputManoObra.value;
     }
   }
 
+if (fase === "reparacion") {
+    const reparaciones = [];
+    
+    // Opcional: Imprime en consola para ver cuántas filas encuentra el DOM
+    const filas = contenidoFase.querySelectorAll(".reparacion-item");
+
+    filas.forEach((fila) => {
+      const descripcion = fila.querySelector(".reparacion-texto").textContent;
+      const estado = fila.querySelector(".select-estado-reparacion").value;
+      reparaciones.push({ descripcion, estado });
+    });
+
+    datos.reparaciones = reparaciones;
+  }
+
   try {
     await axios.put(`/api/orders/${ordenId}`, datos, { withCredentials: true });
     createNotification(false, "Cambios guardados exitosamente.");
-    window.location.reload();
+    // window.location.reload();
   } catch (error) {
     const errorMsg =
       error.response?.data?.error || "Error al guardar los cambios.";

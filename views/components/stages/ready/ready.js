@@ -18,15 +18,9 @@ export function cargarVehiculoListo(contenedor) {
         </div>
  
         <div class="campo-grupo campo-completo">
-          <label for="notas-listo">Notas para el cliente</label>
+          <label for="notas-listo">Notas para el cliente(Opcional)</label>
           <textarea id="notas-listo" placeholder="Ej. Recordar traer la cédula al momento de retirar el vehículo..."></textarea>
         </div>
-      </div>
- 
-      <div class="listo-acciones">
-        <button type="button" class="btn-notificar-cliente" id="btn-notificar-cliente">
-          Notificar al cliente
-        </button>
       </div>
     </section>
   `;

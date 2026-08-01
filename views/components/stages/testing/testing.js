@@ -11,11 +11,12 @@ export function cargarPruebas(contenedor) {
       </div>
 
 
-      <div class="formulario-fase">
-        <div class="campo-grupo campo-completo">
-          <label for="observaciones-calidad">Observaciones del control de calidad</label>
-          <textarea id="observaciones-calidad" placeholder="Describe cualquier hallazgo durante las pruebas finales..."></textarea>
-        </div>
+<div class="formulario-fase">
+  <div class="campo-grupo campo-completo">
+    <label for="observaciones">Observaciones del control de calidad</label>
+    <textarea id="observaciones" placeholder="Describe cualquier hallazgo durante las pruebas finales..."></textarea>
+  </div>
+</div>
 
         <div class="campo-grupo campo-completo">
           <label for="resultado-calidad">Resultado del control de calidad</label>
