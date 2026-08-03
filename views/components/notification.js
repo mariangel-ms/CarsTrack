@@ -3,7 +3,7 @@ const body = document.querySelector("#notification");
 export const createNotification = (isError, message) => {
   const div = document.createElement("div");
   
-  // Animación y posición fija (fixed, bottom-5, right-5, z-50)
+
   const baseAnimation = "fixed bottom-5 right-5 z-50 transform translate-y-[-15px] opacity-0 transition-all duration-300 ease-out mb-3 ml-auto w-full max-w-[360px]";
 
   if (isError) {
@@ -32,18 +32,18 @@ export const createNotification = (isError, message) => {
 
   body.append(div);
 
-  // Forzamos la animación de entrada
+
   setTimeout(() => {
     div.classList.remove("translate-y-[-15px]", "opacity-0");
     div.classList.add("translate-y-0", "opacity-100");
   }, 10);
 
   setTimeout(() => {
-    // Iniciamos el desvanecimiento
+
     div.style.transform = "translateY(-15px)";
     div.style.opacity = "0";
 
-    // Esperamos a que la transición termine antes de borrar el elemento del HTML
+
     setTimeout(() => {
       div.remove();
     }, 300);

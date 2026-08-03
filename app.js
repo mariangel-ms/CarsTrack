@@ -39,6 +39,7 @@ app.use('/verify', express.static(path.resolve('views', 'verify')));
 app.use('/verify/:id/:token', express.static(path.resolve('views', 'verify')));
 app.use('/panel', express.static(path.resolve('views', 'admin-panel')));
 app.use('/edit-order', express.static(path.resolve('views', 'edit-order')));
+app.use('/client-panel', express.static(path.resolve('views', 'client-panel')));
 
 // Rutas backend
 app.use("/api/users", usersRouter);

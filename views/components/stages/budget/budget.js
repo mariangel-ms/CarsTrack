@@ -99,10 +99,8 @@ export function cargarRepuestosPresupuesto(contenedor, repuestosExistentes, mano
     </section>
   `;
 
-  // 1. Array para guardar los repuestos (empieza vacio, o con lo que ya tenia la orden)[cite: 2]
   const repuestos = [];
 
-  // 2. Capturar elementos del DOM[cite: 2]
   const inputNombre = contenedor.querySelector("#nombre-repuesto");
   const inputCantidad = contenedor.querySelector("#cantidad-repuesto");
   const inputPrecio = contenedor.querySelector("#precio-repuesto");
@@ -112,13 +110,12 @@ export function cargarRepuestosPresupuesto(contenedor, repuestosExistentes, mano
   const tablaContenido = contenedor.querySelector("#tabla-contenido");
   const contadorRepuestos = contenedor.querySelector("#contador-repuestos");
 
-  // Elementos del resumen (parte de abajo)[cite: 2]
   const inputManoObra = contenedor.querySelector("#costo-mano-obra");
   const subtotalRepuestosEl = contenedor.querySelector("#subtotal-repuestos");
   const subtotalManoObraEl = contenedor.querySelector("#subtotal-mano-obra");
   const totalPresupuestoEl = contenedor.querySelector("#total-presupuesto");
 
-  // Recalcula subtotal de repuestos + mano de obra + total, y actualiza los textos[cite: 2]
+  // Recalcula subtotal de repuestos + mano de obra + total, y actualiza los textos
   const actualizarResumen = () => {
     let subtotalRepuestos = 0;
 
@@ -136,7 +133,7 @@ export function cargarRepuestosPresupuesto(contenedor, repuestosExistentes, mano
     totalPresupuestoEl.textContent = `$${total.toFixed(2)}`;
   };
 
-  // Dibuja una sola fila en la tabla (se usa tanto al agregar como al precargar)[cite: 2]
+  // Dibuja una sola fila en la tabla (se usa tanto al agregar como al precargar)
   const pintarFila = (repuesto) => {
     const totalFila = repuesto.cantidad * repuesto.precio;
 
@@ -153,7 +150,7 @@ export function cargarRepuestosPresupuesto(contenedor, repuestosExistentes, mano
     listaItems.appendChild(fila);
   };
 
-  // Muestra u oculta la tabla vacia, y actualiza el contador[cite: 2]
+  // Muestra u oculta la tabla vacia, y actualiza el contador
   const actualizarVisibilidadTabla = () => {
     contadorRepuestos.textContent = `${repuestos.length} repuestos`;
 
@@ -166,7 +163,7 @@ export function cargarRepuestosPresupuesto(contenedor, repuestosExistentes, mano
     }
   };
 
-  // Si la orden ya traia repuestos guardados, los cargamos de una vez[cite: 2]
+  // Si la orden ya traia repuestos guardados, los cargamos de una vez
   if (repuestosExistentes && repuestosExistentes.length > 0) {
     for (let i = 0; i < repuestosExistentes.length; i++) {
       repuestos.push(repuestosExistentes[i]);
@@ -175,18 +172,17 @@ export function cargarRepuestosPresupuesto(contenedor, repuestosExistentes, mano
     actualizarVisibilidadTabla();
   }
 
-  // Si la orden ya tenia mano de obra guardada, la ponemos en el input[cite: 2]
+  // Si la orden ya tenia mano de obra guardada, la ponemos en el input
   if (manoObraExistente) {
     inputManoObra.value = manoObraExistente;
   }
 
-  // Pintamos el resumen con lo que ya haya (existente o vacio)[cite: 2]
+  // Pintamos el resumen con lo que ya haya (existente o vacio)
   actualizarResumen();
 
-  // Cada vez que cambies la mano de obra, se recalcula el total en vivo[cite: 2]
+  // Cada vez que cambies la mano de obra, se recalcula el total en vivo
   inputManoObra.addEventListener("input", actualizarResumen);
 
-  // 3. Evento del botón agregar[cite: 2]
   btnAgregar.addEventListener("click", () => {
     const nombre = inputNombre.value;
     const cantidad = inputCantidad.value;
@@ -233,7 +229,7 @@ export function cargarRepuestosPresupuesto(contenedor, repuestosExistentes, mano
     }
 
 
-    const textoMensaje = `"¡Hola! Te saludamos de MotorTrack. Te informamos que ya hemos cargado el presupuesto de tu vehículo en la plataforma para que puedas revisarlo. ¡Quedamos atentos a tu respuesta! 🎈🚗"`;
+    const textoMensaje = "¡Hola! Te saludamos de MotorTrack. Te informamos que ya hemos cargado el presupuesto de tu vehículo en la plataforma para que puedas revisarlo. ¡Quedamos atentos a tu respuesta! 🎈🚗";
 
     const apiKey = "7b544408bebe671e46b85029675bea49b50d5faea5796cd257c9ac68d4fd3ada"; 
 
@@ -259,7 +255,7 @@ export function cargarRepuestosPresupuesto(contenedor, repuestosExistentes, mano
   //-------------------------------------------------------------------------------------------------------------------------
 }
 
-// Función global para calcular el total de cualquier orden/repuestos[cite: 2]
+// Función global para calcular el total de cualquier orden/repuestos
 export function calcularTotalPresupuesto(repuestos = [], manoObra = 0) {
   let subtotalRepuestos = 0;
 

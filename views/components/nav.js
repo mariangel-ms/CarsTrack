@@ -12,6 +12,17 @@ const createNavPanel = () => {
   `;
 };
 
+const createNavClient = () => {
+  navbar.innerHTML = `
+    <header class="admin-header">
+      <img src="/img/logo.png" alt="CarTrack Logo" class="logo-barra" />
+      <div class="usuario-menu">
+        <button id="close-btn" class="btn-cerrar-sesion">Cerrar sesión</button>
+      </div>
+    </header>
+  `;
+};
+
 const createNavLogin = () => {
   navbar.innerHTML = `
     <header class="admin-header">
@@ -23,8 +34,6 @@ const createNavLogin = () => {
   `;
 };
  
-// Aqui puedes ir agregando mas funciones (createNavHome, createNavLogin, etc.)
-// cuando quieras reutilizar este mismo navbar.js en otras paginas del proyecto.
 if (window.location.pathname.startsWith('/panel')) {
   createNavPanel();
 }
@@ -32,7 +41,10 @@ if (window.location.pathname.startsWith('/panel')) {
 if (window.location.pathname.startsWith('/edit-order')) {
   createNavPanel();
 }
- 
+
+if (window.location.pathname.startsWith('/client-panel')) {
+  createNavClient();
+}
  
 if (window.location.pathname.startsWith('/login')) {
   createNavLogin();

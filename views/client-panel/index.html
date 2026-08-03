@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CarsTrack</title>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Lexend:wght@100..900&family=Orbitron:wght@400..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Special+Gothic+Expanded+One&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <div id="navbar"></div>
+    <div id="notification"></div>
+  <main class="cliente-container">
+
+    <header class="cliente-header">
+      <div>
+        <h1>Información de mi vehículo</h1>
+      </div>
+    </header>
+
+
+    <!-- INFORMACIÓN PRINCIPAL DEL VEHÍCULO -->
+
+    <section class="vehiculo-card">
+      <div class="vehiculo-card-header">
+        <div class="vehiculo-identidad">
+          <div class="vehiculo-icono">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5 17h14M6 17l1-5h10l1 5M8 12l1.5-4h5L16 12M4 17v2m16-2v2M7 17h.01M17 17h.01"
+              />
+            </svg>
+          </div>
+
+          <div>
+            <span class="vehiculo-label">
+              VEHÍCULO
+            </span>
+
+            <h2 id="vehiculo-nombre">
+              Toyota Corolla
+            </h2>
+          </div>
+
+        </div>
+
+        <div
+          class="vehiculo-placa"
+          id="vehiculo-placa"
+        >
+          ABC-123
+        </div>
+
+      </div>
+
+
+      <div class="vehiculo-datos">
+
+        <div class="dato-vehiculo">
+          <span>Propietario</span>
+          <strong id="vehiculo-propietario">
+            Juan Pérez
+          </strong>
+        </div>
+
+        <div class="dato-vehiculo">
+          <span>Marca</span>
+          <strong id="vehiculo-marca">
+            Toyota
+          </strong>
+        </div>
+
+        <div class="dato-vehiculo">
+          <span>Modelo</span>
+          <strong id="vehiculo-modelo">
+            Corolla
+          </strong>
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+    <!-- INFORMACIÓN DE LA ORDEN -->
+
+    <section class="orden-card">
+
+      <div class="orden-card-header">
+
+        <div>
+          <span class="orden-etiqueta">
+            ESTADO ACTUAL
+          </span>
+
+          <h2 id="fase-titulo">
+            Cargando...
+          </h2>
+
+          <p id="fase-descripcion">
+            Cargando información de la orden...
+          </p>
+        </div>
+
+        <span
+          class="fase-badge"
+          id="fase-badge"
+        >
+          Cargando
+        </span>
+
+      </div>
+
+
+
+      <!-- AQUÍ SE CARGA EL COMPONENTE DE LA FASE -->
+
+      <div
+        class="fase-contenido"
+        id="fase-contenido"
+      >
+        <div class="fase-loading">
+          Cargando información...
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+
+    <script src="/components/nav.js"></script>
+    <script type="module" src="/components/notification.js"></script>
+    <script type="module" src="index.js"></script>
+
+</body>
+
+</html>

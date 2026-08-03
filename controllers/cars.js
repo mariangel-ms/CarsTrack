@@ -1,7 +1,10 @@
 const carsRouter = require('express').Router();
+require('dotenv').config();
+console.log("Llave cargada:", process.env.API_KEY);
 const Car = require('../models/car');
 const User = require('../models/user');
 const Order = require('../models/order');
+const axios = require('axios');
 
 carsRouter.post('/', async (request, response) => {
   const { nombre, cedula, correo, telefono, placa, marca, modelo, mecanico } = request.body;
@@ -12,7 +15,7 @@ carsRouter.post('/', async (request, response) => {
       .json({ error: 'nombre, cedula, placa, marca, modelo y mecanico asignado son requeridos' });
   }
 
-  try {
+try {
     // Buscar si el cliente ya existe por cedula; si no existe, se crea
     let cliente = await User.findOne({ cedula });
 
@@ -21,10 +24,29 @@ carsRouter.post('/', async (request, response) => {
       if (correo) {
         const correoEnUso = await User.findOne({ email: correo.toLowerCase() });
         if (correoEnUso) {
-          return response.status(400).json({
-            error: `El correo ${correo} ya está registrado con la cédula ${correoEnUso.cedula}. Verifica los datos del cliente.`,
-          });
+          return response.status(400).json({ error: `El correo ${correo} ya está registrado con la cédula ${correoEnUso.cedula}. Verifica los datos del cliente.`});
         }
+
+        //---------LA API--------------
+try {
+          const apiKey = process.env.API_KEY;
+          const url = `https://emailreputation.abstractapi.com/v1/?api_key=${apiKey}&email=${correo}`;
+          
+          const abstractResponse = await axios.get(url);
+          const status = abstractResponse.data?.email_deliverability?.status;
+
+          if (status === 'deliverable') {
+            // El correo es perfecto, dejamos que el código continúe su flujo normal hacia el guardado
+          } else {
+            return response.status(400).json({ 
+              error: `El correo es invalido.` 
+            });
+          }
+        } catch (apiError) {
+          console.error('Error al conectar con Abstract API:', apiError.message);
+          return response.status(500).json({ error: 'Error al verificar el correo con el servicio externo.' });
+        }
+        //----------------------------------------------------
       }
 
       cliente = new User({
@@ -34,6 +56,7 @@ carsRouter.post('/', async (request, response) => {
         cedula,
         rol: 'cliente',
       });
+
       await cliente.save();
     }
 

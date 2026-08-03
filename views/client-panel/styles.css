@@ -1,0 +1,893 @@
+/* ==========================================
+   VARIABLES Y BASE
+   ========================================== */
+
+:root {
+  --bg-page: #090909;
+  --bg-card: #141414;
+  --bg-card-alt: #191919;
+  --bg-input: #1d1d1d;
+
+  --gold: #ffc400;
+  --gold-light: #ffd84d;
+  --gold-soft: rgba(255, 196, 0, 0.07);
+  --gold-border: rgba(255, 196, 0, 0.25);
+
+  --text-white: #f4f4f5;
+  --text-light: #d4d4d4;
+  --text-muted: #8a8a8a;
+  --text-dim: #606060;
+
+  --border-color: rgba(255, 255, 255, 0.07);
+
+  --emerald: #34d399;
+  --red: #ef6666;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--text-white);
+  font-family: "Lexend", "Segoe UI", system-ui, sans-serif;
+
+  background:
+    radial-gradient(
+      circle at 50% -15%,
+      rgba(255, 196, 0, 0.075),
+      transparent 32%
+    ),
+    #090909fb;
+}
+
+/* ==========================================
+   BARRA DE NAVEGACIÓN
+   ========================================== */
+.admin-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px; /* Padding reducido por defecto para ganar espacio */
+  width: 100%;
+  box-sizing: border-box; /* Vital para que los paddings no descuadren el ancho del 100% */
+  background: linear-gradient(180deg, #181818, #0f0f0f);
+  border-bottom: 1px solid rgba(255, 196, 0, .18);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, .35);
+}
+
+.admin-header::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, .06);
+}
+
+.admin-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 196, 0, .9), transparent);
+}
+
+.logo-barra {
+  height: 26px; /* Ligeramente más adaptable en móviles */
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.marca-titulo {
+  font-family: "Special Gothic Expanded One", sans-serif;
+  color: rgba(255, 255, 255, 0.884);
+  font-size: 18px; /* Reducido ligeramente para evitar desbordes en pantallas chicas */
+  font-weight: 800;
+  text-shadow: 3px 1px rgba(255, 208, 0, 0.61);
+}
+
+.usuario-menu {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Espaciado más compacto en general */
+}
+
+.usuario-rol {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #b8b8b8;
+  font-size: 13px;
+}
+
+.btn-cerrar-sesion {
+  font-family: 'Lexend', sans-serif;
+  background: #171717;
+  color: #ff6b6b;
+  border: 1px solid rgba(255, 107, 107, .25);
+  border-radius: 10px;
+  padding: 8px 14px; /* Botón más compacto y accesible al toque */
+  font-size: 13px;
+  transition: .3s;
+  cursor: pointer;
+  white-space: nowrap; /* Evita que el texto de "Cerrar sesión" se parta en dos líneas */
+}
+
+.btn-cerrar-sesion:hover {
+  transform: translateY(-2px);
+  background: #ef4444;
+  color: white;
+  box-shadow: 0 10px 25px rgba(239, 68, 68, .25);
+}
+
+/* ==========================================
+   MEDIA QUERIES PARA DISPOSITIVOS MÓVILES
+   ========================================== */
+
+@media (max-width: 768px) {
+  .admin-header {
+    padding: 12px 16px; /* Márgenes laterales más estrechos en teléfonos */
+  }
+
+  .marca-titulo {
+    font-size: 15px; /* Achicamos el título para que quepa bien con el menú */
+  }
+
+  .logo-barra {
+    height: 22px;
+  }
+
+  .usuario-menu {
+    gap: 8px;
+  }
+
+  /* Si el texto del rol es muy largo en celulares, podemos ocultarlo temporalmente o adaptarlo */
+  .usuario-rol {
+    display: none; /* Opcional: si prefieres que en móviles solo se vea el botón de salir */
+  }
+
+  .btn-cerrar-sesion {
+    padding: 7px 12px;
+    font-size: 12px;
+  }
+}
+/* ==========================================
+   CONTENEDOR PRINCIPAL
+   ========================================== */
+
+.cliente-container {
+  width: 100%;
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 100px 30px 80px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+
+/* ==========================================
+   HEADER
+   ========================================== */
+
+.cliente-header {
+  margin-bottom: 5px;
+}
+
+.cliente-header h1 {
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.7px;
+}
+
+
+/* ==========================================
+   TARJETA DEL VEHÍCULO
+   ========================================== */
+
+.vehiculo-card {
+  position: relative;
+  overflow: hidden;
+
+  padding: 28px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #191919 0%,
+      #121212 100%
+    );
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+
+  box-shadow:
+    0 20px 45px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.025);
+}
+
+/* Línea dorada superior */
+
+.vehiculo-card::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 12%;
+  right: 12%;
+
+  height: 1px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 196, 0, 0.5),
+    transparent
+  );
+}
+
+
+/* ==========================================
+   HEADER DEL VEHÍCULO
+   ========================================== */
+
+.vehiculo-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding-bottom: 22px;
+  margin-bottom: 22px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.vehiculo-identidad {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.vehiculo-icono {
+  width: 50px;
+  height: 50px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 196, 0, 0.12),
+      rgba(255, 196, 0, 0.035)
+    );
+
+  border: 1px solid rgba(255, 196, 0, 0.28);
+  border-radius: 13px;
+
+  color: var(--gold);
+
+  box-shadow:
+    inset 0 0 18px rgba(255, 196, 0, 0.025);
+}
+
+.vehiculo-icono svg {
+  width: 25px;
+  height: 25px;
+}
+
+.vehiculo-label {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: var(--text-dim);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+}
+
+.vehiculo-identidad h2 {
+  color: #ffffff;
+
+  font-size: 21px;
+  font-weight: 700;
+
+  letter-spacing: -0.4px;
+}
+
+
+/* ==========================================
+   PLACA
+   ========================================== */
+
+.vehiculo-placa {
+  flex-shrink: 0;
+
+  min-width: 95px;
+
+  padding: 9px 15px;
+
+  text-align: center;
+
+  background: #0c0c0c;
+
+  border: 1px solid rgba(255, 196, 0, 0.4);
+  border-radius: 8px;
+
+  color: var(--gold);
+
+  font-size: 13px;
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+
+  box-shadow:
+    inset 0 0 15px rgba(255, 196, 0, 0.025);
+}
+
+
+/* ==========================================
+   DATOS DEL VEHÍCULO
+   ========================================== */
+
+.vehiculo-datos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.dato-vehiculo {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  padding: 15px 16px;
+
+  background: rgba(255, 255, 255, 0.018);
+
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  border-radius: 11px;
+
+  transition: border-color 0.25s ease;
+}
+
+.dato-vehiculo:hover {
+  border-color: rgba(255, 196, 0, 0.18);
+}
+
+.dato-vehiculo span {
+  color: var(--text-dim);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.dato-vehiculo strong {
+  color: #dddddd;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+/* ==========================================
+   TARJETA DE LA ORDEN
+   ========================================== */
+
+.orden-card {
+  position: relative;
+  overflow: hidden;
+
+  padding: 28px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #171717 0%,
+      #101010 100%
+    );
+
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  border-radius: 20px;
+
+  box-shadow:
+    0 20px 45px rgba(0, 0, 0, 0.38);
+}
+
+/* Detalle dorado superior */
+
+.orden-card::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 12%;
+  right: 12%;
+
+  height: 1px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 196, 0, 0.55),
+    transparent
+  );
+}
+
+
+/* ==========================================
+   HEADER DE LA ORDEN
+   ========================================== */
+
+.orden-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 25px;
+
+  padding-bottom: 23px;
+  margin-bottom: 24px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.orden-etiqueta {
+  display: inline-block;
+
+  margin-bottom: 8px;
+
+  color: var(--gold);
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 1.6px;
+}
+
+.orden-card-header h2 {
+  color: #f5f5f5;
+
+  font-size: 22px;
+  font-weight: 700;
+
+  letter-spacing: -0.4px;
+
+  margin-bottom: 7px;
+}
+
+.orden-card-header p {
+  max-width: 520px;
+
+  color: #777777;
+
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+
+/* ==========================================
+   BADGE DE FASE
+   ========================================== */
+
+.fase-badge {
+  flex-shrink: 0;
+
+  display: inline-flex;
+  align-items: center;
+
+  padding: 8px 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 196, 0, 0.09),
+      rgba(255, 196, 0, 0.035)
+    );
+
+  border: 1px solid rgba(255, 196, 0, 0.28);
+  border-radius: 20px;
+
+  color: var(--gold);
+
+  font-size: 11px;
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  box-shadow:
+    0 5px 15px rgba(255, 196, 0, 0.04);
+}
+
+.fase-loading {
+  padding: 35px;
+
+  text-align: center;
+
+  color: var(--text-dim);
+
+  font-size: 13px;
+}
+
+
+/* ==========================================
+   CONTENIDO DE LA FASE
+   ========================================== */
+
+.fase-detalle {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 14px;
+}
+
+.dato-fase {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  padding: 17px 18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #1a1a1a,
+      #151515
+    );
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+
+  transition:
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.dato-fase:hover {
+  border-color: rgba(255, 196, 0, 0.17);
+}
+
+.dato-fase-completo {
+  grid-column: 1 / -1;
+}
+
+.dato-fase span {
+  color: var(--text-dim);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+}
+
+.dato-fase strong {
+  color: #dddddd;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  line-height: 1.5;
+}
+
+
+/* ==========================================
+   LISTA DE REPUESTOS
+   ========================================== */
+
+.lista-repuestos-cliente {
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  margin-bottom: 15px;
+
+  background: #171717;
+
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 13px;
+
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.fila-repuesto-cliente {
+  display: grid;
+  grid-template-columns:
+    minmax(160px, 2fr)
+    0.6fr
+    1fr
+    1fr;
+
+  align-items: center;
+
+  gap: 12px;
+
+  min-height: 50px;
+
+  padding: 0 18px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+  color: #8c8c8c;
+
+  font-size: 12px;
+}
+
+.fila-repuesto-cliente:last-child {
+  border-bottom: none;
+}
+
+.fila-repuesto-cliente span:first-child {
+  color: #d2d2d2;
+
+  font-weight: 600;
+}
+
+.fila-repuesto-cliente span:last-child {
+  color: var(--gold);
+
+  font-weight: 700;
+
+  text-align: right;
+}
+
+
+/* ==========================================
+   LISTA DE REPARACIONES
+   ========================================== */
+
+.lista-reparaciones-cliente {
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  background: #171717;
+
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 13px;
+}
+
+.fila-reparacion-cliente {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  min-height: 54px;
+
+  padding: 0 18px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+  color: #d0d0d0;
+
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.fila-reparacion-cliente:last-child {
+  border-bottom: none;
+}
+
+
+/* ==========================================
+   BADGES DE ESTADO
+   ========================================== */
+
+.badge-estado-cliente {
+  flex-shrink: 0;
+
+  padding: 6px 12px;
+
+  border-radius: 20px;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.badge-pendiente {
+  background: rgba(255, 196, 0, 0.07);
+
+  color: var(--gold);
+
+  border: 1px solid rgba(255, 196, 0, 0.22);
+}
+
+.badge-lista {
+  background: rgba(52, 211, 153, 0.07);
+
+  color: var(--emerald);
+
+  border: 1px solid rgba(52, 211, 153, 0.25);
+}
+
+
+/* ==========================================
+   SIN REPUESTOS
+   ========================================== */
+
+.sin-repuestos {
+  min-height: 120px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 25px;
+
+  text-align: center;
+
+  color: var(--text-dim);
+
+  font-size: 12px;
+
+  background:
+    rgba(255, 255, 255, 0.012);
+
+  border: 1px dashed rgba(255, 255, 255, 0.09);
+
+  border-radius: 13px;
+}
+
+
+/* ==========================================
+   MENSAJE DE VEHÍCULO ENTREGADO
+   ========================================== */
+
+.mensaje-entregado {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 55px;
+
+  margin-top: 16px;
+  padding: 15px 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(52, 211, 153, 0.08),
+      rgba(52, 211, 153, 0.025)
+    );
+
+  border: 1px solid rgba(52, 211, 153, 0.25);
+
+  border-radius: 12px;
+
+  color: var(--emerald);
+
+  font-size: 12px;
+  font-weight: 600;
+
+  text-align: center;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 800px) {
+
+  .cliente-container {
+    max-width: 100%;
+
+    padding:
+      35px
+      20px
+      60px;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .cliente-container {
+    padding:
+      25px
+      15px
+      45px;
+
+    gap: 18px;
+  }
+
+
+  .cliente-header h1 {
+    font-size: 24px;
+  }
+
+
+  .vehiculo-card,
+  .orden-card {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+
+  .vehiculo-datos {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+
+  .fase-detalle {
+    grid-template-columns: 1fr;
+  }
+
+
+  .dato-fase-completo {
+    grid-column: auto;
+  }
+
+
+  .vehiculo-card-header,
+  .orden-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+
+  .vehiculo-placa {
+    align-self: flex-start;
+  }
+
+
+  .fase-badge {
+    align-self: flex-start;
+  }
+
+
+  .fila-repuesto-cliente {
+    grid-template-columns:
+      1.5fr
+      0.5fr
+      0.8fr
+      0.8fr;
+
+    min-width: 520px;
+
+    font-size: 11px;
+  }
+
+
+  .lista-repuestos-cliente {
+    overflow-x: auto;
+  }
+
+}

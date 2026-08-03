@@ -1,6 +1,34 @@
 const ordersRouter = require("express").Router();
 const Order = require("../models/order");
 const User = require("../models/user");
+const jwt = require("jsonwebtoken");
+
+ordersRouter.get("/mine", async (request, response) => {
+  try {
+    const token = request.cookies.accessToken;
+
+    if (!token) {
+      return response.status(401).json({ error: "No has iniciado sesión." });
+    }
+
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+
+    const orden = await Order.findOne({ "cliente._id": decoded.id }).sort({
+      createdAt: -1,
+    });
+
+    if (!orden) {
+      return response
+        .status(404)
+        .json({ error: "No se encontró ninguna orden asociada a tu cuenta." });
+    }
+
+    return response.status(200).json(orden);
+  } catch (error) {
+    console.error("Error obteniendo la orden del cliente:", error.message);
+    return response.status(401).json({ error: "Sesión inválida o expirada." });
+  }
+});
 
 ordersRouter.get("/:id", async (request, response) => {
   try {
@@ -58,6 +86,10 @@ ordersRouter.put("/:id", async (request, response) => {
       }
       if (datos.mano_obra !== undefined) {
         orden.mano_obra = Number(datos.mano_obra);
+      }
+
+            if (datos.costo_total) {
+        orden.costo_total = Number(datos.costo_total);
       }
     }
 
@@ -130,7 +162,7 @@ ordersRouter.post("/:id", async (request, response) => {
     const orden = await Order.findById(request.params.id);
     if (!orden)
       return response.status(404).json({ error: "Orden no encontrada" });
-
+    
     orden.repuestos.push({ nombre, cantidad, precio });
     await orden.save();
 

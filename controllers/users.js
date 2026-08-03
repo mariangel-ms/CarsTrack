@@ -1,5 +1,5 @@
 const usersRouter = require("express").Router();
-const User = require("../models/user"); // Asegúrate de que esta ruta a tu modelo sea correcta
+const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const axios = require("axios");
 
@@ -22,27 +22,30 @@ usersRouter.post("/", async (request, response) => {
         .json({ error: "El email ya se encuentra en uso" });
     }
 
-    // Validacion de la api
-    const apiKey = process.env.API_KEY;
-    const url = `https://emailreputation.abstractapi.com/v1/?api_key=${apiKey}&email=${email}`;
+    try {
+      const apiKey = process.env.API_KEY;
+      const url = `https://emailreputation.abstractapi.com/v1/?api_key=${apiKey}&email=${email}`;
 
-    const abstractResponse = await axios.get(url);
-    const status = abstractResponse.data?.email_deliverability?.status;
+      const abstractResponse = await axios.get(url);
+      const status = abstractResponse.data.email_deliverability.status;
 
-    if (status === "undeliverable") {
-      return response
-        .status(400)
-        .json({
-          error:
-            "El correo electrónico proporcionado no existe o no es válido.",
+      if (status === "deliverable") {
+
+      } else {
+        return response.status(400).json({
+          error: `El correo no es valido.`,
         });
+      }
+    } catch (apiError) {
+      console.error("Error al conectar con Abstract API:", apiError.message);
+      return response.status(500).json({ error: "Error al verificar el correo con el servicio externo." });
     }
 
-    //  Encriptar la contraseña si el correo es válido
+    // Encriptar la contraseña si el correo es válido
     const saltRounds = 10;
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
-    //  Crear el documento con Mongoose
+    // Crear el documento con Mongoose
     const newUser = new User({
       name,
       email,
@@ -63,7 +66,6 @@ usersRouter.post("/", async (request, response) => {
       .json({ error: "Error interno del servidor al procesar el registro." });
   }
 });
-
 usersRouter.get("/:id", async (request, response) => {
   const cliente = await User.findById(request.params.id);
 

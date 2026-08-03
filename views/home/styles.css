@@ -263,7 +263,7 @@ height: 30px;          /* Altura ideal para que no deforme la barra */
   background-color: transparent; /* Fondo transparente por defecto */
 
   /* Borde amarillo neón/dorado para mantener la identidad de tu marca */
-  border: 0.5px solid rgba(255, 196, 0, 0.589);
+  border: 0.5px solid rgba(255, 196, 0, 0.397);
   border-radius: 12px; /* Esquinas suavemente redondeadas */
 
   padding: 8px 15px;

@@ -120,9 +120,7 @@ const cambiarFaseVisual = (fase) => {
   } else if (fase === "presupuesto") {
 cargarRepuestosPresupuesto(
   contenidoFase, 
-  ordenActual.repuestos, 
-  ordenActual.mano_obra, 
-ordenActual.cliente?.telefono
+  ordenActual.repuestos, ordenActual.mano_obra, ordenActual.cliente?.telefono
 );
   } else if (fase === "reparacion") {
     cargarReparacion(contenidoFase, ordenActual.reparaciones);
@@ -205,6 +203,7 @@ if (fase === "presupuesto") {
     const repuestos = [];
     contenidoFase.querySelectorAll("#lista-repuestos-items .tabla-fila").forEach((fila) => {
       const spans = fila.querySelectorAll("span");
+      
       if (spans.length >= 3) {
         repuestos.push({
           nombre: spans[0].textContent,
@@ -216,9 +215,10 @@ if (fase === "presupuesto") {
     datos.repuestos = repuestos;
     
     const inputManoObra = document.getElementById("costo-mano-obra");
-    if (inputManoObra) {
-      datos.mano_obra = inputManoObra.value;
-    }
+      const manoObra = Number(inputManoObra.value) || 0;
+      datos.mano_obra = manoObra;
+
+datos.costo_total = calcularTotalPresupuesto(repuestos, manoObra)
   }
 
 if (fase === "reparacion") {
@@ -239,10 +239,10 @@ if (fase === "reparacion") {
   try {
     await axios.put(`/api/orders/${ordenId}`, datos, { withCredentials: true });
     createNotification(false, "Cambios guardados exitosamente.");
-    // window.location.reload();
+    window.location.reload();
   } catch (error) {
     const errorMsg =
-      error.response?.data?.error || "Error al guardar los cambios.";
+      error.response.data.error || "Error al guardar los cambios.";
     createNotification(true, errorMsg);
   }
 });
@@ -255,7 +255,6 @@ btnEditar.addEventListener("click", async () => {
       withCredentials: true,
     });
 
-    // Como response.data.cliente ya es el objeto completo gracias a lo que modificamos en el backend:
     const clienteCompleto = response.data.cliente;
     const vehiculoId = response.data.vehiculo._id;
 
@@ -282,14 +281,14 @@ btnEditar.addEventListener("click", async () => {
 
         try {
           const actualizacionDatos = {
-            nombre: formEdit.querySelector("#nombre-input")?.value,
-            cedula: formEdit.querySelector("#cedula-input")?.value,
-            correo: formEdit.querySelector("#correo-input")?.value,
-            telefono: formEdit.querySelector("#telefono-input")?.value,
-            placa: formEdit.querySelector("#placa-input")?.value,
-            marca: formEdit.querySelector("#marca-input")?.value,
-            modelo: formEdit.querySelector("#modelo-input")?.value,
-            mecanico: formEdit.querySelector("#mecanico-input")?.value,
+            nombre: formEdit.querySelector("#nombre-input").value,
+            cedula: formEdit.querySelector("#cedula-input").value,
+            correo: formEdit.querySelector("#correo-input").value,
+            telefono: formEdit.querySelector("#telefono-input").value,
+            placa: formEdit.querySelector("#placa-input").value,
+            marca: formEdit.querySelector("#marca-input").value,
+            modelo: formEdit.querySelector("#modelo-input").value,
+            mecanico: formEdit.querySelector("#mecanico-input").value,
           };
 
           await axios.patch(`/api/cars/${vehiculoId}`, actualizacionDatos, {
@@ -300,7 +299,7 @@ btnEditar.addEventListener("click", async () => {
         } catch (error) {
           console.log(error);
           const errorMsg =
-            error.response?.data?.error || "Error al actualizar los datos.";
+            error.response.data.error || "Error al actualizar los datos.";
           createNotification(true, errorMsg);
         }
       };

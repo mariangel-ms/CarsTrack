@@ -227,6 +227,7 @@ mecanicoInput.addEventListener("change", (e) => {
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
+  
   try {
     const newVehiculo = {
       nombre: nombreInput.value,
@@ -239,7 +240,6 @@ form.addEventListener("submit", async (e) => {
       mecanico: mecanicoInput.value,
     };
 
-    // console.log("Enviando datos al servidor...", newVehiculo);
     const { data } = await axios.post("/api/cars", newVehiculo);
     // console.log(data);
     createNotification(false, "Vehiculo registrado exitosamente");
@@ -290,13 +290,13 @@ form.addEventListener("submit", async (e) => {
 });
 
 
-// Función para calcular y pintar las métricas de arriba
+// Función para calcular y pintar las tarjetitas de arriba
 const actualizarStats = (ordenes) => {
   const statActivas = document.querySelector("#stat-activas");
   const statListos = document.querySelector("#stat-listos");
   const statPresupuestos = document.querySelector("#stat-presupuestos");
 
-  // Filtramos según el estado de la orden (puedes ajustarlo según los textos exactos que guardes en tu BD)
+  // Filtramos según el estado de la orden
   const activas = ordenes.filter(o => 
     (o.estado || "").toLowerCase() !== "entregado" && 
     (o.estado || "").toLowerCase() !== "listo"
