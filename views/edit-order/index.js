@@ -224,7 +224,6 @@ datos.costo_total = calcularTotalPresupuesto(repuestos, manoObra)
 if (fase === "reparacion") {
     const reparaciones = [];
     
-    // Opcional: Imprime en consola para ver cuántas filas encuentra el DOM
     const filas = contenidoFase.querySelectorAll(".reparacion-item");
 
     filas.forEach((fila) => {
@@ -267,7 +266,7 @@ btnEditar.addEventListener("click", async () => {
     cargarFormularioRegistro(contenidoEdit, datosCompletos);
 
     const btnVolverEdit = contenidoEdit.querySelector(".btn-volver-edit");
-    btnVolverEdit?.addEventListener("click", (e) => {
+    btnVolverEdit.addEventListener("click", (e) => {
       e.preventDefault();
       window.location.href = `/edit-order/?id=${ordenId}`;
     });

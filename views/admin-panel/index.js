@@ -1,4 +1,6 @@
 import { createNotification } from "/components/notification.js";
+import { cargarConfirmarBorrar } from "/components/confirm-delete/confirm-delete.js";
+
 
 const PHONE_REGEX = /^(0414|0424|0412|0416|0426)[0-9]{7}$/;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -99,20 +101,15 @@ const renderTarjetas = (ordenes) => {
   //ELIMINAR TARJETA
 const eliminarBtn = tarjetaExistente.querySelector(".btn-eliminar");
 
-eliminarBtn.addEventListener("click", async (e) => {
+eliminarBtn.addEventListener("click", () => {
 
-  try {
-    await axios.delete(`/api/orders/${orden.id}`, { withCredentials: true });
-    createNotification(false, "Orden eliminada exitosamente");
-    await cargarVehiculos();
-  } catch (error) {
-    const errorMsg =
-      error.response?.data?.error || "Error al eliminar la orden";
-    createNotification(true, errorMsg);
-  }
+  cargarConfirmarBorrar(
+    orden.id,
+    orden.aprobacion_reparacion
+  );
+
 });
   });
-
 };
 // Trae las ordenes del backend, las guarda en memoria, y las dibuja
 const cargarVehiculos = async () => {
