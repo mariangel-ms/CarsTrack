@@ -136,7 +136,7 @@ ordersRouter.put("/:id", async (request, response) => {
   }
 });
 
-// Elimina una orden por su _id
+// Elimina una orden por su id
 ordersRouter.delete("/:id", async (request, response) => {
   try {
     const orden = await Order.findByIdAndDelete(request.params.id);

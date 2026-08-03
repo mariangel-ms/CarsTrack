@@ -76,7 +76,7 @@ try {
       });
       await car.save();
     } else if (car.cliente.cedula !== cedula) {
-      // El vehiculo ya existe pero pertenece a otra persona: no se reasigna solo
+      // El vehiculo ya existe pero pertenece a otra persona
       return response.status(400).json({
         error: `La placa ${placa.toUpperCase()} ya está registrada a nombre de otro cliente. Verifica la cédula o el cambio de propietario manualmente.`,
       });
@@ -131,13 +131,13 @@ carsRouter.patch('/:id', async (request, response) => {
   try {
     const { nombre, cedula, correo, telefono, placa, marca, modelo, mecanico } = request.body;
  
-    // 1. Buscar el auto y validar si existe
+    //  Buscar el auto y validar si existe
     const car = await Car.findById(request.params.id);
     if (!car) {
       return response.status(404).json({ error: 'No se encontró el vehículo en la base de datos.' });
     }
  
-    // 2. Buscar al cliente usando el _id del auto
+    // Buscar al cliente usando el id del auto
     const cliente = await User.findById(car.cliente._id);
     if (!cliente) {
       return response.status(404).json({ error: 'No se encontró el cliente asociado.' });
