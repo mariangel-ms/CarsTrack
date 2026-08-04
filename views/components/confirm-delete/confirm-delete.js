@@ -1,24 +1,30 @@
 import { createNotification } from "/components/notification.js";
 
-export function cargarConfirmarBorrar(idOrden, presupuestoAprobado = false) {
+export function cargarConfirmarBorrar(
+  idOrden,
+  presupuestoAprobado = false,
+  tarjeta
+) {
+
   const confirmacion = document.createElement("div");
 
- confirmacion.className = "modal-overlay";
+  confirmacion.className = "modal-overlay";
 
   confirmacion.innerHTML = `
     <div class="modal-contenido">
       
       <h2>
-        ${presupuestoAprobado == "aprobado"
-          ? "¿Cancelar orden?"
-          : "¿Eliminar orden?"
+        ${
+          presupuestoAprobado == "aprobado"
+            ? "¿Cancelar orden?"
+            : "¿Eliminar orden?"
         }
       </h2>
 
       <p>
         ${
           presupuestoAprobado == "aprobado"
-            ? "El presupuesto de esta orden ya fue aprobado y el vehiculo se encuentra en reparacion. Si la eliminas, la orden quedará registrada como cancelada. Esta acción no se puede deshacer."
+            ? "El presupuesto de esta orden ya fue aprobado y el vehículo se encuentra en reparación. Si la eliminas, la orden quedará registrada como cancelada. Esta acción no se puede deshacer."
             : "¿Estás seguro de que quieres eliminar esta orden? Esta acción no se puede deshacer."
         }
       </p>
@@ -31,7 +37,7 @@ export function cargarConfirmarBorrar(idOrden, presupuestoAprobado = false) {
 
         <button type="button" id="btn-confirmar">
           ${
-           presupuestoAprobado == "aprobado"
+            presupuestoAprobado == "aprobado"
               ? "Cancelar orden"
               : "Eliminar"
           }
@@ -42,48 +48,64 @@ export function cargarConfirmarBorrar(idOrden, presupuestoAprobado = false) {
     </div>
   `;
 
-    const btnVolver = confirmacion.querySelector("#btn-volver");
-    const btnConfirmar = confirmacion.querySelector("#btn-confirmar");
-
-
+  const btnVolver = confirmacion.querySelector("#btn-volver");
+  const btnConfirmar = confirmacion.querySelector("#btn-confirmar");
 
   document.body.appendChild(confirmacion);
 
-  //------boton volver------
+
+  // BOTÓN VOLVER
+
   btnVolver.addEventListener("click", () => {
     confirmacion.remove();
   });
 
-  //-------boton confirmar-------
+
+  // BOTÓN CONFIRMAR
+
   btnConfirmar.addEventListener("click", async () => {
+
     try {
+
       await eliminarOrden(idOrden);
+
       confirmacion.remove();
 
-      createNotification(false,"Orden eliminada exitosamente.");
+      tarjeta.remove();
 
-      setTimeout(() => {
-        location.reload();
-      }, 1500);
-      
+      createNotification(
+        false,
+        "Orden eliminada exitosamente."
+      );
+
     } catch (error) {
 
       console.error(
-        "Error al eliminar la orden:",error );
+        "Error al eliminar la orden:",
+        error
+      );
+
+      createNotification(
+        true,
+        "No se pudo eliminar la orden."
+      );
+
     }
+
   });
+
 }
 
+
 async function eliminarOrden(idOrden) {
-  try {
-    const respuesta = await axios.delete(
-      `/api/orders/${idOrden}`,
-      {
-        withCredentials: true
-      }
-    );
-  } catch (error) {
-    console.error("ERROR:", error);
-  }
+
+  const respuesta = await axios.delete(
+    `/api/orders/${idOrden}`,
+    {
+      withCredentials: true
+    }
+  );
+
+  return respuesta;
 
 }

@@ -120,7 +120,7 @@ const cambiarFaseVisual = (fase) => {
   } else if (fase === "presupuesto") {
 cargarRepuestosPresupuesto(
   contenidoFase, 
-  ordenActual.repuestos, ordenActual.mano_obra, ordenActual.cliente?.telefono
+  ordenActual.repuestos, ordenActual.mano_obra, ordenActual.cliente.telefono
 );
   } else if (fase === "reparacion") {
     cargarReparacion(contenidoFase, ordenActual.reparaciones);
@@ -273,6 +273,7 @@ btnEditar.addEventListener("click", async () => {
 
     // BOTÓN DE GUARDAR CAMBIOS, PARA ACTUALIZAR LOS DATOS DEL VEHICULO O CLIENTE
     const formEdit = contenidoEdit.querySelector("#form-registro");
+
 
     if (formEdit) {
       formEdit.onsubmit = async (e) => {

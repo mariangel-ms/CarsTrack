@@ -218,38 +218,29 @@ export function cargarRepuestosPresupuesto(contenedor, repuestosExistentes, mano
   });
   //-------------------------------------------------------------------------------------------------------------------------
 // -------------------------------API DE WHATSAPP----------------------------------------------------------
-  const whatsappBtn = contenedor.querySelector(".btn-enviar-presupuesto");
+const whatsappBtn = contenedor.querySelector(".btn-enviar-presupuesto");
 
-  whatsappBtn?.addEventListener("click", async () => {
+  whatsappBtn?.addEventListener("click", () => {
     const telefono = whatsappBtn.getAttribute("data-telefono")?.replace(/\D/g, "");
 
     if (!telefono) {
-     createNotification(true, "No se encontró un número de teléfono registrado.");
+      createNotification(true, "No se encontró un número de teléfono registrado.");
       return;
     }
 
+    const textoMensaje = "¡Hola! Te saludamos de MotorTrack. Te informamos que ya hemos cargado el presupuesto de tu vehículo en la plataforma para que puedas revisarlo. ¡Quedamos atentos a tu respuesta!";
 
-    const textoMensaje = "¡Hola! Te saludamos de MotorTrack. Te informamos que ya hemos cargado el presupuesto de tu vehículo en la plataforma para que puedas revisarlo. ¡Quedamos atentos a tu respuesta! 🎈🚗";
+    const numeroCompleto = `58${telefono}`;
 
-    const apiKey = "7b544408bebe671e46b85029675bea49b50d5faea5796cd257c9ac68d4fd3ada"; 
+    // Construimos el enlace oficial y gratuito de WhatsApp
+    const urlWhatsApp = `https://wa.me/${numeroCompleto}?text=${encodeURIComponent(textoMensaje)}`;
 
     try {
-      whatsappBtn.textContent = "Enviando...";
-      whatsappBtn.disabled = true;
-
-      await axios.post('https://www.wasenderapi.com/api/send-message', {
-        to: `58${telefono}`,
-        text: textoMensaje
-      }, {
-        headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' }
-      });
-    createNotification(false, "¡Presupuesto enviado por WhatsApp exitosamente!");
+      window.open(urlWhatsApp, "_blank");
+      createNotification(false, "¡Redirigiendo a WhatsApp para enviar el presupuesto!");
     } catch (error) {
-      console.error("Error al enviar mensaje:", error);
-          createNotification(true, "Hubo un error al enviar el mensaje automático.");
-    } finally {
-      whatsappBtn.textContent = "Enviar presupuesto";
-      whatsappBtn.disabled = false;
+      console.error("Error al abrir WhatsApp:", error);
+      createNotification(true, "Hubo un error al intentar abrir WhatsApp.");
     }
   });
   //-------------------------------------------------------------------------------------------------------------------------

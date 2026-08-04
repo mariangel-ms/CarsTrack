@@ -105,7 +105,9 @@ eliminarBtn.addEventListener("click", () => {
 
   cargarConfirmarBorrar(
     orden.id,
-    orden.aprobacion_reparacion
+    orden.aprobacion_reparacion,
+    tarjetaExistente
+
   );
 
 });
