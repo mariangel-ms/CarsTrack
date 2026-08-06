@@ -172,6 +172,7 @@ ordersRouter.post("/:id", async (request, response) => {
     response.status(500).json({ error: "Error al guardar el repuesto" });
   }
 });
+
 ordersRouter.patch("/mine/update", async (request, response) => {
   try {
     const token = request.cookies.accessToken;
@@ -204,6 +205,26 @@ ordersRouter.patch("/mine/update", async (request, response) => {
   } catch (error) {
     console.error("Error al actualizar la orden del cliente:", error.message);
     return response.status(500).json({ error: "Error interno al actualizar la orden." });
+  }
+});
+
+
+ordersRouter.patch("/:id", async (request, response) => {
+  try {
+    const updatedOrder = await Order.findByIdAndUpdate(
+      request.params.id,
+      { presupuesto_enviado: request.body.presupuesto_enviado },
+      { new: true }
+    );
+
+    if (!updatedOrder) {
+      return response.status(404).json({ error: "Orden no encontrada" });
+    }
+
+    return response.status(200).json(updatedOrder);
+  } catch (error) {
+    console.error("Error al actualizar el presupuesto:", error.message);
+    return response.status(500).json({ error: "Error interno del servidor" });
   }
 });
 module.exports = ordersRouter;

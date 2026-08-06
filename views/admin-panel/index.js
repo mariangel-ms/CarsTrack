@@ -75,7 +75,7 @@ const renderTarjetas = (ordenes) => {
         </div>
         <div class="detalle-fila">
           <span class="detalle-etiqueta">Aprobación:</span>
-          <span class="detalle-valor valor-pendiente">Pendiente</span>
+          <span class="detalle-valor valor-pendiente">${orden.aprobacion_reparacion}</span>
         </div>
         <div class="detalle-fila">
           <span class="detalle-etiqueta">Presupuesto:</span>

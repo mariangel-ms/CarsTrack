@@ -169,13 +169,13 @@ const cargarOrdenInicial = async () => {
       actualizarCostoEstimado()
 
     console.log(ordenActual);
-pintarAprobacionReparacion.innerHTML = `${ordenActual.aprobacion_reparacion.toUpperCase()}`;
+pintarAprobacionReparacion.innerHTML = `${ordenActual.aprobacion_reparacion}`;
 
     //Cargar el header
     propietarioInfo.innerHTML = `<span>Propietario: <strong>${ordenActual.cliente.name}</strong></span>`;
     correoInfo.innerHTML = `<span>Correo: <strong>${ordenActual.cliente.email}</strong></span>`;
     cedulaInfo.innerHTML = `<span>Cedula: <strong>${ordenActual.cliente.cedula}</strong></span>`;
-    carroInfo.innerHTML = `${ordenActual.vehiculo.marca} ${ordenActual.vehiculo.modelo}.toUpperCase `;
+    carroInfo.innerHTML = `${ordenActual.vehiculo.marca} ${ordenActual.vehiculo.modelo} `;
     placaInfo.innerHTML = `${ordenActual.vehiculo.placa}`;
   } catch (error) {
     console.error("Error al cargar la orden:", error);

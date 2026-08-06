@@ -109,8 +109,8 @@ const orderSchema = new mongoose.Schema({
     },
     aprobacion_reparacion: {
         type: String,
-        enum: ["pendiente", "aprobado", "rechazado"],
-        default: "pendiente"
+        enum: ["Pendiente", "Aprobado", "Rechazado"],
+        default: "Pendiente"
     },
     repuestos: [repuestoSchema],
     mano_obra: {

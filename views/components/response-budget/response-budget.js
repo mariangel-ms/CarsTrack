@@ -2,30 +2,30 @@ import { createNotification } from "/components/notification.js";
 
 export function cargarNotificacionPresupuesto() {
   const confirmacion = document.createElement("div");
-  confirmacion.className = "modal-overlay activo";
+  confirmacion.className = "modal-presupuesto-overlay activo";
   confirmacion.innerHTML = `
-    <div class="modal-contenido">
-      
-      <h2>¿Acepta la reparación?</h2>
-      <span class="subtitulo-accion">Accion requerida</span>
+    <div class="modal-presupuesto-card">
 
-      <div class="modal-checkbox-container">
-        <label class="custom-checkbox-label">
+      <button type="button" id="btn-cerrar-modal" class="modal-presupuesto-cerrar">&times;</button>
+      <h2>¿Acepta la reparación?</h2>
+      <span class="modal-presupuesto-subtitulo">Accion requerida</span>
+
+      <div class="modal-presupuesto-checkbox-wrapper">
+        <label class="modal-presupuesto-label">
           <input type="checkbox" id="check-repuestos" checked />
-          <span class="checkmark"></span>
-          <span class="checkbox-text">El taller suministra los repuestos (Garantía incluida)</span>
+          <span class="modal-presupuesto-text">El taller suministra los repuestos (Garantía incluida)</span>
         </label>
       </div>
 
-      <p class="modal-nota">
+      <p class="modal-presupuesto-nota">
         (En caso de rechazar los repuestos presupuestados por el taller, el propietario debe suministrarlos en un lapso de 7 días.)
       </p>
 
-      <div class="modal-botones">
-        <button type="button" id="btn-confirmar" class="btn-primario">
+      <div class="modal-presupuesto-acciones">
+        <button type="button" id="btn-confirmar" class="btn-autorizar">
           Autorizar
         </button>
-        <button type="button" id="btn-rechazar" class="btn-secundario">
+        <button type="button" id="btn-rechazar" class="btn-rechazar-presupuesto">
           Rechazar
         </button>
       </div>
@@ -36,12 +36,13 @@ export function cargarNotificacionPresupuesto() {
   const btnRechazar = confirmacion.querySelector("#btn-rechazar");
   const btnConfirmar = confirmacion.querySelector("#btn-confirmar");
   const checkRepuestos = confirmacion.querySelector("#check-repuestos");
+  const btnCerrar = confirmacion.querySelector("#btn-cerrar-modal");
 
   // Acción al rechazar
   btnRechazar.addEventListener("click", async () => {
     try {
       await axios.patch("/api/orders/mine/update", { 
-        aprobacion_reparacion: "rechazado",
+        aprobacion_reparacion: "Rechazado",
         presupuesto_enviado: false 
       }, { withCredentials: true });
 
@@ -60,7 +61,7 @@ export function cargarNotificacionPresupuesto() {
       const aceptaRepuestosDelTaller = checkRepuestos.checked;
 
       await axios.patch("/api/orders/mine/update", { 
-        aprobacion_reparacion: "aprobado",
+        aprobacion_reparacion: "Aprobado",
         presupuesto_enviado: false,
         acepta_repuestos: aceptaRepuestosDelTaller
       }, { withCredentials: true });
@@ -72,6 +73,11 @@ export function cargarNotificacionPresupuesto() {
       console.error("Error al procesar la respuesta:", error);
       createNotification(true, "Hubo un error al procesar tu respuesta.");
     }
+  });
+
+// Acción para cerrar
+  btnCerrar.addEventListener("click", () => {
+    confirmacion.remove();
   });
 
   document.body.appendChild(confirmacion);

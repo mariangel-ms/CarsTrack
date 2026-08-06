@@ -1,5 +1,5 @@
 /* Fondo oscuro con efecto blur y animación de aparición */
-.modal-overlay.activo {
+.modal-presupuesto-overlay.activo {
   position: fixed;
   top: 0;
   left: 0;
@@ -11,16 +11,16 @@
   align-items: center;
   justify-content: center;
   z-index: 9999;
-  animation: fadeInModal 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeInModalPresupuesto 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes fadeInModal {
+@keyframes fadeInModalPresupuesto {
   from { opacity: 0; transform: scale(0.95); }
   to { opacity: 1; transform: scale(1); }
 }
 
 /* Tarjeta principal del modal */
-.modal-contenido {
+.modal-presupuesto-card {
   background: linear-gradient(145deg, #181818, #0f0f0f);
   border: 1px solid rgba(255, 202, 29, 0.3);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 202, 29, 0.1);
@@ -31,47 +31,24 @@
   text-align: center;
   font-family: 'Lexend', sans-serif;
   position: relative;
-  animation: slideUpModal 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: slideUpModalPresupuesto 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes slideUpModal {
+@keyframes slideUpModalPresupuesto {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 /* Título llamativo con acento dorado */
-.modal-contenido h2 {
+.modal-presupuesto-card h2 {
   color: #ffffff;
-  font-size: 22px;
+  font-size: 25px;
   font-weight: 600;
   letter-spacing: 0.5px;
 }
 
-
-.requerida {
-  padding: 0;
-  color: red;
-  font-size: 15px;
-}
-
-/* Texto descriptivo claro y legible */
-.modal-contenido p {
-  color: #b8b8b8;
-  font-size: 14px;
-  line-height: 1.5;
-  margin-bottom: 28px;
-  margin-top: 15px;
-}
-
-/* Contenedor de botones alineados */
-.modal-botones {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-}
-
 /* Subtítulo rojo de "Accion requerida" */
-.subtitulo-accion {
+.modal-presupuesto-subtitulo {
   display: block;
   color: #ef4444;
   font-size: 13px;
@@ -81,7 +58,7 @@
 }
 
 /* Contenedor del checkbox */
-.modal-checkbox-container {
+.modal-presupuesto-checkbox-wrapper {
   text-align: left;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -91,18 +68,18 @@
   margin-top: 20px;
 }
 
-.custom-checkbox-label {
+.modal-presupuesto-label {
   display: flex;
   align-items: flex-start;
   gap: 12px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
   color: #e5e7eb;
   font-weight: 400;
   user-select: none;
 }
 
-.custom-checkbox-label input {
+.modal-presupuesto-label input {
   accent-color: #ffca1d;
   width: 18px;
   height: 18px;
@@ -111,8 +88,8 @@
 }
 
 /* Nota aclaratoria */
-.modal-nota {
-  font-size: 12px;
+.modal-presupuesto-nota {
+  font-size: 16px;
   color: #9ca3af;
   line-height: 1.4;
   margin-bottom: 24px;
@@ -121,26 +98,15 @@
 }
 
 /* Disposición vertical de los botones (Autorizar arriba, Rechazar abajo) */
-.modal-contenido .modal-botones {
+.modal-presupuesto-acciones {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.modal-contenido .modal-botones button {
+.modal-presupuesto-acciones button {
   width: 100%;
   padding: 12px;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-/* Botones genéricos */
-.modal-botones button {
-  flex: 1;
-  padding: 12px 18px;
   border-radius: 10px;
   font-size: 14px;
   font-weight: 600;
@@ -150,29 +116,47 @@
 }
 
 /* Botón Primario (Aceptar) - Estilo Dorado MotorTrack */
-.modal-botones .btn-primario {
+.modal-presupuesto-acciones .btn-autorizar {
   background: linear-gradient(135deg, #ffca1d, #e0b012);
   color: #0f0f0f;
   border: none;
   box-shadow: 0 4px 15px rgba(255, 202, 29, 0.3);
 }
 
-.modal-botones .btn-primario:hover {
+.modal-presupuesto-acciones .btn-autorizar:hover {
   background: linear-gradient(135deg, #ffd33d, #ffca1d);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(255, 202, 29, 0.4);
 }
 
 /* Botón Secundario (Rechazar) - Estilo sutil de contorno */
-.modal-botones .btn-secundario {
+.modal-presupuesto-acciones .btn-rechazar-presupuesto {
   background: transparent;
   color: #9ca3af;
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-.modal-botones .btn-secundario:hover {
+.modal-presupuesto-acciones .btn-rechazar-presupuesto:hover {
   background: rgba(239, 68, 68, 0.1);
   color: #ef4444;
   border-color: rgba(239, 68, 68, 0.4);
   transform: translateY(-2px);
+}
+
+/* Botón de cerrar (X) */
+.modal-presupuesto-cerrar {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #9ca3af;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.modal-presupuesto-cerrar:hover {
+  color: #ffffff;
 }

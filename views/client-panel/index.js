@@ -80,6 +80,15 @@ const pintarPresupuesto = (orden) => {
 
   if (repuestos.length === 0) {
     filasRepuestos = `<p class="sin-repuestos">Aún no se han agregado repuestos.</p>`;
+  } else {
+    filasRepuestos = `
+      <div class="fila-repuesto-header">
+        <span>Nombre repuesto</span>
+        <span>Cantidad</span>
+        <span>Precio</span>
+        <span>Total</span>
+      </div>
+    ` + filasRepuestos;
   }
 
   const textoAprobacion = {
@@ -100,10 +109,6 @@ const pintarPresupuesto = (orden) => {
       <div class="dato-fase">
         <span>Total estimado</span>
         <strong>$${Number(orden.costo_total || 0).toFixed(2)}</strong>
-      </div>
-      <div class="dato-fase dato-fase-completo">
-        <span>Estado del presupuesto</span>
-        <strong>${textoAprobacion[orden.aprobacion_reparacion] || "Pendiente"}</strong>
       </div>
     </div>
   `;

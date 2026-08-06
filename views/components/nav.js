@@ -67,7 +67,7 @@ const createNavClient = () => {
       const response = await axios.get("/api/orders/mine", { withCredentials: true });
       const orden = response.data;
 
-      const esPendiente = orden.aprobacion_reparacion === "pendiente" && orden.estado?.toLowerCase().includes("presupuesto") && orden.presupuesto_enviado == true;
+      const esPendiente = orden.aprobacion_reparacion === "Pendiente" && orden.estado.toLowerCase().includes("presupuesto") && orden.presupuesto_enviado == true;
 
       if (esPendiente) {
         // Muestra el punto rojo/dorado en la campana
@@ -88,7 +88,7 @@ const createNavClient = () => {
         `;
 
         // Evento al hacer clic en la notificación para abrir el modal
-        document.getElementById("trigger-presupuesto")?.addEventListener("click", () => {
+        document.getElementById("trigger-presupuesto").addEventListener("click", () => {
           dropdownNotif.classList.add("hidden");
           cargarNotificacionPresupuesto(orden._id);
         });
@@ -110,7 +110,7 @@ const createNavClient = () => {
   verificarNotificaciones();
 
   // Abrir / cerrar dropdown al hacer clic en la campana
-  btnCampana?.addEventListener("click", async (e) => {
+  btnCampana.addEventListener("click", async (e) => {
     e.stopPropagation();
     const isOpen = !dropdownNotif.classList.contains("hidden");
     
@@ -125,9 +125,7 @@ const createNavClient = () => {
 
   // Cerrar al hacer clic fuera
   document.addEventListener("click", (e) => {
-    if (!dropdownNotif.contains(e.target) && !btnCampana.contains(e.target)) {
       dropdownNotif.classList.add("hidden");
-    }
   });
 };
 

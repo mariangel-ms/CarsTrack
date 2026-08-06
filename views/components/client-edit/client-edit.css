@@ -19,13 +19,14 @@
     visibility: visible;
 }
 
+/* Unificamos el nombre de la clase a .modal-contenido para que no falle el CSS */
 .modal-contenido {
     background: #121212;
-    width: 100%;
-    max-width: 500px;
+    width: 90%;
+    max-width: 440px;
     border-radius: 20px;
-    border: 1px solid #d4af37a5;
-    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.25);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.11);
     position: relative;
     transform: scale(0.95);
     transition: transform 0.25s ease-in-out;
@@ -35,62 +36,45 @@
     transform: scale(1);
 }
 
-.modal-cerrar {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: 22px;
-    color: #d4af37;
-    cursor: pointer;
-    line-height: 1;
-    z-index: 10;
-}
-
-.modal-cerrar:hover {
-    color: #fff;
-}
-
 .formulario-registro {
-    padding: 50px;
+    padding: 30px 45px; /* Reducido drásticamente para evitar la altura excesiva */
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 10px; /* Menor espacio entre los campos */
 }
 
 .formulario-registro h2 {
     font-family: "Special Gothic Expanded One", sans-serif;
     font-weight: 600;
-    margin: 0 0 5px 0;
+    margin: 0 0 4px 0;
     letter-spacing: 0.8px;
     color: #fdfdfdc7;
     border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-    padding-bottom: 6px;
-    font-size: 1.8em;
+    padding-bottom: 4px;
+    font-size: 1.5em;
     text-align: center;
 }
 
 .grupo-input {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 3px;
 }
 
 .grupo-input label {
     font-weight: 600;
     color: #faf9f8c8;
-    font-size: 0.75em;
+    font-size: 0.72em;
     letter-spacing: 0.5px;
 }
 
 .grupo-input input,
 .grupo-input select {
     width: 100%;
-    padding: 10px 15px;
+    padding: 8px 12px; /* Inputs más compactos en altura */
     background-color: #1a1a1a;
     border: 1px solid #333;
-    border-radius: 10px;
+    border-radius: 8px;
     color: #fff;
     font-size: 0.85em;
     box-sizing: border-box;
@@ -119,57 +103,47 @@
     text-transform: uppercase;
 }
 
-.btn-volver-edit:hover, .btn-guardar-cambios:hover {
-  background: #ffc400;
-  color: #111111;
-  border-color: #ffc400;
-  transform: translateX(-2px);
-  box-shadow: 0 8px 22px rgba(255, 196, 0, 0.18);
-}
-
- .btn-guardar-cambios, .btn-volver-edit {
-    padding: 5px 100px;
-  position: relative;
-  z-index: 1;
-  flex-shrink: 0;
-  background: rgba(16, 16, 16, 0.045);
-  color: #ffc400;
-  border: 1px solid rgba(255, 196, 0, 0.35);
-  border-radius: 10px;
-  padding: 10px 30px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 600;
-}
-
 .grupo-botones {
-    padding-top: 20px;
+    padding-top: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 10px;
+    gap: 8px;
 }
 
-.modal-contenido::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 35px;
-    right: 35px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 196, 0, 0.5), transparent);
+.btn-guardar-cambios, .btn-volver-edit {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Lexend', sans-serif;
+    text-align: center;
 }
 
-.modal-contenido::after {
-    content: "";
-    position: absolute;
-    width: 180px;
-    height: 180px;
-    top: -120px;
-    right: -50px;
-    border-radius: 50%;
-    background: rgba(255, 196, 0, 0.035);
-    pointer-events: none;
+.btn-guardar-cambios {
+    background: linear-gradient(135deg, #ffca1d, #e0b012);
+    color: #0f0f0f;
+    border: none;
+    box-shadow: 0 4px 15px rgba(255, 202, 29, 0.2);
+}
+
+.btn-guardar-cambios:hover {
+    background: linear-gradient(135deg, #ffd33d, #ffca1d);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 202, 29, 0.3);
+}
+
+.btn-volver-edit {
+    background: transparent;
+    color: #9ca3af;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-volver-edit:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.4);
+    transform: translateY(-2px);
 }
