@@ -636,6 +636,9 @@ body::before {
   box-shadow: 0 10px 25px rgba(239, 68, 68, .25);
 }
 
+
+
+
 /* ==========================================
    MEDIA QUERIES PARA DISPOSITIVOS MÓVILES
    ========================================== */
@@ -657,9 +660,8 @@ body::before {
     gap: 8px;
   }
 
-  /* Si el texto del rol es muy largo en celulares, podemos ocultarlo temporalmente o adaptarlo */
   .usuario-rol {
-    display: none; /* Opcional: si prefieres que en móviles solo se vea el botón de salir */
+    display: none; 
   }
 
   .btn-cerrar-sesion {

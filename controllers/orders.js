@@ -172,5 +172,38 @@ ordersRouter.post("/:id", async (request, response) => {
     response.status(500).json({ error: "Error al guardar el repuesto" });
   }
 });
+ordersRouter.patch("/mine/update", async (request, response) => {
+  try {
+    const token = request.cookies.accessToken;
 
+    if (!token) {
+      return response.status(401).json({ error: "No has iniciado sesión." });
+    }
+
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+
+    // Busca la orden activa del cliente logueado
+    const orden = await Order.findOne({ "cliente._id": decoded.id }).sort({
+      createdAt: -1,
+    });
+
+    if (!orden) {
+      return response.status(404).json({ error: "Orden no encontrada." });
+    }
+
+    const { aprobacion_reparacion, presupuesto_enviado, acepta_repuestos } = request.body;
+
+    // Actualiza los campos que vengan en la petición
+    if (aprobacion_reparacion !== undefined) orden.aprobacion_reparacion = aprobacion_reparacion;
+    if (presupuesto_enviado !== undefined) orden.presupuesto_enviado = presupuesto_enviado;
+    if (acepta_repuestos !== undefined) orden.acepta_repuestos = acepta_repuestos;
+
+    await orden.save();
+
+    return response.status(200).json(orden);
+  } catch (error) {
+    console.error("Error al actualizar la orden del cliente:", error.message);
+    return response.status(500).json({ error: "Error interno al actualizar la orden." });
+  }
+});
 module.exports = ordersRouter;

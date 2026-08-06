@@ -1,6 +1,7 @@
 import { createNotification } from "/components/notification.js";
+import { cargarNotificacionPresupuesto } from "/components/response-budget/response-budget.js";
 
-export function cargarRepuestosPresupuesto(contenedor, repuestosExistentes, manoObraExistente, telefonoCliente = "") {
+export function cargarRepuestosPresupuesto(contenedor, repuestosExistentes, manoObraExistente, telefonoCliente = "", idOrden) {
   contenedor.innerHTML = `
     <section class="fase-componente presupuesto-componente">
       <div class="componente-header">
@@ -219,9 +220,9 @@ export function cargarRepuestosPresupuesto(contenedor, repuestosExistentes, mano
   //-------------------------------------------------------------------------------------------------------------------------
 // -------------------------------API DE WHATSAPP----------------------------------------------------------
 const whatsappBtn = contenedor.querySelector(".btn-enviar-presupuesto");
-
-  whatsappBtn?.addEventListener("click", () => {
+  whatsappBtn?.addEventListener("click", async () => {
     const telefono = whatsappBtn.getAttribute("data-telefono")?.replace(/\D/g, "");
+
 
     if (!telefono) {
       createNotification(true, "No se encontró un número de teléfono registrado.");
@@ -236,8 +237,16 @@ const whatsappBtn = contenedor.querySelector(".btn-enviar-presupuesto");
     const urlWhatsApp = `https://wa.me/${numeroCompleto}?text=${encodeURIComponent(textoMensaje)}`;
 
     try {
+
+if (idOrden) {
+        await axios.patch(`/api/orders/${idOrden}`, {
+          presupuesto_enviado: true
+        });
+      }
+
       window.open(urlWhatsApp, "_blank");
       createNotification(false, "¡Redirigiendo a WhatsApp para enviar el presupuesto!");
+
     } catch (error) {
       console.error("Error al abrir WhatsApp:", error);
       createNotification(true, "Hubo un error al intentar abrir WhatsApp.");

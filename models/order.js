@@ -103,6 +103,10 @@ const orderSchema = new mongoose.Schema({
             trim: true
         }
     },
+    presupuesto_enviado: {
+        type: Boolean,
+        default: false
+    },
     aprobacion_reparacion: {
         type: String,
         enum: ["pendiente", "aprobado", "rechazado"],

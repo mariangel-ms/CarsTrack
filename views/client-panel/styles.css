@@ -48,6 +48,152 @@ body {
     #090909fb;
 }
 
+/* Contenedor general del menú desplegable */
+.dropdown-notificaciones-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Botón de la campana */
+.btn-campana-nav {
+  background: rgba(255, 202, 29, 0.1);
+  border: 1px solid rgba(255, 202, 29, 0.3);
+  color: #ffca1d;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.btn-campana-nav:hover {
+  background: rgba(255, 202, 29, 0.2);
+  transform: scale(1.05);
+}
+
+/* Badge o punto rojo/dorado contador */
+.badge-contador {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background-color: #ef4444;
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #181818;
+}
+
+/* Menú desplegable tipo tarjeta flotante */
+.dropdown-notif-menu {
+  position: absolute;
+  right: 0;
+  top: 50px;
+  width: 320px;
+  background: linear-gradient(180deg, #181818, #0f0f0f);
+  border: 1px solid rgba(255, 196, 0, 0.25);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  z-index: 1000;
+  overflow: hidden;
+  font-family: 'Lexend', sans-serif;
+  animation: fadeInDown 0.2s ease;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-notif-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.marcar-leido {
+  font-size: 11px;
+  color: #ffca1d;
+  background: rgba(255, 202, 29, 0.1);
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+/* Elemento de vista previa dentro de la lista */
+.item-notif-preview {
+  display: flex;
+  gap: 12px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.item-notif-preview:hover {
+  background: rgba(255, 202, 29, 0.05);
+}
+
+.notif-icono-wrapper {
+  font-size: 20px;
+  background: rgba(255, 202, 29, 0.1);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.notif-texto strong {
+  display: block;
+  font-size: 13px;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.notif-texto p {
+  font-size: 12px;
+  color: #b8b8b8;
+  margin: 0 0 4px 0;
+  line-height: 1.4;
+}
+
+.notif-tiempo {
+  font-size: 10px;
+  color: #ffca1d;
+  font-weight: 500;
+}
+
+/* Utilidad para ocultar elementos */
+.dropdown-notif-menu.hidden {
+  display: none;
+}
+.notif-vacia {
+  padding: 20px;
+  text-align: center;
+  color: #888;
+  font-size: 13px;
+}
+.hidden {
+  display: none !important;
+}
+
 /* ==========================================
    BARRA DE NAVEGACIÓN
    ========================================== */

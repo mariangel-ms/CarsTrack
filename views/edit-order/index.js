@@ -7,6 +7,7 @@ import { cargarPruebas } from "../components/stages/testing/testing.js";
 import { cargarVehiculoListo } from "../components/stages/ready/ready.js";
 import { cargarEntregado } from "../components/stages/delivered/delivered.js";
 import { cargarFormularioRegistro} from "../components/client-edit/client-edit.js";
+// import { cargarNotificacionPresupuesto } from "../components/response-budget.js/response-budget.js";
 
 const btnVolver = document.querySelector(".btn-volver");
 const faseSelect = document.getElementById("fase");
@@ -20,6 +21,7 @@ const correoInfo = document.querySelector(".correo");
 const carroInfo = document.querySelector(".carro");
 const placaInfo = document.querySelector(".placa");
 const costoEstimado = document.querySelector(".costo-valor");
+const pintarAprobacionReparacion = document.querySelector(".estado-aprobacion");
 
 // Variable global para guardar la información de la orden traída de la BD
 let ordenActual = {};
@@ -119,8 +121,7 @@ const cambiarFaseVisual = (fase) => {
     cargarDiagnostico(contenidoFase);
   } else if (fase === "presupuesto") {
 cargarRepuestosPresupuesto(
-  contenidoFase, 
-  ordenActual.repuestos, ordenActual.mano_obra, ordenActual.cliente.telefono
+  contenidoFase, ordenActual.repuestos, ordenActual.mano_obra, ordenActual.cliente.telefono, ordenActual._id
 );
   } else if (fase === "reparacion") {
     cargarReparacion(contenidoFase, ordenActual.reparaciones);
@@ -157,8 +158,8 @@ const cargarOrdenInicial = async () => {
     const response = await axios.get(`/api/orders/${ordenId}`, {
       withCredentials: true,
     });
-    ordenActual = response.data; // Se guardan los datos
 
+    ordenActual = response.data; // Se guardan los datos
     const faseActual = (
    ordenActual.fase ||ordenActual.estado).toLowerCase();
     faseSelect.value = faseActual;
@@ -168,12 +169,13 @@ const cargarOrdenInicial = async () => {
       actualizarCostoEstimado()
 
     console.log(ordenActual);
+pintarAprobacionReparacion.innerHTML = `${ordenActual.aprobacion_reparacion.toUpperCase()}`;
 
     //Cargar el header
     propietarioInfo.innerHTML = `<span>Propietario: <strong>${ordenActual.cliente.name}</strong></span>`;
     correoInfo.innerHTML = `<span>Correo: <strong>${ordenActual.cliente.email}</strong></span>`;
     cedulaInfo.innerHTML = `<span>Cedula: <strong>${ordenActual.cliente.cedula}</strong></span>`;
-    carroInfo.innerHTML = `${ordenActual.vehiculo.marca} ${ordenActual.vehiculo.modelo} `;
+    carroInfo.innerHTML = `${ordenActual.vehiculo.marca} ${ordenActual.vehiculo.modelo}.toUpperCase `;
     placaInfo.innerHTML = `${ordenActual.vehiculo.placa}`;
   } catch (error) {
     console.error("Error al cargar la orden:", error);
